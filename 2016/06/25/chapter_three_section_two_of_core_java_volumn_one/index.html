@@ -1,0 +1,900 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java核心技术 卷Ⅰ," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="摘自Java核心技术 卷Ⅰ
+变量在Java中，每一个变量属于一种类型（type）。在声明变量时，变量所属的类型位于变量名之前。例如：
+1double salary;
+由于声明是一条完整的语句，所以必须以分号结束。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的基本程序设计结构（二）">
+<meta property="og:url" content="https://bovink.com/2016/06/25/chapter_three_section_two_of_core_java_volumn_one/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="摘自Java核心技术 卷Ⅰ
+变量在Java中，每一个变量属于一种类型（type）。在声明变量时，变量所属的类型位于变量名之前。例如：
+1double salary;
+由于声明是一条完整的语句，所以必须以分号结束。">
+<meta property="og:image" content="http://ww3.sinaimg.cn/large/005ZZ4X1gw1f57injx627j30id08d756.jpg">
+<meta property="og:updated_time" content="2016-06-30T15:33:23.190Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java的基本程序设计结构（二）">
+<meta name="twitter:description" content="摘自Java核心技术 卷Ⅰ
+变量在Java中，每一个变量属于一种类型（type）。在声明变量时，变量所属的类型位于变量名之前。例如：
+1double salary;
+由于声明是一条完整的语句，所以必须以分号结束。">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/large/005ZZ4X1gw1f57injx627j30id08d756.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://bovink.com/2016/06/25/chapter_three_section_two_of_core_java_volumn_one/"/>
+
+  <title> Java的基本程序设计结构（二） | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java的基本程序设计结构（二）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-06-25T00:00:00+08:00" content="2016-06-25">
+              2016-06-25
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/book-note/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/06/25/chapter_three_section_two_of_core_java_volumn_one/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/06/25/chapter_three_section_two_of_core_java_volumn_one/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/06/25/chapter_three_section_two_of_core_java_volumn_one/" class="leancloud_visitors" data-flag-title="Java的基本程序设计结构（二）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>摘自Java核心技术 卷Ⅰ</p>
+<h2 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h2><p>在Java中，每一个变量属于一种类型（type）。在声明变量时，变量所属的类型位于变量名之前。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> salary;</div></pre></td></tr></table></figure>
+<p>由于声明是一条完整的语句，所以必须以分号结束。</p>
+<a id="more"></a>
+<p>变量名必须是一个以字母开头的由字母或数字构成的序列。字母包括’A’~’Z’、’a’~ ‘z’、’_’、’$’或在某种语言中代表字母的任何Unicode字符。同样，数字包括’0’~’9’和在某种语言中代表数字的任何Unicode字符。但’+’和’©’这样的符号不能出现在变量名中，空格也不行。变量名中所有的字符都是有意义的，并且大小写敏感。变量名的长度没有限制。</p>
+<p>另外，不能将变量名命名为Java保留字。</p>
+<p>可以在一行中声明多个变量。</p>
+<p>不过不提倡使用这种风格。逐一声明每一个变量可以提高程序的可读性。</p>
+<h3 id="变量初始化"><a href="#变量初始化" class="headerlink" title="变量初始化"></a>变量初始化</h3><p>声明一个变量之后，必须用赋值语句对变量进行显示初始化，使用未被初始化的变量会导致Java编译器报错。</p>
+<p>要想对一个已经声明过的变量进行赋值，需将变量名放在等号（=）左侧，相应取值的Java表达式放在等号的右侧。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> vacationDays;</div><div class="line">vacationDays = <span class="number">12</span>;</div></pre></td></tr></table></figure>
+<p>也可将变量的声明和初始化放在同一行中。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> vacationDays = <span class="number">12</span>;</div></pre></td></tr></table></figure>
+<p>最后，在Java中可以将声明放在代码中的任何地方。</p>
+<p>在Java中，变量的声明尽可能地靠近变量第一次使用的地方，这是一种良好的程序编写风格。</p>
+<h3 id="常量"><a href="#常量" class="headerlink" title="常量"></a>常量</h3><p>在Java中，利用关键字final指示常量。</p>
+<p>关键字final表示这个变量只能被赋值一次。一旦被赋值之后，就不能够再更改了。习惯上，常量名使用全大写。</p>
+<p>在Java中，经常希望某个常量可以在一个类中的多个方法中使用，通常将这些常量称为类常量。可以使用关键字static final设置一个类常量。下面是使用类常量的实例：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Constants</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">double</span> CM_PER_INCH = <span class="number">2.54</span>;</div><div class="line">    </div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">        <span class="keyword">double</span> paperWidth = <span class="number">8.5</span>;</div><div class="line">        <span class="keyword">double</span> paperHeight = <span class="number">11</span>;</div><div class="line">        System.out.println(<span class="string">"Paper size in centimeters: "</span></div><div class="line">            + paperWidth * CM_PER_INCH + <span class="string">" by "</span> + paperHeight * CM_PER_INCH);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>需要注意，类常量的定义位于main方法的外部。因此，在同一个类中的其他方法中也可以使用这个常量。而且，如果一个常量被声明为public，那么其他类的方法也可以使用这个常量。</p>
+<h2 id="运算符"><a href="#运算符" class="headerlink" title="运算符"></a>运算符</h2><p>在Java中，使用算术运算符+、-、*、/表示加、减、乘、除运算。当参与/运算的两个操作数都是整数时，表示整数除法；否则，表示浮点除法。乘法同理。整数的求余操作（有时称为取模）用%表示。例如，15/2等于7，15.0/2等于7.5。</p>
+<p>需要注意，整数被0除将会产生一个异常，而浮点数被0除将会得到无穷大或NaN结果。</p>
+<p>可以在赋值语句中采用一种简化的格式书写二元算术运算符。例如，</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x += <span class="number">4</span>;</div></pre></td></tr></table></figure>
+<p>等价于</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x = x + <span class="number">4</span>;</div></pre></td></tr></table></figure>
+<p>（通常，将运算符放在赋值号的左侧，如*=或%=。）</p>
+<h3 id="自增运算符与自减运算符"><a href="#自增运算符与自减运算符" class="headerlink" title="自增运算符与自减运算符"></a>自增运算符与自减运算符</h3><p>在Java中，借鉴了C和C++的实现方式，也使用了自增、自减运算符：n++将变量n的当前值加1；n–将n的值减1。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> n = <span class="number">12</span>;</div><div class="line">n++;</div></pre></td></tr></table></figure>
+<p>n的值将变为13。因为这些运算符改变了变量的值，所以它的操作数不能是数值。例如4++就是一条非法的语句。</p>
+<p>实际上面的运算符还有另一种“前缀”形式，++n。两种方式都是对变量值加1。但在表达式中，这两种形式就有区别了。前缀方式先进行加1运算；后缀方式则使用变量原来的值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> m = <span class="number">7</span>;</div><div class="line"><span class="keyword">int</span> n = <span class="number">7</span>;</div><div class="line"><span class="keyword">int</span> a = <span class="number">2</span> * ++m; <span class="comment">// now a is 16, m is 8</span></div><div class="line"><span class="keyword">int</span> b = <span class="number">2</span> * n++; <span class="comment">// now b is 14, n is 8</span></div></pre></td></tr></table></figure>
+<p>我们建议不要在其他表达式的内部使用++,这样编写的代码很容易令人困惑，并会产生烦人的bug。</p>
+<h3 id="关系运算符与boolean运算符"><a href="#关系运算符与boolean运算符" class="headerlink" title="关系运算符与boolean运算符"></a>关系运算符与boolean运算符</h3><p>Java包含各种关系运算符。其中，使用两个等号== 检测是否相等。例如，3==7的值为false。<br>使用!=检测是否不相等。例如，3!=7的值为true。<br>另外，经常使用的运算符还有&lt;（小于）、&gt;（大于）、&lt;=（小于等于）和&gt;=（大于等于）。</p>
+<p>Java沿用了C++的习惯，用&amp;&amp;表示逻辑“与”、用||表示逻辑“或”。从!=运算符很容易看出，!表示逻辑“非”。&amp;&amp;和||是按照“短路”方式求值的。如果第一个操作数已经能够确定表达式的值，第二个操作数就不必计算了。例如，表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x != <span class="number">0</span> &amp;&amp; <span class="number">1</span> / x &gt; x + y <span class="comment">// no division by 0</span></div></pre></td></tr></table></figure>
+<p>当x为0时，不会计算第二部分。因此，若x为0,1/x不被计算，也不会出现除以0的错误。</p>
+<p>与之类似，对于expression1 || expression2，当第一个表达式为true时，结果自动为true，不必再计算第二部分。</p>
+<p>最后，Java支持三元操作符?:。在很多时候，这个操作符非常有用。表达式</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">condition ? expression1 : expression2</div></pre></td></tr></table></figure>
+<p>当条件condition为真时计算第一个表达式，否则计算第二个表达式。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x &lt; y ? x : y</div></pre></td></tr></table></figure>
+<p>返回x和y种较小的那个值。</p>
+<h3 id="位运算符"><a href="#位运算符" class="headerlink" title="位运算符"></a>位运算符</h3><p>在处理整型数值时，可以直接对组成整型数值的各个位进行操作。这意味着可以使用屏蔽技术获得整数中的各个位。位运算符包括：</p>
+<pre><code>&amp;（“与”）、|（“或”）、^(“异或”)、~（“非”）
+</code></pre><p>这些运算符在位模式下工作。例如，如果n是一个整型变量，并且用二进制表示的n从右数第4位为1，那么</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> fourthBitFromRight = (n &amp; <span class="number">0b1000</span>) / <span class="number">0b1000</span>;</div></pre></td></tr></table></figure>
+<p>返回1；否则返回0。通过运用2的幂次方的&amp;运算可以将其他位屏蔽掉，而只保留其中的某一位。</p>
+<p>另外，“&gt;&gt;”和“&lt;&lt;”运算符将二进制位进行右移或左移操作。当需要建立位模式屏蔽某些位时，使用这两个运算符十分方便：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> fourthBitFromRight = (n &amp; (<span class="number">1</span> &lt;&lt; <span class="number">3</span>)) &gt;&gt; <span class="number">3</span>;</div></pre></td></tr></table></figure>
+<p>最后，&gt;&gt;&gt;运算符将用0填充高位，&gt;&gt;运算符用符号位填充高位。没有&lt;&lt;&lt;运算符。</p>
+<h3 id="数学函数与常量"><a href="#数学函数与常量" class="headerlink" title="数学函数与常量"></a>数学函数与常量</h3><p>在Math类中，包含了各种各样的数学函数。在编写不同类别的程序时，可能需要的函数也不同。</p>
+<p>要想计算一个数值的平方根，可以使用sqrt方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> x = <span class="number">4</span>;</div><div class="line"><span class="keyword">double</span> y = Math.sqrt(x);</div><div class="line">System.out.println(y); <span class="comment">// prints 2.0</span></div></pre></td></tr></table></figure>
+<p>在Java中，没有幂运算，因此需要借助于Math类的pow方法。语句：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> y = Math.pow(x, a);</div></pre></td></tr></table></figure>
+<p>将y的值设置为x的a次幂。</p>
+<p>Math类提供了一些常用的三角函数：</p>
+<pre><code>Math.sin
+Math.cos
+Math.tan
+Math.atan
+Math.atan2
+</code></pre><p>还有指数函数以及它的反函数——自然对数以及以10为底的对数：</p>
+<pre><code>Math.exp
+Math.log
+Math.log10
+</code></pre><p>最后，Java还提供了两个用于表示π和e常量的近似值：</p>
+<pre><code>Math.PI
+Math.E
+</code></pre><h3 id="数值类型之间的转换"><a href="#数值类型之间的转换" class="headerlink" title="数值类型之间的转换"></a>数值类型之间的转换</h3><p>在程序运行时，经常需要将一种数值类型转换为另一种数值类型。下图给出了数值类型之间的合法转换。</p>
+<p><img src="http://ww3.sinaimg.cn/large/005ZZ4X1gw1f57injx627j30id08d756.jpg" alt=""></p>
+<p>在上图中有6个实心箭头，表示无信息丢失的转换；有3个虚箭头，表示可能有精度损失的转换。</p>
+<p>当使用整型和浮点型数值进行二元操作时，先要将两个操作数转换为同一种类型，然后在进行计算。</p>
+<ul>
+<li>如果两个操作数中有一个是double类型，另一个操作数就会转换为double类型。</li>
+<li>否则，如果其中一个操作数是float类型，另一个操作数将会转换为float类型。</li>
+<li>否则，如果其中一个操作说是long类型，另一个操作数将会转换为long类型。</li>
+<li>否则，两个操作数都将被转换为int类型。</li>
+</ul>
+<h3 id="强制转换类型"><a href="#强制转换类型" class="headerlink" title="强制转换类型"></a>强制转换类型</h3><p>在上一小节中看到，在必要的时候，int类型的值将会自动地转换为double类型。但另一个方面，有时也需要将double转换为int。在这种存在信息丢失可能的情况下，需要通过<strong>强制类型转换</strong>（cast）实现这个操作。强制类型转换的语法格式是在原括号中给出想要转换的目标类型，后面紧跟待转换的变量名。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> x = <span class="number">9.87</span>;</div><div class="line"><span class="keyword">int</span> nx = (<span class="keyword">int</span>) x; <span class="comment">// nx的值为9;</span></div></pre></td></tr></table></figure>
+<p>如果想对浮点数进行舍入运算，以便得到<strong>最接近的整数</strong>，那就需要使用Math.round方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">double</span> x = <span class="number">9.87</span></div><div class="line"><span class="keyword">int</span> nx = (<span class="keyword">int</span>) Math.round(x); <span class="comment">// nx的值为10</span></div></pre></td></tr></table></figure>
+<p>round方法的返回值为long类型，所以仍然需要强制转换类型。</p>
+<h3 id="括号与运算符级别"><a href="#括号与运算符级别" class="headerlink" title="括号与运算符级别"></a>括号与运算符级别</h3><p>下表给出了运算符的优先级。如果不使用圆括号，就按照给出的运算符优先级次序进行计算。同一个级别的运算符按照从左到右的次序进行计算（除了表中给出的右结合运算符外）。</p>
+<pre><code>            运算符                                                      结合性
+
+[] .()(方法调用)                                                　　    从左向右
+! ~ ++ --+(一元运算)-(一元运算)()(强制类型转换)new                         从右向左
+* / %                                                                 从左向右
++ -                                                                   从左向右
+&lt;&lt; &gt;&gt; &gt;&gt;&gt;                                                             从左向右
+&lt; &lt;= &gt; &gt;= instanceof                                                  从左向右
+== !=                                                                 从左向右
+&amp;                                                                     从左向右
+^                                                                     从左向右
+|                                                                     从左向右
+&amp;&amp;                                                                    从左向右
+||                                                                    从左向右
+?:                                                                    从右向左
+= += -= *= /= %= &amp;= |= ^= &lt;&lt;= &gt;&gt;= &gt;&gt;&gt;=                                从右向右
+</code></pre><h3 id="枚举类型"><a href="#枚举类型" class="headerlink" title="枚举类型"></a>枚举类型</h3><p>有时候，变量的取值只在一个有限的集合内。例如：销售的服装的尺寸只有小、中、大、超大四种。这种情况可以将尺寸编码为S、M、L、X。但在实际中可能将变量保存为一个错误的值（如m）。</p>
+<p>针对这种情况，可以自定义枚举类型。枚举类型包括有限个命名的值。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">enum</span> Size &#123;SMALL, MEDIUM, LARGE, EXTRA_LARGE&#125;;</div></pre></td></tr></table></figure>
+<p>现在，可以声明这种类型的变量：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Size s = Size.MEDIUM;</div></pre></td></tr></table></figure>
+<p>Size类型的变量只能存储这个类型声明中给定的某个枚举值，或者null值，null表示这个变量没有设置任何值。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/core-java-volumn-Ⅰ/" rel="tag">#Java核心技术 卷Ⅰ</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/20/chapter_three_section_one_of_core_java_volumn_one/" rel="next" title="Java的基本程序设计结构（一）">
+                <i class="fa fa-chevron-left"></i> Java的基本程序设计结构（一）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/07/01/use_vim_to_write_markdown/" rel="prev" title="用Vim编辑Markdown并预览效果">
+                用Vim编辑Markdown并预览效果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#变量"><span class="nav-number">1.</span> <span class="nav-text">变量</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#变量初始化"><span class="nav-number">1.1.</span> <span class="nav-text">变量初始化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量"><span class="nav-number">1.2.</span> <span class="nav-text">常量</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#运算符"><span class="nav-number">2.</span> <span class="nav-text">运算符</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#自增运算符与自减运算符"><span class="nav-number">2.1.</span> <span class="nav-text">自增运算符与自减运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#关系运算符与boolean运算符"><span class="nav-number">2.2.</span> <span class="nav-text">关系运算符与boolean运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#位运算符"><span class="nav-number">2.3.</span> <span class="nav-text">位运算符</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数学函数与常量"><span class="nav-number">2.4.</span> <span class="nav-text">数学函数与常量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数值类型之间的转换"><span class="nav-number">2.5.</span> <span class="nav-text">数值类型之间的转换</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#强制转换类型"><span class="nav-number">2.6.</span> <span class="nav-text">强制转换类型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#括号与运算符级别"><span class="nav-number">2.7.</span> <span class="nav-text">括号与运算符级别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#枚举类型"><span class="nav-number">2.8.</span> <span class="nav-text">枚举类型</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'bovink';
+      var disqus_identifier = '2016/06/25/chapter_three_section_two_of_core_java_volumn_one/';
+      var disqus_title = "Java的基本程序设计结构（二）";
+      var disqus_url = 'https://bovink.com/2016/06/25/chapter_three_section_two_of_core_java_volumn_one/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,816 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Vim," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="Vim是一个非常强大的编辑器，利用其自带的操作命令和第三方插件能完成很多神奇的功能。
+一直都在用普通的编辑器写Markdown，这让体验了Vim的我非常不习惯，花了几天时间整了一下Vim的插件，开始重新体验飞一般的感受。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用Vim编辑Markdown并预览效果">
+<meta property="og:url" content="https://bovink.com/2016/07/01/use_vim_to_write_markdown/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="Vim是一个非常强大的编辑器，利用其自带的操作命令和第三方插件能完成很多神奇的功能。
+一直都在用普通的编辑器写Markdown，这让体验了Vim的我非常不习惯，花了几天时间整了一下Vim的插件，开始重新体验飞一般的感受。">
+<meta property="og:updated_time" content="2016-07-01T14:10:49.600Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="用Vim编辑Markdown并预览效果">
+<meta name="twitter:description" content="Vim是一个非常强大的编辑器，利用其自带的操作命令和第三方插件能完成很多神奇的功能。
+一直都在用普通的编辑器写Markdown，这让体验了Vim的我非常不习惯，花了几天时间整了一下Vim的插件，开始重新体验飞一般的感受。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://bovink.com/2016/07/01/use_vim_to_write_markdown/"/>
+
+  <title> 用Vim编辑Markdown并预览效果 | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                用Vim编辑Markdown并预览效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-01T00:00:00+08:00" content="2016-07-01">
+              2016-07-01
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/tool/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/01/use_vim_to_write_markdown/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/01/use_vim_to_write_markdown/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/01/use_vim_to_write_markdown/" class="leancloud_visitors" data-flag-title="用Vim编辑Markdown并预览效果">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>Vim是一个非常强大的编辑器，利用其自带的操作命令和第三方插件能完成很多神奇的功能。</p>
+<p>一直都在用普通的编辑器写Markdown，这让体验了Vim的我非常不习惯，花了几天时间整了一下Vim的插件，开始重新体验飞一般的感受。</p>
+<a id="more"></a>
+<h1 id="必备软件和插件"><a href="#必备软件和插件" class="headerlink" title="必备软件和插件"></a>必备软件和插件</h1><h2 id="安装Vim"><a href="#安装Vim" class="headerlink" title="安装Vim"></a>安装Vim</h2><p>根据自己的系统选择相应方式安装<a href="http://www.vim.org/" target="_blank" rel="external">Vim</a></p>
+<h2 id="安装Vundle-vim"><a href="#安装Vundle-vim" class="headerlink" title="安装Vundle.vim"></a>安装Vundle.vim</h2><p><a href="https://github.com/VundleVim/Vundle.vim" target="_blank" rel="external">Vundle.vim</a>是一个用来管理Vim插件的插件。</p>
+<h3 id="安装Git"><a href="#安装Git" class="headerlink" title="安装Git"></a>安装Git</h3><p>1.下载<a href="https://git-for-windows.github.io/" target="_blank" rel="external">Git</a>并安装。</p>
+<p>2.最重要的是git环境变量的配置，将路径<code>D:\Development\Program\Git\cmd</code>配置到环境变量path中，这里的<code>D:\Development\Program\Git</code>是我自己的Git安装路径。</p>
+<p>安装好后在cmd中输入<code>git --version</code>确认是否正确安装</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">C:\Users&gt;git --version</div><div class="line"></div><div class="line">git version 2.7.2.windows.1</div></pre></td></tr></table></figure>
+<h3 id="安装Curl"><a href="#安装Curl" class="headerlink" title="安装Curl"></a>安装Curl</h3><p>因为Curl和Git是捆绑在一起的，所以不需要再安装Curl了。不过在能正常使用Curl之前还需要确保curl在控制台下能够运行。最简单的办法是创建一个curl.cmd文件，并将以下内容复制到其中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">@rem Do not use &quot;echo off&quot; to not affect any child calls.</div><div class="line">@setlocal</div><div class="line"></div><div class="line">@rem Get the abolute path to the parent directory, which is assumed to be the</div><div class="line">@rem Git installation root.</div><div class="line">@for /F &quot;delims=&quot; %%I in (&quot;%~dp0..&quot;) do @set git_install_root=%%~fI</div><div class="line">@set PATH=%git_install_root%\bin;%git_install_root%\mingw\bin;%git_install_root%\mingw64\bin;%PATH%</div><div class="line">@rem !!!!!!! For 64bit msysgit, replace &apos;mingw&apos; above with &apos;mingw64&apos; !!!!!!!</div><div class="line"></div><div class="line">@if not exist &quot;%HOME%&quot; @set HOME=%HOMEDRIVE%%HOMEPATH%</div><div class="line">@if not exist &quot;%HOME%&quot; @set HOME=%USERPROFILE%</div><div class="line"></div><div class="line">@curl.exe %*</div></pre></td></tr></table></figure>
+<p>然后将这个文件放到<code>D:\Development\Program\Git\cmd</code>目录下，再用<code>curl --version</code>确认是否顺利。</p>
+<p>Vim在Windows上保存插件的文件夹是vimfiles而不是.vim，且配置文件的文件名默认为_vimrc而不是.vimrc，因此和其他平台的设置也稍微有点不同。</p>
+<p>和前面一样，假如<code>D:\Program\Vim</code>是你的Vim安装目录。在控制台中使用以下命令安装Vundle.vim：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">cd</span> D:\Program\Vim\vimfiles\bundle</div><div class="line">D:\Program\Vim\vimfiles\bundle&gt;git <span class="built_in">clone</span> https://github.com/gmarik/Vundle.vim.git</div></pre></td></tr></table></figure>
+<p>接着将以下内容插入到_vimrc中：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">set</span> nocompatible              <span class="string">" 必须</span></div><div class="line">filetype off                  " 必须</div><div class="line"></div><div class="line"><span class="string">" 一个包含Vundle.vim的运行时路径，VIM_HOME是我配置在path中Vim的安装目录</span></div><div class="line">set rtp+=<span class="variable">$VIM_HOME</span>\vimfiles\bundle\Vundle.vim</div><div class="line">call vundle#begin()</div><div class="line">" 可传递一个插件安装的路径，比如 call vundle<span class="comment">#begin('$VIM_HOME\vimfiles\bundle\')</span></div><div class="line"><span class="string">" 默认安装路径为c:\users\username\.vim\bundle</span></div><div class="line"></div><div class="line">" 让Vundle自己管理自己，必须</div><div class="line">Plugin <span class="string">'VundleVim/Vundle.vim'</span></div><div class="line"></div><div class="line"><span class="string">" 以下是一些支持的以不同格式安装插件的例子</span></div><div class="line">" 将这些插件命令放在 vundle<span class="comment">#begin/end之间</span></div><div class="line"><span class="string">" 托管在Github上的插件项目</span></div><div class="line">Plugin 'tpope/vim-fugitive'</div><div class="line">" 存放在http://vim-scripts.org/vim/scripts.html上的插件</div><div class="line">Plugin <span class="string">'L9'</span></div><div class="line"><span class="string">" 没有托管在github上的git插件</span></div><div class="line">Plugin 'git://git.wincent.com/command-t.git'</div><div class="line">" 本地机器上的git项目(比如在你开发自己的插件时)</div><div class="line">Plugin <span class="string">'file:///home/gmarik/path/to/plugin'</span></div><div class="line"></div><div class="line"><span class="string">" 所有插件命令必须放在下面一行之前</span></div><div class="line">call vundle#end()            " 必须</div><div class="line">filetype plugin indent on</div></pre></td></tr></table></figure>
+<p>配置完后保存并退出_vimrc，重新打开vim，然后输入<code>:PluginInstall</code>开始自动安装配置的插件</p>
+<h2 id="安装Markdown插件"><a href="#安装Markdown插件" class="headerlink" title="安装Markdown插件"></a>安装Markdown插件</h2><p><a href="https://github.com/plasticboy/vim-markdown" target="_blank" rel="external">vim-markdown</a>是一个让Markdown语法高亮且有相关配置的插件。</p>
+<p>用vundle来安装很方便，只需要在_vimrc中配置以下参数，注意：tabular必须在vim-markdown前面</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">Plugin <span class="string">'godlygeek/tabular'</span></div><div class="line">Plugin <span class="string">'plasticboy/vim-markdown'</span></div></pre></td></tr></table></figure>
+<p>安装完后打开格式为md的文件就可以体验到Markdown语法高亮的效果了。</p>
+<h2 id="安装previm"><a href="#安装previm" class="headerlink" title="安装previm"></a>安装previm</h2><p><a href="https://github.com/kannokanno/previm" target="_blank" rel="external">previm</a>是一个预览Markdown的插件，支持实时更新。</p>
+<p>如果同时安装了<a href="https://github.com/tyru/open-browser.vim" target="_blank" rel="external">open-browser.vim</a>这个插件，就不用再配置相关参数，直接在编辑Markdown文本时，使用<code>:PrevimOpen</code>就可以预览文本了，并且修改保存后可以实时更新预览。</p>
+<h1 id="其他插件"><a href="#其他插件" class="headerlink" title="其他插件"></a>其他插件</h1><h2 id="安装ColorScheme插件"><a href="#安装ColorScheme插件" class="headerlink" title="安装ColorScheme插件"></a>安装ColorScheme插件</h2><p><a href="https://github.com/flazz/vim-colorschemes" target="_blank" rel="external">vim-colorschemes</a>是一个支持各种颜色主题的插件，方便配置。</p>
+<p>同样用vundle安装插件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Plugin <span class="string">'flazz/vim-colorscheme'</span></div></pre></td></tr></table></figure>
+<p>安装好后用命令<code>:colorscheme solarized</code>更换主题，<code>solarized</code>是主题名。colorscheme自带很多主题，可以去其github托管地址上查询，也可以自己下载其他主题插件。</p>
+<h2 id="安装nerdtree插件"><a href="#安装nerdtree插件" class="headerlink" title="安装nerdtree插件"></a>安装nerdtree插件</h2><p><a href="https://github.com/scrooloose/nerdtree" target="_blank" rel="external">nerdtree</a>是一个树状目录插件，有了这个插件Vim将更加方便。</p>
+<p><code>autocmd vimenter * NERDTree</code>这个命令粘贴在_vimrc中可以在打开vim时自动打开NERDTree目录。</p>
+<p>将下面这条配置命令粘贴在_vimrc中可以用快捷键ctrl+n切换NEADTree目录的开关（可以改成其他你想要的快捷键）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">map &lt;C-n&gt; :NERDTreeToggle&lt;CR&gt;</div></pre></td></tr></table></figure>
+<p>将下面这条配置命令粘贴在_vimrc中可以在只有NERDTree目录时自动关闭：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">autocmd bufenter * <span class="keyword">if</span> (winnr(<span class="string">"$"</span>) == 1 &amp;&amp; exists(<span class="string">"b:NERDTree"</span>) &amp;&amp; b:NERDTree.isTabTree()) | q | endif</div></pre></td></tr></table></figure>
+<h2 id="界面优化配置"><a href="#界面优化配置" class="headerlink" title="界面优化配置"></a>界面优化配置</h2><p>以下是一些基本的Vim配置命令，打开_vimrc进行配置。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="string">"显示行数</span></div><div class="line">set number</div><div class="line">"设置字体和大小，Courier_New是字体类型，h14是字体大小</div><div class="line"><span class="built_in">set</span> guifont=Courier_New:h14</div><div class="line"><span class="string">"识别语法</span></div><div class="line">syntax enable</div></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/vim/" rel="tag">#Vim</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/06/25/chapter_three_section_two_of_core_java_volumn_one/" rel="next" title="Java的基本程序设计结构（二）">
+                <i class="fa fa-chevron-left"></i> Java的基本程序设计结构（二）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">9</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#必备软件和插件"><span class="nav-number">1.</span> <span class="nav-text">必备软件和插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Vim"><span class="nav-number">1.1.</span> <span class="nav-text">安装Vim</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Vundle-vim"><span class="nav-number">1.2.</span> <span class="nav-text">安装Vundle.vim</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Git"><span class="nav-number">1.2.1.</span> <span class="nav-text">安装Git</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装Curl"><span class="nav-number">1.2.2.</span> <span class="nav-text">安装Curl</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Markdown插件"><span class="nav-number">1.3.</span> <span class="nav-text">安装Markdown插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装previm"><span class="nav-number">1.4.</span> <span class="nav-text">安装previm</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其他插件"><span class="nav-number">2.</span> <span class="nav-text">其他插件</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装ColorScheme插件"><span class="nav-number">2.1.</span> <span class="nav-text">安装ColorScheme插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#安装nerdtree插件"><span class="nav-number">2.2.</span> <span class="nav-text">安装nerdtree插件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#界面优化配置"><span class="nav-number">2.3.</span> <span class="nav-text">界面优化配置</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'bovink';
+      var disqus_identifier = '2016/07/01/use_vim_to_write_markdown/';
+      var disqus_title = "用Vim编辑Markdown并预览效果";
+      var disqus_url = 'https://bovink.com/2016/07/01/use_vim_to_write_markdown/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
