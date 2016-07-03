@@ -1,0 +1,953 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java核心技术 卷Ⅰ," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="摘自Java核心技术 卷Ⅰ
+字符串从概念上讲，Java字符串就是Unicode字符序列。例如，串”Java\u2122”由5个Unicode字符组成。
+Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫做String。
+每个用双引号括起来的字符串都是String类的一个实例。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java的基本程序设计结构（三）">
+<meta property="og:url" content="https://bovink.com/2016/07/02/chapter_three_section_three_of_core_java_volumn_one/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="摘自Java核心技术 卷Ⅰ
+字符串从概念上讲，Java字符串就是Unicode字符序列。例如，串”Java\u2122”由5个Unicode字符组成。
+Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫做String。
+每个用双引号括起来的字符串都是String类的一个实例。">
+<meta property="og:updated_time" content="2016-07-03T14:33:50.710Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Java的基本程序设计结构（三）">
+<meta name="twitter:description" content="摘自Java核心技术 卷Ⅰ
+字符串从概念上讲，Java字符串就是Unicode字符序列。例如，串”Java\u2122”由5个Unicode字符组成。
+Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫做String。
+每个用双引号括起来的字符串都是String类的一个实例。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://bovink.com/2016/07/02/chapter_three_section_three_of_core_java_volumn_one/"/>
+
+  <title> Java的基本程序设计结构（三） | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Java的基本程序设计结构（三）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-07-02T23:42:43+08:00" content="2016-07-02">
+              2016-07-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/book-note/" itemprop="url" rel="index">
+                    <span itemprop="name">读书笔记</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/07/02/chapter_three_section_three_of_core_java_volumn_one/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/02/chapter_three_section_three_of_core_java_volumn_one/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/07/02/chapter_three_section_three_of_core_java_volumn_one/" class="leancloud_visitors" data-flag-title="Java的基本程序设计结构（三）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>摘自Java核心技术 卷Ⅰ</p>
+<h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>从概念上讲，Java字符串就是Unicode字符序列。例如，串”Java\u2122”由5个Unicode字符组成。</p>
+<p>Java没有内置的字符串类型，而是在标准Java类库中提供了一个预定义类，很自然地叫做String。</p>
+<p>每个用双引号括起来的字符串都是String类的一个实例。</p>
+<a id="more"></a>
+<h3 id="子串"><a href="#子串" class="headerlink" title="子串"></a>子串</h3><p>String类的substring方法可以从一个较大的字符串提取出一个子串。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String greeting = <span class="string">"Hello"</span>;</div><div class="line">String s = greeting.substring(<span class="number">0</span>, <span class="number">3</span>);</div></pre></td></tr></table></figure>
+<p>substring方法的第二个参数是不想复制的第一个位置。</p>
+<p>substring的工作方式有一个优点：容易计算子串的长度。字符串s.substring(a, b)的长度为b-a。</p>
+<h3 id="拼接"><a href="#拼接" class="headerlink" title="拼接"></a>拼接</h3><p>与绝大多数的程序设计语言一样，Java语言允许使用+号连接（拼接）两个字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">String expletive = <span class="string">"Expletive"</span>;</div><div class="line">String PG13 = <span class="string">"deleted"</span>;</div><div class="line">String message = expletive + PG13;</div></pre></td></tr></table></figure>
+<p>当将一个字符串与一个非字符串的值进行拼接时，后者被转换成字符串。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> age = <span class="number">13</span>;</div><div class="line">String rating = <span class="string">"PG"</span> + age;</div></pre></td></tr></table></figure>
+<p>rating设置为”PG13”。</p>
+<p>这种特性通常用在输出语句中。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">System.out.println(<span class="string">"The answer is "</span> + answer);</div></pre></td></tr></table></figure>
+<h3 id="不可变字符串"><a href="#不可变字符串" class="headerlink" title="不可变字符串"></a>不可变字符串</h3><p>String类没有提供用于修改字符串的方法。如果希望将greeting的内容修改为”Help!”，不能直接地将greeting的最后两个位置的字符修改为’p’和’!’。</p>
+<p>在Java中修改这个字符串，首先提取需要的字符，然后再拼接上替换的字符串：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">greeting = greeting.substring(<span class="number">0</span>, <span class="number">3</span>) + <span class="string">"p!"</span>;</div></pre></td></tr></table></figure>
+<p>上面这条语句将greeting当前值修改为”Help!”。</p>
+<p>由于不能修改Java字符串中的字符，所以在Java文档中将String类的对象称为<strong>不可变字符串</strong>。</p>
+<p>如同数字3永远是数字3一样，字符串”Hello”永远包含字符H、e、l、l和o的代码单元序列，而不能修改其中的任何一个字符。当然，可以修改字符串变量greeting，让它引用另外一个字符串，这就如同可以将存放3的数值变量改成存放4一样。</p>
+<p>通过拼接”Hel”和”p!”来创建一个新字符串的效率确实比修改原字符串低。但是，不可变字符串有一个有点：编译器可以让字符串共享。</p>
+<p>为了弄清具体的工作方式，可以想象将各种字符串存放在公共的存储池中。字符串变量指向存储池中相应的位置。如果复制一个字符串变量，原始字符串与复制的字符串共享相同的字符。</p>
+<p>总而言之，Java的设计者认为共享带来的高效率远远胜过于提取、拼接字符串所带来的低效率。</p>
+<h3 id="检测字符串是否相等"><a href="#检测字符串是否相等" class="headerlink" title="检测字符串是否相等"></a>检测字符串是否相等</h3><p>可以使用equals方法检测两个字符串是否相等。对于表达式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">s.equals(t)</div></pre></td></tr></table></figure>
+<p>如果字符串s与字符串t相等，则返回true；否则，返回false。需要注意，s与t可以使字符串变量，也可以是字符串常量。例如，下列表达式是合法的：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"Hello"</span>.equals(greeting)</div></pre></td></tr></table></figure>
+<p>要想检测两个字符串是否相等，而不区分大小写，可以使用equalsIgnoreCase方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="string">"Hello"</span>.equalsIgnoreCase(<span class="string">"hello"</span>)</div></pre></td></tr></table></figure>
+<p>一定不要使用==运算符检测两个字符串是否相等！这个运算符只能够确定两个字符串是否放置在同一个位置上。当然，如果字符串放置在同一位置上，它们必然相等。但是，完全有可能将内容相同的字符串的拷贝放置在不同的位置上。</p>
+<p>如果虚拟机始终将相同的字符串共享，就可以使用==运算符检测是否相等。但实际上，只有字符串<em>常量</em>是共享的，而+或substring等操作产生的结果并不是共享的。</p>
+<hr>
+<p>在网上查了下两者的区别，简单的说，==是测试两者是否为同一object，而equals是检测两者的值在逻辑上是否相等。</p>
+<p><strong>以下摘自stackflow上的回答：</strong></p>
+<p>== tests for reference equality (whether they are the same object).</p>
+<p>.equals() tests for value equality (whether they are logically “equal”).</p>
+<p>Objects.equals() checks for nulls before calling .equals() so you don’t have to (available as of JDK7, also available in Guava).</p>
+<p>Consequently, if you want to test whether two strings have the same value you will probably want to use Objects.equals().</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// These two have the same value</span></div><div class="line"><span class="keyword">new</span> String(<span class="string">"test"</span>).equals(<span class="string">"test"</span>) <span class="comment">// --&gt; true </span></div><div class="line"></div><div class="line"><span class="comment">// ... but they are not the same object</span></div><div class="line"><span class="keyword">new</span> String(<span class="string">"test"</span>) == <span class="string">"test"</span> <span class="comment">// --&gt; false </span></div><div class="line"></div><div class="line"><span class="comment">// ... neither are these</span></div><div class="line"><span class="keyword">new</span> String(<span class="string">"test"</span>) == <span class="keyword">new</span> String(<span class="string">"test"</span>) <span class="comment">// --&gt; false </span></div><div class="line"></div><div class="line"><span class="comment">// ... but these are because literals are interned by </span></div><div class="line"><span class="comment">// the compiler and thus refer to the same object</span></div><div class="line"><span class="string">"test"</span> == <span class="string">"test"</span> <span class="comment">// --&gt; true </span></div><div class="line"></div><div class="line"><span class="comment">// ... but you should really just call Objects.equals()</span></div><div class="line">Objects.equals(<span class="string">"test"</span>, <span class="keyword">new</span> String(<span class="string">"test"</span>)) <span class="comment">// --&gt; true</span></div><div class="line">Objects.equals(<span class="keyword">null</span>, <span class="string">"test"</span>) <span class="comment">// --&gt; false</span></div></pre></td></tr></table></figure>
+<p>You almost always want to useObjects.equals(). In the rare situation where you know you’re dealing with interned strings, you can use ==.</p>
+<h3 id="空串与Null串"><a href="#空串与Null串" class="headerlink" title="空串与Null串"></a>空串与Null串</h3><p>空串””是长度为0的字符串。可以调用以下代码检查一个字符串是否为空：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (str.lenth() == <span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p>或</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (str.equals(<span class="string">""</span>))</div></pre></td></tr></table></figure>
+<p>空串是一个Java对象，有自己的串长度（0）和内容（空）。不过，String变量还可以存放一个特殊的值，名为null，这表示目前没有任何对象与该变量关联。</p>
+<p>要检查一个字符串是否为null，要使用以下条件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (str == <span class="keyword">null</span>)</div></pre></td></tr></table></figure>
+<p>有时要检查一个字符串既不是null也不为空串，这种情况就需要使用以下条件：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (str != <span class="keyword">null</span> &amp;&amp; str.lenght() != <span class="number">0</span>)</div></pre></td></tr></table></figure>
+<p>首先要检查str不为null。如果在一个null值上调用方法，会出现错误。</p>
+<h3 id="代码点与代码单元（存疑）"><a href="#代码点与代码单元（存疑）" class="headerlink" title="代码点与代码单元（存疑）"></a>代码点与代码单元（存疑）</h3><p>Java字符串由char序列组成。从前面所学可知，char数据类型是一个采用UTF-16编码表示Unicode代码点的代码单元。</p>
+<p>大多数的常用Unicode字符使用一个代码单元就可以表示，而辅助字符需要一对代码单元表示。</p>
+<p>length方法将返回采用UTF-16编码表示的给定字符串所需要的代码单元数量。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">String greeting = <span class="string">"Hello"</span>;</div><div class="line"><span class="keyword">int</span> n = greeting.length(); <span class="comment">// is 5</span></div></pre></td></tr></table></figure>
+<p>要想得到实际的长度，即代码点数量，可以调用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> cpCount = greeting.codePointCount(<span class="number">0</span>, greeting.length());</div></pre></td></tr></table></figure>
+<p>调用s.charAt(n)将返回位置n的代码单元，n介于0 ~ s.length()-1之间。例如：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">char</span> first = greeting.charAt(<span class="number">0</span>); <span class="comment">//first is 'H'</span></div><div class="line"><span class="keyword">char</span> last = greeting.charAt(<span class="number">4</span>); <span class="comment">//last is 'o'</span></div></pre></td></tr></table></figure>
+<p>要想得到第i个代码点，应该使用下列语句</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> index = greeting.offsetByCodePoints(<span class="number">0</span>, i);</div><div class="line"><span class="keyword">int</span> cp = greeting.codePointAt(index);</div></pre></td></tr></table></figure>
+<h3 id="字符串API"><a href="#字符串API" class="headerlink" title="字符串API"></a>字符串API</h3><p>Java中的String类包含了50多个方法。下面的API注释汇总了一部分最常用的方法。</p>
+<p><strong><em>java.lang.string 1.0</em></strong></p>
+<ul>
+<li><p>char charAt(int index)</p>
+<p>  返回给定位置的代码单元。除非对底层的代码单元感兴趣，否则不需要调用这个方法。</p>
+</li>
+<li><p>int codePointAt(int index) 5.0</p>
+<p>  返回从给定位置开始或结束的代码点。</p>
+</li>
+<li><p>int offsetByCodePoints(int startIndex, int cpCount) 5.0</p>
+<p>  返回从startIndex代码点开始，位移cpCount后的代码点索引。</p>
+</li>
+<li><p>int compareTo(String other)</p>
+<p>  按照字典顺序，如果字符串位于other之前，返回一个负数；如果字符串位于other之后，返回一个正数；如果两个字符串相等，返回0。</p>
+</li>
+<li><p>boolean endsWith(String suffix)</p>
+<p>  如果字符串以suffix结尾，返回true。</p>
+</li>
+<li><p>boolean equals(Object other)</p>
+<p>  如果字符串与other相等，返回true。</p>
+</li>
+<li><p>boolean equalsIgnoreCase(String other)</p>
+<p>  如果字符串与other相等（忽略大小写），返回true。</p>
+</li>
+<li>int indexOf(String str)</li>
+<li>int indexOf(String str, int fromIndex)</li>
+<li>int indexOf(int cp)</li>
+<li><p>int indexOf(int cp, int fromIndex)</p>
+<p>  返回与字符串str或代码点cp匹配的第一个子串的开始位置。这个位置从索引0或fromIndex开始计算。如果在原始串中不存在str，返回-1。</p>
+</li>
+<li>int lastIndexOf(String str)</li>
+<li>int lastIndexOf(String str, int fromIndex)</li>
+<li>int lastIndexOf(int cp)</li>
+<li><p>int lastIndexOf(int cp, int fromIndex)</p>
+<p>  返回与字符串str或代码点cp匹配的最后一个子串的开始位置。这个位置从原始串尾端或fromIndex开始计算。</p>
+</li>
+<li><p>int length()</p>
+<p>  返回字符串的长度。</p>
+</li>
+<li><p>int codePointCount(int startIndex, int endIndex) 5.0</p>
+<p>  返回startIndex和endIndex - 1之间的代码点数量。没有配成对的代用字符将计入代码点。</p>
+</li>
+<li><p>String replace(CharSequence oldString, CharSequence newString)</p>
+<p>  返回一个新字符串。这个字符串用newString代替原始字符串中所有的oldString。可以用String或StringBuilder对象作为CharSequence参数。</p>
+</li>
+<li><p>boolean startWith(String prefix)</p>
+<p>  如果字符串以preffix字符串开始，返回true。</p>
+</li>
+<li>String substring(int beginIndex)</li>
+<li><p>String substring(int beginIndex, int endIndex)</p>
+<p>  返回一个新字符串。这个字符串包含原始字符串从beginIndex到串味或endIndex - 1的所有代码单元。</p>
+</li>
+<li><p>String toLowerCase()</p>
+<p>  返回一个新字符串。这个字符串将原始字符串中的所有大写字母改成了小写字母。</p>
+</li>
+<li><p>String toUpperCase()</p>
+<p>  返回一个新字符串。这个字符串将原始字符串中的所有小写字母改成了大写字母。</p>
+</li>
+<li><p>String trim()</p>
+<p>  返回一个新字符串。这个字符串删除了原始字符串头部和尾部的空格。</p>
+</li>
+</ul>
+<h3 id="阅读联机API文档"><a href="#阅读联机API文档" class="headerlink" title="阅读联机API文档"></a>阅读联机API文档</h3><p>在Java SE中有几千个类，方法数量更加惊人。要想记住所有的类和方法是一件不太可能的事情。</p>
+<p>因此，学会使用在线API文档十分重要。</p>
+<h3 id="构建字符串"><a href="#构建字符串" class="headerlink" title="构建字符串"></a>构建字符串</h3><p>有些时候，需要由较短的字符串构建字符串，例如，按键或来自文件中的单词。</p>
+<p>采用字符串连接的方式达到此目的效率比较低。每次连接字符串，都会构建一个新的String对象，既耗时，又浪费空间。</p>
+<p>使用StringBuilder类就可以避免这个问题的发生。</p>
+<p>如果需要用许多小段的字符串构建一个字符串，那么应该按照下列步骤进行：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">StringBuilder builder = <span class="keyword">new</span> StringBuilder();</div><div class="line">builder.append(ch);	<span class="comment">//append a single character</span></div><div class="line">builder.append(str);	<span class="comment">//append a string</span></div></pre></td></tr></table></figure>
+<p>在需要构建字符串时就调用toString方法，就可以得到一个String对象，其中包含了构建器中的字符序列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String completeString = builder.toString();</div></pre></td></tr></table></figure>
+<p>下面的API注释包含了StringBuilder类中的重要方法。</p>
+<p><strong><em>java.lang.StringBuilder 5.0</em></strong></p>
+<ul>
+<li><p>StringBuilder()</p>
+<p>  构建一个空的字符串构建器</p>
+</li>
+<li><p>int length()</p>
+<p>  返回构建器或缓冲器中的代码单元数量。</p>
+</li>
+<li><p>StringBuilder append(String str)</p>
+<p>  追加一个字符串并返回this</p>
+</li>
+<li><p>StringBuilder append(char c)</p>
+<p>  追加一个代码单元并返回this</p>
+</li>
+<li><p>StringBuilder appendCodePoint(int cp)</p>
+<p>  追加一个代码点，并将其转换为一个或两个代码单元并返回this。</p>
+</li>
+<li><p>void setCharAt(int i, char c)</p>
+<p>  将第i个代码单元设置为c</p>
+</li>
+<li><p>StringBuilder insert(int offset, String str)</p>
+<p>  在offset位置插入一个字符串并返回this。</p>
+</li>
+<li><p>StringBuilder insert(int offset, Char c)</p>
+<p>  在offset位置插入一个代码单元并返回this。</p>
+</li>
+<li><p>StringBuilder delete(int startIndex, int endIndex)</p>
+<p>  删除偏移量从startIndex到endIndex - 1的代码单元并返回this。</p>
+</li>
+<li><p>String toString()</p>
+<p>  返回一个与构建器或缓冲器内容相同的字符串。</p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/core-java-volumn-Ⅰ/" rel="tag">#Java核心技术 卷Ⅰ</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/07/01/use_vim_to_write_markdown/" rel="next" title="用Vim编辑Markdown并预览效果">
+                <i class="fa fa-chevron-left"></i> 用Vim编辑Markdown并预览效果
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">10</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#字符串"><span class="nav-number">1.</span> <span class="nav-text">字符串</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#子串"><span class="nav-number">1.1.</span> <span class="nav-text">子串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#拼接"><span class="nav-number">1.2.</span> <span class="nav-text">拼接</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#不可变字符串"><span class="nav-number">1.3.</span> <span class="nav-text">不可变字符串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#检测字符串是否相等"><span class="nav-number">1.4.</span> <span class="nav-text">检测字符串是否相等</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#空串与Null串"><span class="nav-number">1.5.</span> <span class="nav-text">空串与Null串</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#代码点与代码单元（存疑）"><span class="nav-number">1.6.</span> <span class="nav-text">代码点与代码单元（存疑）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#字符串API"><span class="nav-number">1.7.</span> <span class="nav-text">字符串API</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#阅读联机API文档"><span class="nav-number">1.8.</span> <span class="nav-text">阅读联机API文档</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#构建字符串"><span class="nav-number">1.9.</span> <span class="nav-text">构建字符串</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'bovink';
+      var disqus_identifier = '2016/07/02/chapter_three_section_three_of_core_java_volumn_one/';
+      var disqus_title = "Java的基本程序设计结构（三）";
+      var disqus_url = 'https://bovink.com/2016/07/02/chapter_three_section_three_of_core_java_volumn_one/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
