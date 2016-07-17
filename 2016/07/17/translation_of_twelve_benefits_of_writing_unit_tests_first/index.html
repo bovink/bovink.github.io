@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="教训," />
+  <meta name="keywords" content="TDD," />
 
 
 
@@ -86,19 +86,22 @@
 
 
 
-<meta name="description" content="上个星球六和一群陌生人出去骑行，回来的时候我们在一个公交站休息了5分钟，在这里我落下了我的包，又一个5分钟后，我重新回到这里，发现我的包不见了。
-之后我做了一些事试图挽回损失，但最终还是失败了。虽然东西回不来了，但我经过这件事后有了一些思考，现在记录下来作为前车之鉴。">
+<meta name="description" content="原文地址
+如有谬误，敬请指正
+前言为什么程序员讨厌写单元测试？为什么他们更讨厌在编码之前写单元测试？你不需要回答我。我已经听过很多理由了。这只是设问句。不管如何，我有一个可能是真正原因的推测。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="由背包被顺手牵羊想到的">
-<meta property="og:url" content="https://bovink.com/2016/05/09/what_I_got_from_my_bag_was_stolen/index.html">
+<meta property="og:title" content="测试优先的十二个益处">
+<meta property="og:url" content="https://bovink.com/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/index.html">
 <meta property="og:site_name" content="记录点滴">
-<meta property="og:description" content="上个星球六和一群陌生人出去骑行，回来的时候我们在一个公交站休息了5分钟，在这里我落下了我的包，又一个5分钟后，我重新回到这里，发现我的包不见了。
-之后我做了一些事试图挽回损失，但最终还是失败了。虽然东西回不来了，但我经过这件事后有了一些思考，现在记录下来作为前车之鉴。">
-<meta property="og:updated_time" content="2016-06-30T15:32:24.091Z">
+<meta property="og:description" content="原文地址
+如有谬误，敬请指正
+前言为什么程序员讨厌写单元测试？为什么他们更讨厌在编码之前写单元测试？你不需要回答我。我已经听过很多理由了。这只是设问句。不管如何，我有一个可能是真正原因的推测。">
+<meta property="og:updated_time" content="2016-07-17T15:11:40.269Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="由背包被顺手牵羊想到的">
-<meta name="twitter:description" content="上个星球六和一群陌生人出去骑行，回来的时候我们在一个公交站休息了5分钟，在这里我落下了我的包，又一个5分钟后，我重新回到这里，发现我的包不见了。
-之后我做了一些事试图挽回损失，但最终还是失败了。虽然东西回不来了，但我经过这件事后有了一些思考，现在记录下来作为前车之鉴。">
+<meta name="twitter:title" content="测试优先的十二个益处">
+<meta name="twitter:description" content="原文地址
+如有谬误，敬请指正
+前言为什么程序员讨厌写单元测试？为什么他们更讨厌在编码之前写单元测试？你不需要回答我。我已经听过很多理由了。这只是设问句。不管如何，我有一个可能是真正原因的推测。">
 
 
 
@@ -119,9 +122,9 @@
 
 
 
-  <link rel="canonical" href="https://bovink.com/2016/05/09/what_I_got_from_my_bag_was_stolen/"/>
+  <link rel="canonical" href="https://bovink.com/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/"/>
 
-  <title> 由背包被顺手牵羊想到的 | 记录点滴 </title>
+  <title> 测试优先的十二个益处 | 记录点滴 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -260,7 +263,7 @@
             
             
               
-                由背包被顺手牵羊想到的
+                测试优先的十二个益处
               
             
           </h1>
@@ -272,8 +275,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-05-09T00:00:00+08:00" content="2016-05-09">
-              2016-05-09
+            <time itemprop="dateCreated" datetime="2016-07-17T22:14:14+08:00" content="2016-07-17">
+              2016-07-17
             </time>
           </span>
 
@@ -286,8 +289,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/life/" itemprop="url" rel="index">
-                    <span itemprop="name">生活</span>
+                  <a href="/categories/translation/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
                   </a>
                 </span>
 
@@ -302,8 +305,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/05/09/what_I_got_from_my_bag_was_stolen/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/05/09/what_I_got_from_my_bag_was_stolen/" itemprop="commentsCount"></span>
+                <a href="/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -313,7 +316,7 @@
 
           
           
-             <span id="/2016/05/09/what_I_got_from_my_bag_was_stolen/" class="leancloud_visitors" data-flag-title="由背包被顺手牵羊想到的">
+             <span id="/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/" class="leancloud_visitors" data-flag-title="测试优先的十二个益处">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -335,17 +338,37 @@
       
 
       
-        <p>上个星球六和一群陌生人出去骑行，回来的时候我们在一个公交站休息了5分钟，在这里我落下了我的包，又一个5分钟后，我重新回到这里，发现我的包不见了。</p>
-<p>之后我做了一些事试图挽回损失，但最终还是失败了。虽然东西回不来了，但我经过这件事后有了一些思考，现在记录下来作为前车之鉴。</p>
+        <p><strong><a href="http://sd.jtimothyking.com/2006/07/11/twelve-benefits-of-writing-unit-tests-first/" target="_blank" rel="external">原文地址</a></strong></p>
+<p><strong>如有谬误，敬请指正</strong></p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>为什么程序员讨厌写单元测试？为什么他们更讨厌在编码之前写单元测试？你不需要回答我。我已经听过很多理由了。这只是设问句。不管如何，我有一个可能是真正原因的推测。</p>
 <a id="more"></a>
-<h2 id="直接原因：错误的选择"><a href="#直接原因：错误的选择" class="headerlink" title="直接原因：错误的选择"></a>直接原因：错误的选择</h2><p>当事情顺利进行的时候，你可能不会有什么感觉，不过一旦做出了一个错误的决定，你就会意识到正确是多么的重要。</p>
-<p>在公交站休息完毕重新出发的时候如果我没有决定急着走，而是整理好随身物品再出发，那我绝对不会有任何失物。因为就算我落在后面，同行的人也会等我。在后排并不会有什么实际的损失。</p>
-<h2 id="深层心理：不要在意别人，做好自己的事情"><a href="#深层心理：不要在意别人，做好自己的事情" class="headerlink" title="深层心理：不要在意别人，做好自己的事情"></a>深层心理：不要在意别人，做好自己的事情</h2><p>是什么深层的原因使我做出这样的选择，事后我稍一回想就能明白。虽然心理通常是复杂的，但是主要包括好胜心，不想落在后面；不想落在后面，因为会给人添麻烦；第一次参加骑行，心情比较兴奋。</p>
-<p>第三种心理无可厚非，我就一普通人，无论第一次干什么，情绪都会有波动，但是前两者就很没必要。好胜心在这里毫无用处，这并不是一场比赛。至于给别人添麻烦，我的车本来就是最差的，落在后面才是正常的事，再说我把自己的东西整理好，后面再努力追上不照样没事吗？</p>
-<h2 id="应对：事前做好准备"><a href="#应对：事前做好准备" class="headerlink" title="应对：事前做好准备"></a>应对：事前做好准备</h2><p>虽然说心理状况导致我走的时候忘了拿包，不过想一下，如果我根本没带包，包还会丢吗？事实上，我早就买好了一个存放手机的小包，只要把它装在自行车上，我的手机根本不会丢，因为在失物中，这个是我最心疼的东西。</p>
-<p>明明出去活动，还是骑行，导航明明是最重要的事，我却丝毫没有危机意识，把它当做出门散步一样的事，没有做好事前准备，你怎样对待生活，生活就怎样对待你。</p>
-<h2 id="生活仍将继续"><a href="#生活仍将继续" class="headerlink" title="生活仍将继续"></a>生活仍将继续</h2><p>无论如何，东西已经找不回来了。我的情绪已经慢慢平静，只是偶尔会激起对小偷的气愤，不过随着时间的推移我会越来越不在意这件事，但是至少我要把我的反思记录下来。</p>
-<p>因为<strong>前事不忘，后事之师。</strong></p>
+<p>大部分软件开发者从没认真的试过单元测试。或者即使他们试过，也不是在一个他们可以从中学到东西的支持性环境下那样做。不过更有可能是前者。于是他们给出了这样的理由：“我们没有时间写单元测试。”或者：“单元测试并不是防弹式编程。”他们的反应出于害怕而不是出于增权益能，相比使自己的生活更好，他们更试图找出一个他们难受的理由。最奇妙的是你偶然会发现你让这些开发者中的一员认识到被自己的脚绊倒的事实。这一幕会很有趣。而且他在碰壁后绝不会重提原先对测试优先的看法。真是尴尬。</p>
+<p>根据Kent Beck在《Test-Driven Development By Example》所说，测试优先包含三个步骤：</p>
+<p>1、<font color="red">Red</font>——写一个测试说明你会怎么使用代码和你需要它做什么。这个测试会失败，产生很多报错信息。</p>
+<p>2、<font color="green">Green</font>——写出测试能通过的代码量，而不用更多。如果你还需要写一些代码，比如，检查error，那先写另一个测试来检测这个功能。目前为止，只需要测试能通过的代码量。</p>
+<p>3、<font color="blue">Blue</font>——重构代码来减少多余的代码以及提高设计。然后重新运行测试来保证你并没有搞砸原来的功能。</p>
+<p>重复这些步骤直到你完成工作。这是一个非常简单的过程。所以为什么开发者们会畏惧它呢？因为这需要他们使他们开发软件的方法进行一次根本的范式转换。</p>
+<p>你怎么解决一个软件的问题？他们在学校里怎么教你处理它？你做的第一件事是什么？你在思考怎么解决它。你问，“我要写什么样的代码来生成一个解决方案？”不过这是在走回头路。你应该思考的第一件事——事实上，这也是他们在学校所说的，因为以我的经验，夸夸其谈会比低头苦干付出更多——你的第一个问题不应该是“我要写什么样的代码？”你的第一个问题应该是“我怎么知道我已经解决了问题？”</p>
+<p>我们被教导假设我们已经知道怎么辨别我们的解决方案是否有效。这是毫无疑问的。就像不道德的事，我们能一目了然。在我们编码前，我们不认为需要去考虑代码需要做什么。这个信念根深蒂固，对我们大部分的人来说很难改变。不过，对一个像我一样的麻烦精，改变只不过是一个合理的实验。</p>
+<h2 id="十二个益处"><a href="#十二个益处" class="headerlink" title="十二个益处"></a>十二个益处</h2><p>对那些准备改变的人，下面是一些你将体会到的益处。我已经全部经历过了。但是请不要就这样接受我说的话。自己试一试，就会明白。</p>
+<p>1.<strong>单元测试证明你的代码确实有效</strong>。这意味着你很少有bug。不过，单元测试并不能代替系统测试和接受测试。但是它们能辅助单元测试。将很少有bug的东西交付给SQA会更好。</p>
+<p>2.<strong>你得到了一个低级别的回归测试</strong>。你可以随时进行测试，不仅能看到哪里有问题还能知道bug在哪。很多小组运行单元测试作为每日开发的一环。这是一个低成本的在交付SQA前发现bug的方法。</p>
+<p>3.<strong>你可以提升设计而不会破坏原来的功能</strong>。这实际上是上面第三步的一部分，重构。所以测试优先的代码通常不需要重构。我曾经处理过一些糟透了的系统，就像一个精神病患者，你完全无法下手清理。恰当的进行单元测试，你可以做一些强力的重构来处理系统中那些奇葩的地方。</p>
+<p>4.<strong>有单元测试会比没单元测试更有趣</strong>。你知道你的代码需要做什么。然后你让它做到了。即使你并没有一个完整工作系统，你仍然可以看到你的代码实际运行和工作。你获得了强烈的“我做到了”的感受。现在时时刻刻去重复它们。如果你想获得愉悦感，对自己的工作感到自豪，以及更有激情干活，试试测试优先吧。</p>
+<p>5.<strong>它们展示具体的工作进展</strong>。你不需要为系统的所有碎片都组合好而苦等一个月。即使没有一个完整的系统，你也可以展示工作进度。你不仅可以说你已经写好了代码，还能证明它们可以正常运行。当然，这也是传统编程带给我们所忽视的另一个差异。“完成了”不是指你已经写好代码然后汇报他人。“完成了”意味着代码在系统中能没有bug正常运行。跑单元测试使你更接近后者。</p>
+<p>6.<strong>单元测试是样例代码的另一种形式</strong>。我们都会碰到我们不知道怎么使用的第三方库方法和类。其中第一个我们会去的地方就是样例代码。样例代码就是文档。但是我们的内部代码通常没有样例代码。所以我们只能靠源代码或者系统的其他部分去弄明白。因为那个写下这些代码的家伙，已经不在公司了，所以我们不能实际问他代码的用法。不过单元测试就是文档。所以当你不记得怎么使用类Foo的时候，看一看单元测试。</p>
+<p>7.<strong>测试优先驱使你在编码前先设计</strong>。测试优先驱使你在编码前去弄清你的设计和必须实现的部分。这不仅让你专注，还能获得更好的设计。</p>
+<p>8.<strong>测试优先减少因为bug的损耗</strong>。漏洞越早被检测到越容易修复。漏洞很晚才被检测到通常是很多变动的结果，而且我们不知道哪一个变动引起了bug。所以我们先得排查bug。于是我们不得不回想出代码是怎么运行的，因为我们已经几个月没看过它了。直到最后我们足够清楚后再提出一个解决方案。任何能降低在我们码出bug和找出bug之间的时间的事明显更有利。在代码交付给SQA或者顾客前，我们暗自庆幸能在几天内找出bug。那么只花几分钟找到bug怎么样呢？这就是测试优先实现的检测bug。</p>
+<p>9.<strong>它比代码审查更好</strong>。他们说代码审查比测试更好，因为用它们检测修复漏洞要比测试更低消耗。在代码提交后，修复bug会更昂贵。我们越早检测到bug并修复，就越容易且廉价。下面是代码审查的好处：代码审查能在几天时间内找到bug而不用几个月。但是测试优先能在几分钟内找出bug而不是几天。它比代码审查成本更低。</p>
+<p>10.<strong>它能确实消除编码障碍</strong>。曾经苦恼下一句该写什么？就像写作障碍，编码障碍是一个真实的难题。但是测试优先将代码的结构部分系统化，让你专注于创造性的部分。你可能卡在怎么测试下一部分或者卡在怎么使测试通过，但是你绝不会对下一步做什么产生疑问。事实上，通常你会遇到相反的问题：在你精疲力尽前你会知道你需要休息，不过你做得非常顺手而且不想停下来。</p>
+<p>11.<strong>单元测试使设计更优秀</strong>。测试一个模块的代码使你需要清晰定义代码的职责。如果你能轻松做到，这意味着代码的职责被很好的定义了，因此它就是高内聚。而且如果你能对你的代码进行单元测试，意味着你能像测试它一样容易与系统的其他模块绑定。因此，它与其它接触的模块低耦合。高内聚低耦合说明设计很好，可维护。代码容易进行单元测试也就容易被维护。</p>
+<p>12.<strong>比没有测试时代码写的更快</strong>。或者换句话说，跳过单元测试是很快，如果你不需要代码实际工作。大部分我们花费精力的代码，在我们将它放入项目后需要去修复它。但是测试优先消除一些这样的消耗来使我们让代码更加稳定，使bug更容易修复。</p>
+<p>就算有这么多益处，许多软件开发者仍然坚持老的开发方式。如果你在你的组织里是一个技术传道者，你可以站出来对抗一些人。我由衷希望你是最好的。记住，人们不会买只是因为他们想要或者听起来不错的东西。他们只会在他们极度渴望时，在他们非常需要它们的时候买进。我希望你能通过努力能从列表中获取一些东西来帮助你。</p>
+<p>然而，如果你是前者中的一员，一个宁愿坚持己见也不愿设计更好的软件的坏脾气程序员。好吧，我真为你感到遗憾。</p>
+<h2 id="额外的好处"><a href="#额外的好处" class="headerlink" title="额外的好处"></a>额外的好处</h2><p>评论中有人接着提了3点。</p>
+<p>M）阻止乒乓bug的出现。乒乓bug就是修复了一个bug后产生了另一个bug，修复了新的bug后又出现了一个bug。</p>
+<p>N）固定功能。如果你没有给一些功能写单元测试，那么当你的同僚在之后的版本里打破/遮罩/移除或者干脆毁掉你实现的功能时，不要发恼骚。</p>
+<p>O）测试也是代码，所以测试也会有bug。通过先写测试，它们会在应该出问题的地方出问题，你在测试这些测试。</p>
 
       
     </div>
@@ -367,7 +390,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/lesson/" rel="tag">#教训</a>
+            <a href="/tags/tdd/" rel="tag">#TDD</a>
           
         </div>
       
@@ -376,17 +399,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/04/23/the_view_hierarchy_of_activity/" rel="next" title="Activity的视图层次">
-                <i class="fa fa-chevron-left"></i> Activity的视图层次
+              <a href="/2016/07/02/chapter_three_section_three_of_core_java_volumn_one/" rel="next" title="Java的基本程序设计结构（三）">
+                <i class="fa fa-chevron-left"></i> Java的基本程序设计结构（三）
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/06/20/chapter_three_section_one_of_core_java_volumn_one/" rel="prev" title="Java的基本程序设计结构（一）">
-                Java的基本程序设计结构（一） <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -527,7 +546,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#直接原因：错误的选择"><span class="nav-number">1.</span> <span class="nav-text">直接原因：错误的选择</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#深层心理：不要在意别人，做好自己的事情"><span class="nav-number">2.</span> <span class="nav-text">深层心理：不要在意别人，做好自己的事情</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应对：事前做好准备"><span class="nav-number">3.</span> <span class="nav-text">应对：事前做好准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#生活仍将继续"><span class="nav-number">4.</span> <span class="nav-text">生活仍将继续</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#十二个益处"><span class="nav-number">2.</span> <span class="nav-text">十二个益处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#额外的好处"><span class="nav-number">3.</span> <span class="nav-text">额外的好处</span></a></li></ol></div>
             
           </div>
         </section>
@@ -654,9 +673,9 @@
 
     <script type="text/javascript">
       var disqus_shortname = 'bovink';
-      var disqus_identifier = '2016/05/09/what_I_got_from_my_bag_was_stolen/';
-      var disqus_title = "由背包被顺手牵羊想到的";
-      var disqus_url = 'https://bovink.com/2016/05/09/what_I_got_from_my_bag_was_stolen/';
+      var disqus_identifier = '2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/';
+      var disqus_title = "测试优先的十二个益处";
+      var disqus_url = 'https://bovink.com/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/';
 
       function run_disqus_script(disqus_script){
         var dsq = document.createElement('script');
