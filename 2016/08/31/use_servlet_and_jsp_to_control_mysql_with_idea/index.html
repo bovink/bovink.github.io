@@ -1,0 +1,850 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Servlet,JSP," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="之前讲了如何用JDBC操作数据库，这次讲一下怎么用Servlet和JSP操作数据库。
+其实还是在用JDBC操作数据库，只是再加了一层包装而已。
+工作中经常接触的接口和服务器后台就是这两者的活用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库">
+<meta property="og:url" content="https://bovink.com/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="之前讲了如何用JDBC操作数据库，这次讲一下怎么用Servlet和JSP操作数据库。
+其实还是在用JDBC操作数据库，只是再加了一层包装而已。
+工作中经常接触的接口和服务器后台就是这两者的活用。">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nlm3hvpj30p60p142o.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nlkt66tj30p60p1adx.jpg">
+<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f78nllocsij30vp0aw40s.jpg">
+<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nypoqsvj30hk07440h.jpg">
+<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f78nll4nj0j30uc0jm43c.jpg">
+<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/005ZZ4X1gw1f78nyq4ygzj30uc0j60vc.jpg">
+<meta property="og:updated_time" content="2016-08-31T14:52:46.096Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库">
+<meta name="twitter:description" content="之前讲了如何用JDBC操作数据库，这次讲一下怎么用Servlet和JSP操作数据库。
+其实还是在用JDBC操作数据库，只是再加了一层包装而已。
+工作中经常接触的接口和服务器后台就是这两者的活用。">
+<meta name="twitter:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nlm3hvpj30p60p142o.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+
+
+
+  <link rel="canonical" href="https://bovink.com/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/"/>
+
+  <title> 在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库 | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-31T22:15:14+08:00" content="2016-08-31">
+              2016-08-31
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">Java</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/" class="leancloud_visitors" data-flag-title="在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>之前讲了如何用JDBC操作数据库，这次讲一下怎么用Servlet和JSP操作数据库。</p>
+<p>其实还是在用JDBC操作数据库，只是再加了一层包装而已。</p>
+<p>工作中经常接触的接口和服务器后台就是这两者的活用。</p>
+<a id="more"></a>
+<h2 id="安装Tomcat"><a href="#安装Tomcat" class="headerlink" title="安装Tomcat"></a>安装Tomcat</h2><p>在开始前，我们先需要下载Tomcat。</p>
+<p><a href="http://tomcat.apache.org/download-80.cgi" target="_blank" rel="external">下载地址</a></p>
+<p>安装好后，在浏览器里可以打开网页<a href="http://localhost:8080/" target="_blank" rel="external">http://localhost:8080/</a></p>
+<h2 id="新建JavaWeb项目"><a href="#新建JavaWeb项目" class="headerlink" title="新建JavaWeb项目"></a>新建JavaWeb项目</h2><p>在IDEA里新建一个项目，项目类型选择Java Enterprice，如下图红框1。Application Server选择Tomcat，如下图红框2。</p>
+<p>然后Additional Libraries and Frameworks选择Web Application，如下图红框3。</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nlm3hvpj30p60p142o.jpg" alt=""></p>
+<p>在选择Application Server时点击New，会弹出一个窗口。Tomcat Home路径选择Tomcat的安装文件夹。Tomcat base directory路径会自动识别。操作如图所示：</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nlkt66tj30p60p1adx.jpg" alt=""></p>
+<p>新建好项目后，工程图如下。</p>
+<p>然后打开index.jsp，修改title标签里的内容和body标签里的内容，然后运行。你就能在浏览器中浏览JSP里的内容了。</p>
+<p><img src="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f78nllocsij30vp0aw40s.jpg" alt=""></p>
+<h2 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h2><p>简单介绍一下项目运行的配置。</p>
+<p>先打开项目的run/debug configurations。在下图红框中可见：</p>
+<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f78nypoqsvj30hk07440h.jpg" alt=""></p>
+<p>下图红框1表示项目运行后自动打开Chrome浏览器，红框2表示项目使用端口8080。注：之前安装的Tomcat软件也是默认使用8080端口的，所以这里可能会冲突，只要修改一个或者将Tomcat关闭即可。</p>
+<p><img src="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f78nll4nj0j30uc0jm43c.jpg" alt=""></p>
+<p>下图红框中表示应用的环境，也可以理解为路径，像我在红框中写了yes，就可以用localhost:8080/yes/来访问。</p>
+<p><img src="http://ww4.sinaimg.cn/mw690/005ZZ4X1gw1f78nyq4ygzj30uc0j60vc.jpg" alt=""></p>
+<h2 id="使用Servlet操作数据库"><a href="#使用Servlet操作数据库" class="headerlink" title="使用Servlet操作数据库"></a>使用Servlet操作数据库</h2><p>直接贴代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">package</span> com.bovink.example;</div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">import</span> org.json.JSONArray;</div><div class="line"><span class="keyword">import</span> org.json.JSONObject;</div><div class="line"></div><div class="line"><span class="keyword">import</span> javax.servlet.ServletException;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServlet;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletRequest;</div><div class="line"><span class="keyword">import</span> javax.servlet.http.HttpServletResponse;</div><div class="line"><span class="keyword">import</span> java.io.IOException;</div><div class="line"><span class="keyword">import</span> java.io.PrintWriter;</div><div class="line"><span class="keyword">import</span> java.sql.*;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">GetCity</span> <span class="keyword">extends</span> <span class="title">HttpServlet</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> <span class="keyword">throws</span> ServletException </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">doGet</span><span class="params">(HttpServletRequest req, HttpServletResponse resp)</span> <span class="keyword">throws</span> ServletException, IOException </span>&#123;</div><div class="line">        PrintWriter out = resp.getWriter();</div><div class="line">        String id = req.getParameter(<span class="string">"_id"</span>);</div><div class="line">        String page = req.getParameter(<span class="string">"page"</span>);</div><div class="line"></div><div class="line">	<span class="comment">// 根据传递的参数输出数据</span></div><div class="line">        <span class="keyword">if</span> (id != <span class="keyword">null</span>) &#123;</div><div class="line">            out.println(getCity(id));</div><div class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> (page != <span class="keyword">null</span>) &#123;</div><div class="line">            out.println(getCityArray(Integer.parseInt(page)));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">destroy</span><span class="params">()</span> </span>&#123;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 根据页面获取数据</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONArray <span class="title">getCityArray</span><span class="params">(<span class="keyword">int</span> page)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> start = <span class="number">10</span> * (page - <span class="number">1</span>);</div><div class="line">        JSONArray jsonArray = <span class="keyword">new</span> JSONArray();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Connection connection = getConnection();</div><div class="line">            Statement statement = connection.createStatement();</div><div class="line">	    <span class="comment">// 执行SQL语句</span></div><div class="line">            ResultSet resultSet = statement.executeQuery(<span class="string">"SELECT * FROM city LIMIT "</span> + start + <span class="string">",10"</span>);</div><div class="line">            <span class="keyword">while</span> (resultSet.next()) &#123;</div><div class="line">                JSONObject jsonObject = <span class="keyword">new</span> JSONObject();</div><div class="line">                jsonObject.put(<span class="string">"id"</span>, resultSet.getString(<span class="number">1</span>));</div><div class="line">                jsonObject.put(<span class="string">"name"</span>, resultSet.getString(<span class="number">2</span>));</div><div class="line">                jsonObject.put(<span class="string">"country_code"</span>, resultSet.getString(<span class="number">3</span>));</div><div class="line">                jsonObject.put(<span class="string">"district"</span>, resultSet.getString(<span class="number">4</span>));</div><div class="line">                jsonObject.put(<span class="string">"population"</span>, resultSet.getString(<span class="number">5</span>));</div><div class="line"></div><div class="line">                jsonArray.put(jsonObject);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> jsonArray;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 根据id获取城市</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> JSONObject <span class="title">getCity</span><span class="params">(String id)</span> </span>&#123;</div><div class="line">        JSONObject jsonObject = <span class="keyword">new</span> JSONObject();</div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            Connection connection = getConnection();</div><div class="line">            Statement statement = connection.createStatement();</div><div class="line">	    <span class="comment">// 执行SQL语句</span></div><div class="line">            ResultSet resultSet = statement.executeQuery(<span class="string">"SELECT * FROM city WHERE ID = "</span> + id);</div><div class="line">            <span class="keyword">while</span> (resultSet.next()) &#123;</div><div class="line">                jsonObject.put(<span class="string">"id"</span>, resultSet.getString(<span class="number">1</span>));</div><div class="line">                jsonObject.put(<span class="string">"name"</span>, resultSet.getString(<span class="number">2</span>));</div><div class="line">                jsonObject.put(<span class="string">"country_code"</span>, resultSet.getString(<span class="number">3</span>));</div><div class="line">                jsonObject.put(<span class="string">"district"</span>, resultSet.getString(<span class="number">4</span>));</div><div class="line">                jsonObject.put(<span class="string">"population"</span>, resultSet.getString(<span class="number">5</span>));</div><div class="line">            &#125;</div><div class="line"></div><div class="line">        &#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">            e.printStackTrace();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> jsonObject;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="comment">// 获取数据库连接</span></div><div class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> SQLException, ClassNotFoundException </span>&#123;</div><div class="line">        Class.forName(<span class="string">"com.mysql.jdbc.Driver"</span>);</div><div class="line">        String serverName = <span class="string">"localhost"</span>;</div><div class="line">        String database = <span class="string">"world"</span>;</div><div class="line">        String url = <span class="string">"jdbc:mysql://"</span> + serverName + <span class="string">"/"</span> + database;</div><div class="line"></div><div class="line">        String user = <span class="string">"root"</span>;</div><div class="line">        String password = <span class="string">"123456"</span>;</div><div class="line">        <span class="keyword">return</span> DriverManager.getConnection(url, user, password);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>类中有3个回调类，init和destroy这两个方法用来管理servlet生命周期内的资源。</p>
+<p>doGet方法要来处理HTTP GET请求。内部根据请求传递的参数执行具体操作，out打印的内容就是输出的内容。</p>
+<p>另外3个方法中，getConnection是一个工具方法，用来获取连接实例。</p>
+<p>getCity方法根据传递的id参数获取city表中的数据，并将一系列数据传递给JSONObject返回。</p>
+<p>getCityArray根据传递的page参数获取city表中的10条数据，并将数据处理成一个JSONArray返回。</p>
+<p>那么如何在web中访问这个类呢？这需要在web文件夹下的web.xml中进行设置。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">web-app</span> <span class="attr">xmlns</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee"</span></span></div><div class="line">         <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></div><div class="line">         <span class="attr">xsi:schemaLocation</span>=<span class="string">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"</span></div><div class="line">         <span class="attr">version</span>=<span class="string">"3.1"</span>&gt;</div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>GetCity<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">url-pattern</span>&gt;</span>/get_city<span class="tag">&lt;/<span class="name">url-pattern</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">servlet-mapping</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">servlet</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-name</span>&gt;</span>GetCity<span class="tag">&lt;/<span class="name">servlet-name</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">servlet-class</span>&gt;</span>com.bovink.example.GetCity<span class="tag">&lt;/<span class="name">servlet-class</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">servlet</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">web-app</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>其中servlet-name只要两者一致就OK，url-pattern使用/加字符串，访问的时候就是在网址后面加上相同内容。</p>
+<p>servlet-class即包名加上类名。</p>
+<p>除此以外还需要设置依赖库的路径。在web/WEB-INF目录下建立一个lib文件夹（存放依赖的库），然后在Project Structure的Modules的Dependencies中添加该路径，</p>
+<p>运行项目后就可以在网页中用，localhost:8080/get_city访问了。</p>
+<p>localhost:8080/get_city?_id=1可以访问id为1的city数据。</p>
+<p>localhost:8080/get_city?page=1可以访问前10条city数据。</p>
+<h2 id="使用Jsp操作数据库"><a href="#使用Jsp操作数据库" class="headerlink" title="使用Jsp操作数据库"></a>使用Jsp操作数据库</h2><p>Servlet是一个Java类，所以能够正常的在其中使用Java代码，但JSP不是一个Java类。</p>
+<p>JSP是一个网页，准确的说，是能根据客户端请求而动态改变内容的网页。</p>
+<p>那么怎么在JSP中使用Java代码呢？</p>
+<p>使用JSP独有的标签&lt;%%&gt;即可。</p>
+<h3 id="JSP输出数据库内容"><a href="#JSP输出数据库内容" class="headerlink" title="JSP输出数据库内容"></a>JSP输出数据库内容</h3><p>index.jsp:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page import="org.json.JSONObject" %&gt;</div><div class="line">&lt;%@ page import="java.util.Iterator" %&gt;</div><div class="line">&lt;%--</div><div class="line">  Created by IntelliJ IDEA.</div><div class="line">  User: bovink</div><div class="line">  Date: 2016/8/29</div><div class="line">  Time: 11:22</div><div class="line">  To change this template use File | Settings | File Templates.</div><div class="line">--%&gt;</div><div class="line">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;Blog Example&lt;/title&gt;</div><div class="line">    &lt;style type="text/css"&gt;</div><div class="line">        p &#123;</div><div class="line">            color: red;</div><div class="line">        &#125;</div><div class="line">    &lt;/style&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;p&gt;this is from jsp&lt;/p&gt;</div><div class="line">&lt;%</div><div class="line">    String id = request.getParameter("_id");</div><div class="line">    JSONObject jsonObject = com.bovink.example.GetCity.getCity(id);</div><div class="line">%&gt;</div><div class="line">&lt;table border="1"&gt;</div><div class="line">    &lt;tr id="tr"&gt;</div><div class="line">        &lt;td&gt;country_code&lt;/td&gt;</div><div class="line">        &lt;td&gt;district&lt;/td&gt;</div><div class="line">        &lt;td&gt;name&lt;/td&gt;</div><div class="line">        &lt;td&gt;id&lt;/td&gt;</div><div class="line">        &lt;td&gt;population&lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">        &lt;%</div><div class="line">            Iterator&lt;?&gt; iterator = jsonObject.keys();</div><div class="line">            while (iterator.hasNext()) &#123;</div><div class="line"></div><div class="line">        %&gt;</div><div class="line">        &lt;td&gt;</div><div class="line">            &lt;%</div><div class="line">                String key = iterator.next().toString();</div><div class="line">                System.out.println(key);</div><div class="line">                out.print(jsonObject.getString(key));</div><div class="line">            %&gt;</div><div class="line">        &lt;/td&gt;</div><div class="line">        &lt;%</div><div class="line">            &#125;</div><div class="line">        %&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">&lt;/table&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>通过&lt;%%&gt;就能插入Java代码，并且和正常类一样，在JSP中能够使用其他类的静态方法。</p>
+<p>&lt;%%&gt;还能将一个循环拆开，中间插入HTML标签，这样使HTML的内容也进入循环中。</p>
+<p>JSP自带一些环境变量，如application、out、response、request、session等。</p>
+<p>request、response和HttpServlet的doGet方法的参数中的一样，包含客户端请求的参数。</p>
+<p>通过request可以获取参数来初始化变量进而获取数据库中的数据。通过out可以直接将字符串打印在网页上。</p>
+<p>配合HTML标签，就能够以列表形式展示数据了。</p>
+<p>如果懂CSS以及各种CSS模板的话，还能美化一下界面。</p>
+<h3 id="通过表单加载JSP"><a href="#通过表单加载JSP" class="headerlink" title="通过表单加载JSP"></a>通过表单加载JSP</h3><p>query.jsp</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div></pre></td><td class="code"><pre><div class="line">&lt;%@ page import="org.json.JSONObject" %&gt;</div><div class="line">&lt;%@ page import="org.json.JSONArray" %&gt;</div><div class="line">&lt;%@ page import="java.util.Iterator" %&gt;</div><div class="line">&lt;%--</div><div class="line">  Created by IntelliJ IDEA.</div><div class="line">  User: bovink</div><div class="line">  Date: 2016/8/29</div><div class="line">  Time: 15:08</div><div class="line">  To change this template use File | Settings | File Templates.</div><div class="line">--%&gt;</div><div class="line">&lt;%@ page contentType="text/html;charset=UTF-8" language="java" %&gt;</div><div class="line">&lt;html&gt;</div><div class="line">&lt;head&gt;</div><div class="line">    &lt;title&gt;get city data&lt;/title&gt;</div><div class="line">&lt;/head&gt;</div><div class="line">&lt;body&gt;</div><div class="line">&lt;%</div><div class="line"></div><div class="line">    String pageNum = request.getParameter("page");</div><div class="line">    JSONArray jsonArray = com.bovink.example.GetCity.getCityArray(Integer.parseInt(pageNum));</div><div class="line">%&gt;</div><div class="line">&lt;table border="1"&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">        &lt;td&gt;country_code&lt;/td&gt;</div><div class="line">        &lt;td&gt;district&lt;/td&gt;</div><div class="line">        &lt;td&gt;name&lt;/td&gt;</div><div class="line">        &lt;td&gt;id&lt;/td&gt;</div><div class="line">        &lt;td&gt;population&lt;/td&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;%</div><div class="line">        for (int i = 0; i &lt; jsonArray.length(); i++) &#123;</div><div class="line">    %&gt;</div><div class="line">    &lt;tr&gt;</div><div class="line">        &lt;%</div><div class="line">            JSONObject jsonObject = jsonArray.getJSONObject(i);</div><div class="line">            Iterator&lt;?&gt; iterator = jsonObject.keys();</div><div class="line">            while (iterator.hasNext()) &#123;</div><div class="line">        %&gt;</div><div class="line">        &lt;td&gt;</div><div class="line">            &lt;%</div><div class="line">                out.print(jsonObject.getString(iterator.next().toString()));</div><div class="line">            %&gt;</div><div class="line">        &lt;/td&gt;</div><div class="line">        &lt;%</div><div class="line">            &#125;</div><div class="line">        %&gt;</div><div class="line">    &lt;/tr&gt;</div><div class="line">    &lt;%</div><div class="line">        &#125;</div><div class="line">    %&gt;</div><div class="line">&lt;/table&gt;</div><div class="line"></div><div class="line">// action表示这个表单指向的JSP，当点击sumbit后，自动打开网页。</div><div class="line">// 请求参数为表单中的标签值。</div><div class="line">&lt;form action="query.jsp"&gt;</div><div class="line">    &lt;input type="hidden" id="pageNum" name="page" value="&lt;%</div><div class="line">    out.print(pageNum);</div><div class="line">    %&gt;"/&gt;</div><div class="line"></div><div class="line">    &lt;input type="submit" value="下一页" onclick="clickBtn()"&gt;</div><div class="line">    &lt;script&gt;</div><div class="line"></div><div class="line">        var page = document.getElementById("pageNum");</div><div class="line">	// 点击submit时响应方法</div><div class="line">        function clickBtn() &#123;</div><div class="line">            page.value = parseInt(page.value, 10) + 1 + "";</div><div class="line">        &#125;</div><div class="line">    &lt;/script&gt;</div><div class="line">&lt;/form&gt;</div><div class="line">&lt;/body&gt;</div><div class="line">&lt;/html&gt;</div></pre></td></tr></table></figure>
+<p>query.jsp与index.jsp的差别是它可以通过表单<code>&lt;form&gt;</code>加载JSP.</p>
+<p><code>&lt;form&gt;</code>的acntion属性表示这个表单提交后跳转的网页。</p>
+<p><code>&lt;input&gt;</code>的type属性设为hidden表示该标签隐藏不显示，设为submit表示这个标签是提交按钮。</p>
+<p>而且表单和网址一样能传递参数，在代码中给input标签的name属性赋值为page，在加载新JSP页面时，就会带上一个key为name，value为input的value的值。</p>
+<p>JSP中也能正常使用JavaScript。</p>
+<p>和Servlet不一样，JSP更需要懂Web端的知识。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/servlet/" rel="tag">#Servlet</a>
+          
+            <a href="/tags/jsp/" rel="tag">#JSP</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/31/use_jdbc_to_control_mysql_with_idea/" rel="next" title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
+                <i class="fa fa-chevron-left"></i> 在IntelliJ IDEA环境下使用JDBC操作MySQL数据库
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">11</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装Tomcat"><span class="nav-number">1.</span> <span class="nav-text">安装Tomcat</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#新建JavaWeb项目"><span class="nav-number">2.</span> <span class="nav-text">新建JavaWeb项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改配置"><span class="nav-number">3.</span> <span class="nav-text">修改配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Servlet操作数据库"><span class="nav-number">4.</span> <span class="nav-text">使用Servlet操作数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Jsp操作数据库"><span class="nav-number">5.</span> <span class="nav-text">使用Jsp操作数据库</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#JSP输出数据库内容"><span class="nav-number">5.1.</span> <span class="nav-text">JSP输出数据库内容</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通过表单加载JSP"><span class="nav-number">5.2.</span> <span class="nav-text">通过表单加载JSP</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+    <script type="text/javascript">
+      var disqus_shortname = 'bovink';
+      var disqus_identifier = '2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/';
+      var disqus_title = "在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库";
+      var disqus_url = 'https://bovink.com/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/';
+
+      function run_disqus_script(disqus_script){
+        var dsq = document.createElement('script');
+        dsq.type = 'text/javascript';
+        dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/' + disqus_script;
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+      }
+
+      run_disqus_script('count.js');
+      
+        run_disqus_script('embed.js');
+      
+    </script>
+  
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
