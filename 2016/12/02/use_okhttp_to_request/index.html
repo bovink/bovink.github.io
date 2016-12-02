@@ -1,0 +1,818 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Network,Framework," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="介绍OkHttp是Square为发送、接收基于HTTP的网络请求而开发的一个第三方类库。它是基于Okio类库开发的，Okio试图通过创建一个共享内存池来让数据的读写操作比Java的I/O库更加效率。OkHttp还作为Retrofit的基础库为其使用基于REST的API而提供类型安全。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用OkHttp进行网络请求操作">
+<meta property="og:url" content="https://bovink.com/2016/12/02/use_okhttp_to_request/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="介绍OkHttp是Square为发送、接收基于HTTP的网络请求而开发的一个第三方类库。它是基于Okio类库开发的，Okio试图通过创建一个共享内存池来让数据的读写操作比Java的I/O库更加效率。OkHttp还作为Retrofit的基础库为其使用基于REST的API而提供类型安全。">
+<meta property="og:updated_time" content="2016-12-02T09:00:49.464Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用OkHttp进行网络请求操作">
+<meta name="twitter:description" content="介绍OkHttp是Square为发送、接收基于HTTP的网络请求而开发的一个第三方类库。它是基于Okio类库开发的，Okio试图通过创建一个共享内存池来让数据的读写操作比Java的I/O库更加效率。OkHttp还作为Retrofit的基础库为其使用基于REST的API而提供类型安全。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 使用OkHttp进行网络请求操作 | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                使用OkHttp进行网络请求操作
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-12-02T00:00:00+08:00" content="2016-12-02">
+              2016-12-02
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2016/12/02/use_okhttp_to_request/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/02/use_okhttp_to_request/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2016/12/02/use_okhttp_to_request/" class="leancloud_visitors" data-flag-title="使用OkHttp进行网络请求操作">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>OkHttp是Square为发送、接收基于HTTP的网络请求而开发的一个第三方类库。它是基于Okio类库开发的，Okio试图通过创建一个共享内存池来让数据的读写操作比Java的I/O库更加效率。OkHttp还作为Retrofit的基础库为其使用基于REST的API而提供类型安全。</p>
+<a id="more"></a>
+<h2 id="发送及接收网络请求"><a href="#发送及接收网络请求" class="headerlink" title="发送及接收网络请求"></a>发送及接收网络请求</h2><p>首先，我们需要实例化一个<code>OkHttpClient</code>对象和一个<code>Request</code>对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">OkHttpClient client = <span class="keyword">new</span> OkHttpClient();</div><div class="line"></div><div class="line">Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">    .url(<span class="string">"https://api.github.com/users/bovink/repos"</span>)</div><div class="line">    .build();</div></pre></td></tr></table></figure>
+<p>如果需要添加查询参数，可以使用<code>HttpUrl</code>类进行配置。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">HttpUrl.Builder urlBuilder = HttpUrl.parse(<span class="string">"https://api.github.com/users/bovink/repos"</span>).newBuilder();</div><div class="line"></div><div class="line">urlBuilder.addQueryParameter(<span class="string">"page"</span>, <span class="string">"1"</span>);</div><div class="line">urlBuilder.addQueryParameter(<span class="string">"per_page"</span>, <span class="string">"5"</span>);</div><div class="line">String url = urlBuilder.build().toString();</div><div class="line"></div><div class="line">Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">                 .url(url)</div><div class="line">                 .build();</div></pre></td></tr></table></figure>
+<h3 id="同步网络调用"><a href="#同步网络调用" class="headerlink" title="同步网络调用"></a>同步网络调用</h3><p>我们可以创建一个<code>Call</code>对象来同步分发网络请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Response response = client.newCall(request).execute();</div></pre></td></tr></table></figure>
+<p>由于Android不允许在主线程进行网络调用，你可以创建一个单独的线程或一个后台服务来处理网络请求。也可以使用<code>AsyncTask</code>来处理轻量级的网络请求。</p>
+<h3 id="异步网络调用"><a href="#异步网络调用" class="headerlink" title="异步网络调用"></a>异步网络调用</h3><p>我们还可以通过创建一个<code>Call</code>对象用<code>enquene()</code>方法来进行异步调用，并生成一个实现了<code>onFaulure()</code>和<code>onResponse()</code>的匿名<code>Callback</code>对象。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">client.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onFailure</span><span class="params">(Call call, IOException e)</span> </span>&#123;</div><div class="line">    </div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, <span class="keyword">final</span> Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">       </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>OkHttp创建了一个工作线程来分发网络请求，并使用同一个的线程来处理响应报文。这个过程主要基于Java类库，因此并没有处理Android框架关于只能在主线程更新UI的限制。所以如果你想更新视图，你可以使用<code>runOnUiThread()</code>方法或者将结果传递给主线程。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">client.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        MainActivity.<span class="keyword">this</span>.runOnUiThread(<span class="keyword">new</span> Runnable() &#123;</div><div class="line">            <span class="meta">@Override</span></div><div class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</div><div class="line">               </div><div class="line">            &#125;</div><div class="line">       &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="解析响应报文"><a href="#解析响应报文" class="headerlink" title="解析响应报文"></a>解析响应报文</h2><p>假设请求没有被取消并且没有联网问题，<code>onResponse()</code>方法将会触发。这个方法传递了一个Response对象，可以用来查看状态码，响应正文，和返回的响应头。调用<code>isSuccessful()</code>判断返回的状态码是否是2XX系列。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (!response.isSuccessful()) &#123;</div><div class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> IOException(<span class="string">"Unexpected code "</span> + response);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>响应头同时作为list返回:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Headers responseHeaders = response.headers();</div><div class="line"><span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; responseHeaders.size(); i++) &#123;</div><div class="line">  Log.d(<span class="string">"DEBUG"</span>, responseHeaders.name(i) + <span class="string">": "</span> + responseHeaders.value(i));</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>也可以直接用<code>response.header()</code>访问响应头:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">String header = response.header(<span class="string">"Date"</span>);</div></pre></td></tr></table></figure>
+<p>我们还可以通过<code>response.body()</code>得到响应正文，然后调用<code>string()</code>来读取加载的数据。注意，<code>response.body()</code>只能运行一次并且只能在后台线程运行。</p>
+<h3 id="解析JSON数据"><a href="#解析JSON数据" class="headerlink" title="解析JSON数据"></a>解析JSON数据</h3><p>我们调用GitHub的API进行测试，它返回的数据是基于JSON的数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">Request request = <span class="keyword">new</span> Request.Builder()</div><div class="line">             .url(<span class="string">"https://api.github.com/users/bovink/repos"</span>)</div><div class="line">             .build();</div></pre></td></tr></table></figure>
+<p>根据返回的数据格式，可以将其转换成<code>JSONObject</code>或者<code>JSONArray</code>。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">client.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, <span class="keyword">final</span> Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;  </div><div class="line">        <span class="keyword">try</span> &#123;</div><div class="line">            String responseData = response.body().string();</div><div class="line">            JSONArray json = <span class="keyword">new</span> JSONArray(responseData);</div><div class="line">        &#125; <span class="keyword">catch</span> (JSONException e) &#123;</div><div class="line"></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="用Gson解析JSON数据"><a href="#用Gson解析JSON数据" class="headerlink" title="用Gson解析JSON数据"></a>用Gson解析JSON数据</h3><p>注意<code>string()</code>方法会将所有数据全部加载到内存中。为了更有效的使用内存，我们建议用<code>charStream()</code>解析数据。这种方法要求使用Gson类库。</p>
+<p>为了使用Gson类库，我们必须先声明一个类来映射JSON数据。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Repo</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> String id;</div><div class="line">    <span class="keyword">private</span> String name;</div><div class="line">    <span class="keyword">private</span> String full_name;</div><div class="line">    </div><div class="line">    ...</div><div class="line">    ...</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>然后我们可以直接用Gson解析器将数据转换成Java模型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">final</span> Gson gson = <span class="keyword">new</span> Gson();</div><div class="line"></div><div class="line">client.newCall(request).enqueue(<span class="keyword">new</span> Callback() &#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onResponse</span><span class="params">(Call call, <span class="keyword">final</span> Response response)</span> <span class="keyword">throws</span> IOException </span>&#123;</div><div class="line">        List&lt;Repo&gt; repos = gson.fromJson(response.body().charStream(), <span class="keyword">new</span> TypeToken&lt;List&lt;Repo&gt;&gt;() &#123;</div><div class="line">                &#125;.getType());</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<font size="4">这是一个简单的<a href="https://github.com/bovink/OkHttpExample" target="_blank" rel="external">Demo</a></font>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://guides.codepath.com/android/Using-OkHttp" target="_blank" rel="external">Using OkHttp</a></li>
+<li><a href="https://github.com/square/okhttp/wiki/Recipes" target="_blank" rel="external">OkHttp_Github_Wiki_Recipes</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/network/" rel="tag">#Network</a>
+          
+            <a href="/tags/framework/" rel="tag">#Framework</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/" rel="next" title="在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库">
+                <i class="fa fa-chevron-left"></i> 在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/12/02/use_retrofit_to_request/" rel="prev" title="使用Retrofit进行网络请求操作">
+                使用Retrofit进行网络请求操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2016/12/02/use_okhttp_to_request/"
+     data-title="使用OkHttp进行网络请求操作"
+     data-content=""
+     data-url="https://bovink.com/2016/12/02/use_okhttp_to_request/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/12/02/use_okhttp_to_request/"
+           data-title="使用OkHttp进行网络请求操作" data-url="https://bovink.com/2016/12/02/use_okhttp_to_request/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">11</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">12</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#发送及接收网络请求"><span class="nav-number">2.</span> <span class="nav-text">发送及接收网络请求</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#同步网络调用"><span class="nav-number">2.1.</span> <span class="nav-text">同步网络调用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#异步网络调用"><span class="nav-number">2.2.</span> <span class="nav-text">异步网络调用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解析响应报文"><span class="nav-number">3.</span> <span class="nav-text">解析响应报文</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#解析JSON数据"><span class="nav-number">3.1.</span> <span class="nav-text">解析JSON数据</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#用Gson解析JSON数据"><span class="nav-number">3.2.</span> <span class="nav-text">用Gson解析JSON数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2016</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bovink"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>

@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JDBC," />
+  <meta name="keywords" content="Network,Framework," />
 
 
 
@@ -86,27 +86,19 @@
 
 
 
-<meta name="description" content="如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。
-向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。">
+<meta name="description" content="介绍Retrofit能将HTTP API转换成一个Java interface。
+1234public interface GitHubService &amp;#123;  @GET(&quot;users/&amp;#123;user&amp;#125;/repos&quot;)  Call&amp;lt;List&amp;lt;Repo&amp;gt;&amp;gt; listRepos(@Path(&quot;user&quot;) String user);&amp;#125;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
-<meta property="og:url" content="https://bovink.com/2016/08/31/use_jdbc_to_control_mysql_with_idea/index.html">
+<meta property="og:title" content="使用Retrofit进行网络请求操作">
+<meta property="og:url" content="https://bovink.com/2016/12/02/use_retrofit_to_request/index.html">
 <meta property="og:site_name" content="记录点滴">
-<meta property="og:description" content="如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。
-向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1d4wscj30ly0gewhd.jpg">
-<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1e1m8oj30ly0gejts.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1euuduj30hm0d9q5s.jpg">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1fsycyj30gx0dpjt7.jpg">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1cu1iej30tg0jftcv.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1ftqf1j30h30lj420.jpg">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1gj2c6j30l30bvq4v.jpg">
-<meta property="og:updated_time" content="2016-08-31T14:52:43.481Z">
+<meta property="og:description" content="介绍Retrofit能将HTTP API转换成一个Java interface。
+1234public interface GitHubService &amp;#123;  @GET(&quot;users/&amp;#123;user&amp;#125;/repos&quot;)  Call&amp;lt;List&amp;lt;Repo&amp;gt;&amp;gt; listRepos(@Path(&quot;user&quot;) String user);&amp;#125;">
+<meta property="og:updated_time" content="2016-12-02T08:59:16.690Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
-<meta name="twitter:description" content="如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。
-向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。">
-<meta name="twitter:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1d4wscj30ly0gewhd.jpg">
+<meta name="twitter:title" content="使用Retrofit进行网络请求操作">
+<meta name="twitter:description" content="介绍Retrofit能将HTTP API转换成一个Java interface。
+1234public interface GitHubService &amp;#123;  @GET(&quot;users/&amp;#123;user&amp;#125;/repos&quot;)  Call&amp;lt;List&amp;lt;Repo&amp;gt;&amp;gt; listRepos(@Path(&quot;user&quot;) String user);&amp;#125;">
 
 
 
@@ -124,7 +116,7 @@
   };
 </script>
 
-  <title> 在IntelliJ IDEA环境下使用JDBC操作MySQL数据库 | 记录点滴 </title>
+  <title> 使用Retrofit进行网络请求操作 | 记录点滴 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +255,7 @@
             
             
               
-                在IntelliJ IDEA环境下使用JDBC操作MySQL数据库
+                使用Retrofit进行网络请求操作
               
             
           </h1>
@@ -275,8 +267,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-31T22:14:14+08:00" content="2016-08-31">
-              2016-08-31
+            <time itemprop="dateCreated" datetime="2016-12-02T00:00:00+08:00" content="2016-12-02">
+              2016-12-02
             </time>
           </span>
 
@@ -289,8 +281,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
                   </a>
                 </span>
 
@@ -305,8 +297,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/31/use_jdbc_to_control_mysql_with_idea/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/use_jdbc_to_control_mysql_with_idea/" itemprop="commentsCount"></span>
+                <a href="/2016/12/02/use_retrofit_to_request/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/12/02/use_retrofit_to_request/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,7 +308,7 @@
 
           
           
-             <span id="/2016/08/31/use_jdbc_to_control_mysql_with_idea/" class="leancloud_visitors" data-flag-title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
+             <span id="/2016/12/02/use_retrofit_to_request/" class="leancloud_visitors" data-flag-title="使用Retrofit进行网络请求操作">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,35 +330,49 @@
       
 
       
-        <p>如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。</p>
-<p>向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。</p>
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Retrofit能将HTTP API转换成一个Java interface。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">GitHubService</span> </span>&#123;</div><div class="line">  <span class="meta">@GET</span>(<span class="string">"users/&#123;user&#125;/repos"</span>)</div><div class="line">  Call&lt;List&lt;Repo&gt;&gt; listRepos(<span class="meta">@Path</span>(<span class="string">"user"</span>) String user);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <a id="more"></a>
-<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><p>MySQL的安装包有压缩包版本，装起来挺麻烦，涉及到一些MySQL的命令行操作，就没选择压缩包版本进行安装了。</p>
-<p>以下是MySQL的安装器版本</p>
-<p><a href="http://dev.mysql.com/downloads/installer/" target="_blank" rel="external">下载地址</a></p>
-<p>安装方法很简单，基本就是点几下next或者点几下execute。</p>
-<p>下图是除了点击以外的一个步骤：设置MySQL数据库的管理员密码。在红框内输入两次密码即可。</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1d4wscj30ly0gewhd.jpg" alt=""></p>
-<p>在碰到下图的情况时，需要检测与MySQL数据库的连接。点击红框内的按钮再点击Next即可。</p>
-<p><img src="http://ww4.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1e1m8oj30ly0gejts.jpg" alt=""></p>
-<h2 id="在IDEA中配置MySQL数据库"><a href="#在IDEA中配置MySQL数据库" class="headerlink" title="在IDEA中配置MySQL数据库"></a>在IDEA中配置MySQL数据库</h2><p>如下图中的操作，调出Database窗口。</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1euuduj30hm0d9q5s.jpg" alt=""></p>
-<p>点击加号，选择添加MySQL数据库</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1fsycyj30gx0dpjt7.jpg" alt=""></p>
-<p>如下图中的操作：</p>
-<p>1、在红框1中的应该是MySQL数据库的驱动，因为我已经安装过了，所以此处变成了no objects。</p>
-<p>2、在红框2中填入root和之前设置的密码。</p>
-<p>3、点击Test Connection测试与数据库的连接。</p>
-<p>最后点击OK，完成配置。</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1cu1iej30tg0jftcv.jpg" alt=""></p>
-<p>下图是连接成功后MySQL数据库的情况，world数据库是安装MySQL自带的数据库。</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1ftqf1j30h30lj420.jpg" alt=""></p>
-<p>在命令行模式中可以用以下三条命令进行操作。</p>
-<p>语句1表示使用数据库world；语句2表示查询country表中的所有数据；语句3表示查询country表中Name等于China的数据。</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1gj2c6j30l30bvq4v.jpg" alt=""></p>
-<h2 id="使用JDBC操作数据库"><a href="#使用JDBC操作数据库" class="headerlink" title="使用JDBC操作数据库"></a>使用JDBC操作数据库</h2><p>样例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">	</div><div class="line">	    Connection connection = getConnection();</div><div class="line">	    Statement statement = connection.createStatement();</div><div class="line">	    <span class="comment">// 查询city表中所有的数据</span></div><div class="line">	    <span class="keyword">try</span> (ResultSet resultSet = statement.executeQuery(<span class="string">"SELECT * FROM city"</span>)) &#123;</div><div class="line">	        <span class="keyword">while</span> (resultSet.next()) &#123;</div><div class="line">				<span class="comment">// 依次打印出查询结果中Name的字符串</span></div><div class="line">				System.out.println(resultSet.getString(<span class="string">"Name"</span>));</div><div class="line">	        &#125;</div><div class="line">	    &#125;</div><div class="line">	&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">	    e.printStackTrace();</div><div class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">	    e.printStackTrace();</div><div class="line">	&#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException, SQLException </span>&#123;</div><div class="line"></div><div class="line">	String serverName = <span class="string">"localhost"</span>;</div><div class="line">	String database = <span class="string">"world"</span>;</div><div class="line">	String url = <span class="string">"jdbc:mysql://"</span> + serverName + <span class="string">"/"</span> + database;</div><div class="line">	</div><div class="line">	<span class="comment">// 数据配置用户和密码</span></div><div class="line">	String user = <span class="string">"root"</span>;</div><div class="line">	String password = <span class="string">"123456"</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">return</span> DriverManager.getConnection(url, user, password);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>最后运行就会在控制台中打印出city表中所有的Name。</p>
+<p>通过Retrofit类生成一个GitHubService的实现。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">    .baseUrl(<span class="string">"https://api.github.com/"</span>)</div><div class="line">    .build();</div><div class="line"></div><div class="line">GitHubService service = retrofit.create(GitHubService.class);</div></pre></td></tr></table></figure>
+<p>每一个GitHubService创建的<code>Call</code>能可以产生一个同步或异步的HTTP请求。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Call&lt;List&lt;Repo&gt;&gt; repos = service.listRepos(<span class="string">"octocat"</span>);</div></pre></td></tr></table></figure>
+<p>用注释来表示HTTP请求：</p>
+<ul>
+<li>替换URL参数和查询参数</li>
+<li>将对象转换成请求Body</li>
+<li>多部件请求body和文件上传</li>
+</ul>
+<h2 id="API声明"><a href="#API声明" class="headerlink" title="API声明"></a>API声明</h2><p>通过接口方法上的注释及其参数来表明一个请求是怎么操作的。</p>
+<h3 id="请求方法"><a href="#请求方法" class="headerlink" title="请求方法"></a>请求方法</h3><p>每一个方法都需要有一个HTTP注释来给其提供相应的url。有五种设置好的注释：<code>GET</code>、<code>POST</code>、<code>PUT</code>、<code>DELETE</code>和<code>HEAD</code>。相关联的URL在注释里指定。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GET</span>(<span class="string">"users/list"</span>)</div></pre></td></tr></table></figure>
+<p>你也可以在URL中指定查询参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GET</span>(<span class="string">"users/list?sort=desc"</span>)</div></pre></td></tr></table></figure>
+<h3 id="url操作"><a href="#url操作" class="headerlink" title="url操作"></a>url操作</h3><p>一个请求url可以动态更新通过替换块和方法里的参数。一个替换块是一个字母数字字符串被{}包含的。一个被包含的参数必须用<code>@Path</code>注释加上相同的字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GET</span>(<span class="string">"group/&#123;id&#125;/users"</span>)</div><div class="line">Call&lt;List&lt;User&gt;&gt; groupList(<span class="meta">@Path</span>(<span class="string">"id"</span>) <span class="keyword">int</span> groupId);</div></pre></td></tr></table></figure>
+<p>也可以加上查询参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GET</span>(<span class="string">"group/&#123;id&#125;/users"</span>)</div><div class="line">Call&lt;List&lt;User&gt;&gt; groupList(<span class="meta">@Path</span>(<span class="string">"id"</span>) <span class="keyword">int</span> groupId, <span class="meta">@Query</span>(<span class="string">"sort"</span>) String sort);</div></pre></td></tr></table></figure>
+<p>如果参数较多还可以用Map来添加。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@GET</span>(<span class="string">"group/&#123;id&#125;/users"</span>)</div><div class="line">Call&lt;List&lt;User&gt;&gt; groupList(<span class="meta">@Path</span>(<span class="string">"id"</span>) <span class="keyword">int</span> groupId, <span class="meta">@QueryMap</span> Map&lt;String, String&gt; options);</div></pre></td></tr></table></figure>
+<h3 id="同步VS异步"><a href="#同步VS异步" class="headerlink" title="同步VS异步"></a>同步VS异步</h3><p>Call实例可以同步执行也可以异步执行。每一个实例只能使用一次，不过通过调用<code>clone()</code>方法可以创建一个可使用的新实例。</p>
+<p>在Android中，回调可以在主线程执行。在JVM中，callbacks将会在执行HTTP请求的线程中发生。</p>
+<h2 id="配置Retrofit"><a href="#配置Retrofit" class="headerlink" title="配置Retrofit"></a>配置Retrofit</h2><h3 id="转换器"><a href="#转换器" class="headerlink" title="转换器"></a>转换器</h3><p>过去，Retrofit依赖Gson库来序列化和反序列化JSON数据。现在Retrofit 2支持多种解析器来解析网络响应数据，包括<code>Moshi</code>，一个Square搭建的高效解析JSON的库。不过这个库有一些限制，所以如果你不确定选择哪一个，就先用Gson吧。</p>
+<ul>
+<li>Gson: com.squareup.retrofit2:converter-gson</li>
+<li>Jackson: com.squareup.retrofit2:converter-jackson</li>
+<li>Moshi: com.squareup.retrofit2:converter-moshi</li>
+<li>Protobuf: com.squareup.retrofit2:converter-protobuf</li>
+<li>Wire: com.squareup.retrofit2:converter-wire</li>
+<li>Simple XML: com.squareup.retrofit2:converter-simplexml</li>
+<li>Scalars (primitives, boxed, and String): com.squareup.retrofit2:converter-scalars</li>
+</ul>
+<p>下面是一个用<code>GsonConverterFactory</code>类生成一个用Gson来序列化的GitHubService接口的实现类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">    .baseUrl(<span class="string">"https://api.github.com"</span>)</div><div class="line">    .addConverterFactory(GsonConverterFactory.create())</div><div class="line">    .build();</div><div class="line"></div><div class="line">GitHubService service = retrofit.create(GitHubService.class);</div></pre></td></tr></table></figure>
+<font size="4">这是一个简单的<a href="https://github.com/bovink/RetrofitExample" target="_blank" rel="external">Demo</a></font>
+
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://square.github.io/retrofit/" target="_blank" rel="external">Rerofit_Introduction</a></li>
+</ul>
 
       
     </div>
@@ -388,7 +394,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/jdbc/" rel="tag">#JDBC</a>
+            <a href="/tags/network/" rel="tag">#Network</a>
+          
+            <a href="/tags/framework/" rel="tag">#Framework</a>
           
         </div>
       
@@ -397,17 +405,13 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/" rel="next" title="测试优先的十二个益处">
-                <i class="fa fa-chevron-left"></i> 测试优先的十二个益处
+              <a href="/2016/12/02/use_okhttp_to_request/" rel="next" title="使用OkHttp进行网络请求操作">
+                <i class="fa fa-chevron-left"></i> 使用OkHttp进行网络请求操作
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/" rel="prev" title="在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库">
-                在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -422,10 +426,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/08/31/use_jdbc_to_control_mysql_with_idea/"
-     data-title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库"
+        <div class="ds-share flat" data-thread-key="2016/12/02/use_retrofit_to_request/"
+     data-title="使用Retrofit进行网络请求操作"
      data-content=""
-     data-url="https://bovink.com/2016/08/31/use_jdbc_to_control_mysql_with_idea/">
+     data-url="https://bovink.com/2016/12/02/use_retrofit_to_request/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -452,8 +456,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/31/use_jdbc_to_control_mysql_with_idea/"
-           data-title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库" data-url="https://bovink.com/2016/08/31/use_jdbc_to_control_mysql_with_idea/">
+      <div class="ds-thread" data-thread-key="2016/12/02/use_retrofit_to_request/"
+           data-title="使用Retrofit进行网络请求操作" data-url="https://bovink.com/2016/12/02/use_retrofit_to_request/">
       </div>
     
   </div>
@@ -564,7 +568,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MySQL"><span class="nav-number">1.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在IDEA中配置MySQL数据库"><span class="nav-number">2.</span> <span class="nav-text">在IDEA中配置MySQL数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用JDBC操作数据库"><span class="nav-number">3.</span> <span class="nav-text">使用JDBC操作数据库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍"><span class="nav-number">1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#API声明"><span class="nav-number">2.</span> <span class="nav-text">API声明</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#请求方法"><span class="nav-number">2.1.</span> <span class="nav-text">请求方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#url操作"><span class="nav-number">2.2.</span> <span class="nav-text">url操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#同步VS异步"><span class="nav-number">2.3.</span> <span class="nav-text">同步VS异步</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置Retrofit"><span class="nav-number">3.</span> <span class="nav-text">配置Retrofit</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#转换器"><span class="nav-number">3.1.</span> <span class="nav-text">转换器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">4.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
             
           </div>
         </section>

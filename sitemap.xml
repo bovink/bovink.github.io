@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://bovink.com/2016/12/02/use_okhttp_to_request/</loc>
+    
+    <lastmod>2016-12-02T09:00:49.464Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/12/02/use_retrofit_to_request/</loc>
+    
+    <lastmod>2016-12-02T08:59:16.690Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://bovink.com/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/</loc>
     
     <lastmod>2016-08-31T14:52:46.096Z</lastmod>
