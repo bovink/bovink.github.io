@@ -1,0 +1,837 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Framework,Dependency Injection," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概述许多安卓app中的对象经常需要用到其他的依赖库。比如，一个使用推特API的客户端需要用到网络库如Retrofit库。为了使用这些第三方库，你可能还需要添加数据解析库如Gson。另外，那些实现授权或者缓存的类还可能要访问shared preferences或者其他的储存，这些都需要各种依赖的初始化并形成一个依赖继承链。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dagger 2的基础使用方法">
+<meta property="og:url" content="https://bovink.com/2017/01/04/the_base_usage_of_dagger2/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="概述许多安卓app中的对象经常需要用到其他的依赖库。比如，一个使用推特API的客户端需要用到网络库如Retrofit库。为了使用这些第三方库，你可能还需要添加数据解析库如Gson。另外，那些实现授权或者缓存的类还可能要访问shared preferences或者其他的储存，这些都需要各种依赖的初始化并形成一个依赖继承链。">
+<meta property="og:updated_time" content="2017-01-04T14:20:40.597Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dagger 2的基础使用方法">
+<meta name="twitter:description" content="概述许多安卓app中的对象经常需要用到其他的依赖库。比如，一个使用推特API的客户端需要用到网络库如Retrofit库。为了使用这些第三方库，你可能还需要添加数据解析库如Gson。另外，那些实现授权或者缓存的类还可能要访问shared preferences或者其他的储存，这些都需要各种依赖的初始化并形成一个依赖继承链。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Dagger 2的基础使用方法 | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Dagger 2的基础使用方法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-01-04T22:14:13+08:00" content="2017-01-04">
+              2017-01-04
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/01/04/the_base_usage_of_dagger2/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/01/04/the_base_usage_of_dagger2/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/01/04/the_base_usage_of_dagger2/" class="leancloud_visitors" data-flag-title="Dagger 2的基础使用方法">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>许多安卓app中的对象经常需要用到其他的依赖库。比如，一个使用推特API的客户端需要用到网络库如Retrofit库。为了使用这些第三方库，你可能还需要添加数据解析库如Gson。另外，那些实现授权或者缓存的类还可能要访问shared preferences或者其他的储存，这些都需要各种依赖的初始化并形成一个依赖继承链。</p>
+<a id="more"></a>
+<p>Dagger 2能帮你分解依赖库并生成代码将它们整合在一块。现在网上已经有很多其他的Java依赖注入库，其中很多都要会受一些限制，或是依赖XML，或是在运行时性能上会受到拖累。Dagger 2只依赖Java的注释解析器和在编译时分解、确认依赖。到目前为止它被认为是最有效率的依赖注入框架之一。</p>
+<h2 id="使用Dagger-2的益处"><a href="#使用Dagger-2的益处" class="headerlink" title="使用Dagger 2的益处"></a>使用Dagger 2的益处</h2><p>以下是使用Dagger2的一些其他的益处：</p>
+<ul>
+<li><p><strong>访问共享实例变得更简单。</strong>就像ButterKnife库让视图、事件处理和资源的引用定义变得简单一样。Dagger2提供了一种简单的方式来获取共享实例的引用。比如，一旦我们在Dagger 2中声明了单例对象如Retrofit，我们可以用一个简单的<code>@Inject</code>注释来声明变量。</p>
+</li>
+<li><p><strong>使复杂的依赖配置变得简单。</strong>Dagger 2可以自动完成依赖链和生成代码，并且两者都易读、易追踪，使你从繁杂重复的模板代码中解放出来。这还会使重构变得简单，因为你不用再将注意力放在依赖的生成顺序上。</p>
+</li>
+<li><p><strong>更加容易单元测试和集成测试。</strong>因为依赖链已经创建好了，所以我们很容易置换出模组来模拟网络响应或是各种行为。</p>
+</li>
+<li><p><strong>给实例加上作用域。</strong>你不仅可以让你的实例生命周期持续整个应用，你还可以通过Dagger 2将实例的生命周期变得更短（如activity生命周期或是用户session）。</p>
+</li>
+</ul>
+<h2 id="基础使用"><a href="#基础使用" class="headerlink" title="基础使用"></a>基础使用</h2><p>我们用Retrofit进行网络请求作为例子。假如不使用任何类型的依赖注入框架，每次进行网络请求时，我们可能都需要敲下类似下面的代码来进行配置：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">int</span> cacheSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">Cache cache = <span class="keyword">new</span> Cache(getApplication().getCacheDir(), cacheSize);</div><div class="line"></div><div class="line">OkHttpClient okHttpClient = <span class="keyword">new</span> OkHttpClient.Builder()</div><div class="line">        .cache(cache)</div><div class="line">        .build();</div><div class="line"></div><div class="line">Retrofit retrofit = <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">        .baseUrl(<span class="string">"https://api.github.com"</span>)</div><div class="line">        .addConverterFactory(GsonConverterFactory.create())</div><div class="line">        .client(okHttpClient)</div><div class="line">        .build();</div></pre></td></tr></table></figure>
+<p>不过，就像前面所说，当我们使用Dagger 2时，这一过程会被简化并且使配置更加灵活。</p>
+<p>后面会接触两个基本的概念<code>Component</code>和<code>Module</code>，它们会在Dagger 2中被频繁用到。</p>
+<p>如果将依赖注入视为一个打针的过程的话，那么<code>Module</code>就是针筒里的液体，而<code>Component</code>就是针筒。</p>
+<h3 id="创建module"><a href="#创建module" class="headerlink" title="创建module"></a>创建module</h3><p>我们可以用<code>@Module</code>注释一个类，这个类中用<code>@Provides</code>注释的方法，可以视为其返回类型的构造器。在Activity或Fragment中用<code>Component</code>注射后，被<code>@Inject</code>注释的变量会自动使用这些构造器初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Module</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ApplicationModule</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> Application application;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ApplicationModule</span><span class="params">(Application application)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.application = application;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="function">Application <span class="title">providesApplication</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> application;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>下面的代码中用<code>@Provides</code>注释了一些列方法，返回类型分别是Cache、OkHttpClient、Retrofit。当这些方法被调用时，这些方法会在<code>Module</code>中寻找是否存在与方法参数类型一致的其他同样被<code>@Provides</code>注释的方法，如果存在，就会自动用那个方法作为参数的构造器。</p>
+<p>以下面的代码举例，当返回Retroift的方法<code>providesRetrofitWithCache</code>被调用时，其需要的参数会自动调用<code>providesOkHttpClientWithCache</code>返回的对象，而<code>providesOkHttpClientWithCache</code>此时也需要参数即Cache，则又会调用<code>providesCache</code>返回的对象，最后<code>providesCache</code>又会需要Application类型的对象作为参数。但是这个参数目前NetModule中找不到，不过后面通过<code>Component</code>，<code>Module</code>可以跨<code>Module</code>寻找参数。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Module</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NetModule</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String baseUrl;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NetModule</span><span class="params">(String baseUrl)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.baseUrl = baseUrl;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="function">Cache <span class="title">providesCache</span><span class="params">(Application application)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> cacheSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cache(application.getCacheDir(), cacheSize);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="function">OkHttpClient <span class="title">providesOkHttpClientWithCache</span><span class="params">(Cache cache)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OkHttpClient.Builder()</div><div class="line">                .cache(cache)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="meta">@Singleton</span></div><div class="line">    <span class="function">Retrofit <span class="title">providesRetrofitWithCache</span><span class="params">(OkHttpClient okHttpClient)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">                .baseUrl(baseUrl)</div><div class="line">                .addConverterFactory(GsonConverterFactory.create())</div><div class="line">                .client(okHttpClient)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意，用<code>@Provides</code>注释的方法的名字并不是必须以provides开头，这只是一种习惯，你可以用随意使用其他方法名。</p>
+<p><code>@Singleton</code>注释表示这个方法返回的对象在整个生命周期内置被初始化一次。</p>
+<h3 id="创建component"><a href="#创建component" class="headerlink" title="创建component"></a>创建component</h3><p>像前面作的比喻一样，在Dagger 2中<code>Component</code>被称为注射器类。通过它，activity、fragment、service类可以用<code>Module</code>中暴露的方法初始化参数。像Module需要用<code>@Module</code>注释一样，Component同样需要用<code>@Component</code>注释。<code>@Component</code>括号内的代码表示这个<code>Component</code>与两个<code>Module</code>即NetModule和ApplicationModule相关联，并且这两个<code>Module</code>也有了联系。这样它们就能够互相访问彼此内部用<code>@Porivdes</code>注释的方法，所以当NetModule类中<code>providesCache</code>在NetModule中找不到对应参数类型的其他方法时，还可以去ApplicationModule中搜索。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Singleton</span></div><div class="line"><span class="meta">@Component</span>(modules = &#123;NetModule.class, ApplicationModule.class&#125;)</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">NetComponent</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">void</span> <span class="title">inject</span><span class="params">(MainActivity mainActivity)</span></span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>注意，用<code>Component</code>给activity、fragment、service注射前，必须在<code>Component</code>类中声明一个inject方法，并且参数类型必须是强类型，比如要给MainActivity注射的话，参数就必须是MainAcitivity类型。</p>
+<p>这里的<code>@Singleton</code>目前只知道应该是一种对应的模式。如果在Moduel中有需要声明<code>@Singleton</code>的方法，那么包含这个<code>Module</code>的<code>Component</code>也需要被注释。</p>
+<h3 id="生成代码"><a href="#生成代码" class="headerlink" title="生成代码"></a>生成代码</h3><p>在<code>Module</code>和<code>Component</code>都配置完毕后，可以直接build一次项目，这样Dagger 2会自动生成需要用到的代码。如果没出错的话，每个<code>Component</code>会自动生成一个Dagger前缀的类，就像前面的NetComponent，会自动生成一个<code>DaggerNetComponent</code>类，利用这个类我们可以完成NetComponent的初始化。如果有兴趣可以了解一下<code>android-apt</code>插件，它会让你更好的理解Dagger 2生成的代码。</p>
+<h3 id="实例化component并注入"><a href="#实例化component并注入" class="headerlink" title="实例化component并注入"></a>实例化component并注入</h3><p>我们可以在Application中初始化一次，然后通过get方法获取引用，这样就不必重复工作了，这样<code>Component</code>的生命周期会持续整个Application。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyApplication</span> <span class="keyword">extends</span> <span class="title">Application</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> NetComponent netComponent;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate();</div><div class="line"></div><div class="line">        netComponent = DaggerNetComponent.builder()</div><div class="line">                .applicationModule(<span class="keyword">new</span> ApplicationModule(<span class="keyword">this</span>))</div><div class="line">                .netModule(<span class="keyword">new</span> NetModule(<span class="string">"https://api.github.com"</span>))</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> NetComponent <span class="title">getNetComponent</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> netComponent;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>因为自定义了Application类，还需要在AndroidManifest中声明一下。</p>
+<p>最后开始给MainActivity注入依赖。在<code>onCreate</code>方法中调用Application中的get方法获取NetComponent的引用并调用inject方法。</p>
+<p><code>@Inject</code>表示我们需要注入的内容，此处标识了一个Retrofit变量，这样Dagger 2就会自动在<code>Module</code>中调用对应类型的用<code>@Provides</code>注释了的方法作为构造器，并且构造器需要的参数会像之前说过的一样在<code>Module</code>中搜索。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">   </div><div class="line">    <span class="meta">@Inject</span></div><div class="line">    Retrofit retrofit;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">        <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">        setContentView(R.layout.activity_main);</div><div class="line">        </div><div class="line">        ((MyApplication)getApplication()).getNetComponent()</div><div class="line">                .inject(<span class="keyword">this</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="限定符注释"><a href="#限定符注释" class="headerlink" title="限定符注释"></a>限定符注释</h2><p>当我们需要在<code>Module</code>中定义一个相同返回类型但是配置不一样的方法时，我们可以用<code>@Named</code>注释进行标识。你可以在<code>@Inject</code>标识的变量前用<code>@Named</code>标识，可以在<code>@Provides</code>标识的方法前用<code>@Named</code>标识，还可以在<code>@Provides</code>标识的方法的参数前用<code>@Named</code>进行标识。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Module</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">NetModule</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String baseUrl;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">NetModule</span><span class="params">(String baseUrl)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.baseUrl = baseUrl;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="function">Cache <span class="title">providesCache</span><span class="params">(Application application)</span> </span>&#123;</div><div class="line">        <span class="keyword">int</span> cacheSize = <span class="number">10</span> * <span class="number">1024</span> * <span class="number">1024</span>;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Cache(application.getCacheDir(), cacheSize);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="meta">@Named</span>(<span class="string">"cache"</span>)</div><div class="line">    <span class="function">OkHttpClient <span class="title">providesOkHttpClientWithCache</span><span class="params">(Cache cache)</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OkHttpClient.Builder()</div><div class="line">                .cache(cache)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="meta">@Named</span>(<span class="string">"no cache"</span>)</div><div class="line">    <span class="function">OkHttpClient <span class="title">providesOkHttpClient</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> OkHttpClient.Builder()</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="meta">@Named</span>(<span class="string">"cache"</span>)</div><div class="line">    <span class="meta">@Singleton</span></div><div class="line">    <span class="function">Retrofit <span class="title">providesRetrofitWithCache</span><span class="params">(@Named(<span class="string">"cache"</span>)</span> OkHttpClient okHttpClient) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">                .baseUrl(baseUrl)</div><div class="line">                .addConverterFactory(GsonConverterFactory.create())</div><div class="line">                .client(okHttpClient)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Provides</span></div><div class="line">    <span class="meta">@Named</span>(<span class="string">"no cache"</span>)</div><div class="line">    <span class="function">Retrofit <span class="title">providesRetrofit</span><span class="params">(@Named(<span class="string">"no cache"</span>)</span> OkHttpClient okHttpClient) </span>&#123;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Retrofit.Builder()</div><div class="line">                .baseUrl(baseUrl)</div><div class="line">                .addConverterFactory(GsonConverterFactory.create())</div><div class="line">                .client(okHttpClient)</div><div class="line">                .build();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在注入是<code>@Named</code>括号内的名字要求一致。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Inject</span></div><div class="line"><span class="meta">@Named</span>(<span class="string">"cache"</span>)</div><div class="line">Retrofit retrofit;</div></pre></td></tr></table></figure>
+<p><code>@Named</code>只是Dagger 2提前定义的一个<code>@Qualifier</code>类型的注释，你可以自定义需要的注释：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Qualifier</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> DefaultPreferences &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="作用域注释"><a href="#作用域注释" class="headerlink" title="作用域注释"></a>作用域注释</h2><p>在Dagger 2中，你可以自定义作用域注释来控制<code>Component</code>的生命周期。比如你可以将作用域控制在整个Application内，也可以控制在一个activity内，甚至控制在一个user session内。自定义方法类似限定符注释：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Scope</span></div><div class="line"><span class="meta">@Documented</span></div><div class="line"><span class="meta">@Retention</span>(RetentionPolicy.RUNTIME)</div><div class="line"><span class="keyword">public</span> <span class="meta">@interface</span> MyActivityScope &#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>实际上个人认为这个作用域注释只是个类似普通注释一样的东西，它唯一的作用就是在<code>Component</code>的作用域内，用它注释的<code>@Provides</code>方法返回的实例是单例。它的名字只是告诉程序员，这个<code>Component</code>的作用域的范围。</p>
+<p>拿前面的<code>@Singleton</code>举个例子，在MainActivity内部获取的NetComponent是在Application中初始化的，如果我们再创建一个SecondActivity，并且同样获取Application中的NetComponent引用并注入，这两个Activity中的Retrofit引用的会是同一个对象。因为此时的NetComponent的生命周期为整个应用。当我们将<code>@Singleton</code>换成其他名字的作用域注释（比如<code>@NotSingleton</code>）时，它起到的作用会是一样的。</p>
+<p>区别只存在于是否有作用域注释。当去掉NetComponent和<code>Module</code>中的<code>@Singleton</code>时，MainActivity和SecondActivity中的Retrofit对象就会引用不同的对象了。</p>
+<h2 id="Demo项目地址"><a href="#Demo项目地址" class="headerlink" title="Demo项目地址"></a>Demo项目地址</h2><font size="4"><a href="https://github.com/bovink/Dagger2Example" target="_blank" rel="external">Demo</a></font>
+
+<p>这个项目有多个分支，与本文相关的只有master分支。</p>
+<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://guides.codepath.com/android/Dependency-Injection-with-Dagger-2" target="_blank" rel="external">Dependency Injection with Dagger 2</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/framework/" rel="tag">#Framework</a>
+          
+            <a href="/tags/Dependency-Injection/" rel="tag">#Dependency Injection</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/02/use_retrofit_to_request/" rel="next" title="使用Retrofit进行网络请求操作">
+                <i class="fa fa-chevron-left"></i> 使用Retrofit进行网络请求操作
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/01/04/how_to_extend_component_of_dagger2/" rel="prev" title="Dagger 2模组的扩展方法">
+                Dagger 2模组的扩展方法 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/01/04/the_base_usage_of_dagger2/"
+     data-title="Dagger 2的基础使用方法"
+     data-content=""
+     data-url="https://bovink.com/2017/01/04/the_base_usage_of_dagger2/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/01/04/the_base_usage_of_dagger2/"
+           data-title="Dagger 2的基础使用方法" data-url="https://bovink.com/2017/01/04/the_base_usage_of_dagger2/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">13</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用Dagger-2的益处"><span class="nav-number">2.</span> <span class="nav-text">使用Dagger 2的益处</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#基础使用"><span class="nav-number">3.</span> <span class="nav-text">基础使用</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#创建module"><span class="nav-number">3.1.</span> <span class="nav-text">创建module</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#创建component"><span class="nav-number">3.2.</span> <span class="nav-text">创建component</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#生成代码"><span class="nav-number">3.3.</span> <span class="nav-text">生成代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#实例化component并注入"><span class="nav-number">3.4.</span> <span class="nav-text">实例化component并注入</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限定符注释"><span class="nav-number">4.</span> <span class="nav-text">限定符注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#作用域注释"><span class="nav-number">5.</span> <span class="nav-text">作用域注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Demo项目地址"><span class="nav-number">6.</span> <span class="nav-text">Demo项目地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bovink"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
