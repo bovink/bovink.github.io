@@ -1,0 +1,910 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="XML,HTML,XML Parser," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="XML什么是XML？XML（Extensible Markup Language)是一种标记语言，它定义了一组规则用于编码文档，既是机器可读也是人可读。
+
+XML是为描述数据而开发的。
+XML没有预定义标签。你需要根据需要自定义标签。
+XML具有自我描述性。
+XML不是HTML的替代品。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="介绍XML及其解析方式">
+<meta property="og:url" content="https://bovink.com/2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="XML什么是XML？XML（Extensible Markup Language)是一种标记语言，它定义了一组规则用于编码文档，既是机器可读也是人可读。
+
+XML是为描述数据而开发的。
+XML没有预定义标签。你需要根据需要自定义标签。
+XML具有自我描述性。
+XML不是HTML的替代品。">
+<meta property="og:updated_time" content="2017-05-21T16:00:21.780Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="介绍XML及其解析方式">
+<meta name="twitter:description" content="XML什么是XML？XML（Extensible Markup Language)是一种标记语言，它定义了一组规则用于编码文档，既是机器可读也是人可读。
+
+XML是为描述数据而开发的。
+XML没有预定义标签。你需要根据需要自定义标签。
+XML具有自我描述性。
+XML不是HTML的替代品。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 介绍XML及其解析方式 | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                介绍XML及其解析方式
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2017-05-21T00:00:00+08:00" content="2017-05-21">
+              2017-05-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/xml/" itemprop="url" rel="index">
+                    <span itemprop="name">XML</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                &nbsp; | &nbsp;
+                <a href="/2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+             <span id="/2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/" class="leancloud_visitors" data-flag-title="介绍XML及其解析方式">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="XML"><a href="#XML" class="headerlink" title="XML"></a>XML</h2><h3 id="什么是XML？"><a href="#什么是XML？" class="headerlink" title="什么是XML？"></a>什么是XML？</h3><p>XML（Extensible Markup Language)是一种标记语言，它定义了一组规则用于编码文档，既是机器可读也是人可读。</p>
+<ul>
+<li>XML是为描述数据而开发的。</li>
+<li>XML没有预定义标签。你需要根据需要自定义标签。</li>
+<li>XML具有自我描述性。</li>
+<li>XML不是HTML的替代品。</li>
+</ul>
+<a id="more"></a>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">Message</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">From</span>&gt;</span>lilei<span class="tag">&lt;/<span class="name">From</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">To</span>&gt;</span>hanmeimei<span class="tag">&lt;/<span class="name">To</span>&gt;</span></div><div class="line">	<span class="tag">&lt;<span class="name">Content</span>&gt;</span>how are you?<span class="tag">&lt;/<span class="name">Content</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">Message</span>&gt;</span></div></pre></td></tr></table></figure>
+<h3 id="XML与HTML的差别"><a href="#XML与HTML的差别" class="headerlink" title="XML与HTML的差别"></a>XML与HTML的差别</h3><p><strong>关键不同点：</strong>HTML是用于设计网页的标记语言。HTML中的标签是预定义的。HTML的主要设计目的为显示数据，焦点在于数据的外观。XML是以传输和储存数据为主要目的设计的标记语言，焦点在于数据的内容。它可以用于开发新的语言和定义其他新的语言。XML并没有一组预定义的标签，而是让开发者自行定义标签。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">–</th>
+<th style="text-align:center">HTML</th>
+<th style="text-align:center">XML</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">定义</td>
+<td style="text-align:center">用于在浏览器中显示网页的标记语言。设计用于显示数据，焦点在于数据的外观。</td>
+<td style="text-align:center">为编码文档定义了一组规则使机器和人都可阅读的标记语言。设计用于传输和储存数据，焦点在于数据的内容。</td>
+</tr>
+<tr>
+<td style="text-align:center">正式提出日期</td>
+<td style="text-align:center">1993</td>
+<td style="text-align:center">1996</td>
+</tr>
+<tr>
+<td style="text-align:center">扩展于</td>
+<td style="text-align:center">SGML</td>
+<td style="text-align:center">SGML</td>
+</tr>
+<tr>
+<td style="text-align:center">类型</td>
+<td style="text-align:center">静态</td>
+<td style="text-align:center">动态</td>
+</tr>
+<tr>
+<td style="text-align:center">用途</td>
+<td style="text-align:center">显示网页</td>
+<td style="text-align:center">为应用和服务器传输数据。开发其他标记语言。</td>
+</tr>
+<tr>
+<td style="text-align:center">解析/规则</td>
+<td style="text-align:center">没有严格的规则。浏览器会全力生成数据。</td>
+<td style="text-align:center">必须遵循其规则否则将会终止解析文件</td>
+</tr>
+<tr>
+<td style="text-align:center">语言类型</td>
+<td style="text-align:center">描述语言</td>
+<td style="text-align:center">既不是描述语言也不是程序语言</td>
+</tr>
+<tr>
+<td style="text-align:center">标签</td>
+<td style="text-align:center">预定义标签</td>
+<td style="text-align:center">可以自行定义标签</td>
+</tr>
+<tr>
+<td style="text-align:center">空格</td>
+<td style="text-align:center">不会保存空格</td>
+<td style="text-align:center">保存空格</td>
+</tr>
+</tbody>
+</table>
+<h2 id="XML的解析方式"><a href="#XML的解析方式" class="headerlink" title="XML的解析方式"></a>XML的解析方式</h2><p>一般来说，有两种用来处理XML的编程模型：<strong>Streaming</strong>和<strong>Document Object Model</strong>（DOM）。其中<strong>Streaming</strong>又细分为两种解析方式：<strong>Push</strong>和<strong>Pull</strong>。</p>
+<p><strong>Document Object Model</strong>（DOM）是指W3C的XML DOM。W3C的DOM分3个部分，其中一个是XML DOM，本文中的DOM如没有特别说明都是指XML DOM。</p>
+<p>Streaming Push解析方式的最出名的是<strong>Simple API for XML</strong>（SAX），基本上排除了Java中其他的Push类型的API。Pull解析方式的标准则是<strong>Streaming API for XML</strong>（StAX），不过由于Android采用了<strong>XmlPull</strong>，所以也会介绍下。</p>
+<h3 id="DOM介绍"><a href="#DOM介绍" class="headerlink" title="DOM介绍"></a>DOM介绍</h3><p>DOM由W3C定义。</p>
+<p>DOM的API十分容易上手，采用基于树的数据结构描述对象。DOM会将解析XML文档生成的树状对象储存在内存中，所以可以随意访问、修改。但是代价是对处理器和内存的要求较高，因为树状对象在解析时会一直储存在内存中。</p>
+<h3 id="SAX介绍"><a href="#SAX介绍" class="headerlink" title="SAX介绍"></a>SAX介绍</h3><p>SAX由XML-DEV邮件列表的成员合作开发。</p>
+<p>SAX基于事件驱动的，采用顺序访问机制进行解析。</p>
+<p>基于事件驱动是指解析器通过回调方法将事件（如element的start和end）发送给应用，由开发者自己去实现回调方法进行相关数据的处理。由于采用顺序访问机制，所以SAX不会将数据储存在内存中，也因为如此SAX不能退到之前解析过的位置，也不能随意跳到另一个位置。</p>
+<p>之前说了SAX是Push类型的API，这种类型的API解析XML时通过回调方法通知应用感兴趣的事件。事件的请求不是由应用控制而是由解析器控制。</p>
+<p>SAX的使用要比DOM复杂一些，由于基于事件驱动，开发者需要实现回调方法提供给解析器调用。</p>
+<h3 id="XmlPull介绍"><a href="#XmlPull介绍" class="headerlink" title="XmlPull介绍"></a>XmlPull介绍</h3><p>XmlPull API由kXML的作者Stefan Haustein和XPP的作者Aleksander Slominski一起创作，它是为了减少在J2ME环境中处理XML时所占的内存而创作的，这让它并不适合桌面环境或服务端环境。</p>
+<p>虽然SAX与XmlPull都是Streaming编程模型的API，但因为它们在事件产生的控制上有所区别，所以将它们分为Push类型和Pull类型。</p>
+<p><strong>Streaming Push</strong>解析是指XML解析器遇到一个元素就将其发送给程序，这意味着不论程序有没有准备接收解析器都会发送数据，即程序不能控制事件的产生。</p>
+<p><strong>Streaming Pull</strong>解析是指当程序需要与XML文档进行交互时程序才会调用XML解析器的方法，这意味着只有当程序请求数据时才会获取XML数据，即程序可以控制事件的产生。</p>
+<p>SAX属于Push类型，XmlPull属于Pull类型。</p>
+<p>它们的主要不同就在于这一点，这使得XmlPull的API相对简单。</p>
+<h3 id="StAX介绍"><a href="#StAX介绍" class="headerlink" title="StAX介绍"></a>StAX介绍</h3><p>StAX由BEA System、Sun、XmlPull的开发者Stefan Haustein和Aleksandr Slominski、XML重量级人物James Clark以及Java Community Process的开发者共同开发。</p>
+<p>StAX是Streaming Pull类型的解析器，它避免了XmlPull中存在的大部分问题。</p>
+<p>StAX不只可以读取XML文档，它还可以创建XML文档。</p>
+<p>在Pull类型的API中还可以分出两种类型：基于光标类型和基于迭代器。StAX为两种模型都建立了API：StAX光标模型和StAX迭代器模型，开发者可以根据需求选择使用。</p>
+<p>StAX光标模型和迭代器模型的区别可以看看Java EE 5的<a href="http://docs.oracle.com/javaee/5/tutorial/doc/bnbec.html#bnbej" target="_blank" rel="external">教程</a>最后一节。</p>
+<h3 id="四种API的区别"><a href="#四种API的区别" class="headerlink" title="四种API的区别"></a>四种API的区别</h3><h4 id="Streaming-VS-DOM"><a href="#Streaming-VS-DOM" class="headerlink" title="Streaming VS DOM"></a>Streaming VS DOM</h4><p>两者之间的主要区别在于XML数据是否储存在内存中。</p>
+<p>DOM会将XML数据转换成树状结构对象后储存在内存中，因此能随意访问、修改XML结构。不过代价是需要等其将数据读取转换完后才能进行操作，且对cpu和内存的需求会随着XML文档的增加而增加。</p>
+<p>Streaming模型的API不会将XML数据储存在内存中，且读取数据采用顺序访问机制，因此只能往前访问数据，也因为这样性能比DOM更好，且由于采用Streaming模型的原因能在读取数据的同时进行操作。</p>
+<h4 id="Pull-VS-Push"><a href="#Pull-VS-Push" class="headerlink" title="Pull VS Push"></a>Pull VS Push</h4><p>两者之间的主要区别在于读取XML数据时产生的事件由谁控制。</p>
+<p>Push会从头到尾读取一次XML数据，将里面的事件一股脑通过回调方法传递给程序，由程序去处理感兴趣的事件。所以Push类型无法中途停止XML数据的读取。</p>
+<p>Pull是由程序控制事件的产生，当程序需要数据时，调用next()方法来获取下一个事件。所以Pull类型可以在处理完数据后停止继续读取XML数。</p>
+<h4 id="XmlPull-VS-StAX"><a href="#XmlPull-VS-StAX" class="headerlink" title="XmlPull VS StAX"></a>XmlPull VS StAX</h4><p>XmlPull存在两个主要的缺陷：</p>
+<p>1.<strong>它给XML建模不对</strong></p>
+<p>XmlPull默认不支持名字空间，需要调用setNamespaceAware(true)手动开启，并且不会报告内部DTD子集中的错误。</p>
+<p>2.<strong>它并不是面向对象的</strong></p>
+<p>XmlPull定义了一系列Int类型的数据来判断节点的类型，而不是类。</p>
+<p>而StAX是在XmlPull的基础上创建的，因此StAX避免了XmlPull中出现的大部分问题。</p>
+<p>尽管如此存在一些问题，在进行嵌入式或移动设备上的开发时，XmlPull还是不错的。</p>
+<h2 id="参考资源"><a href="#参考资源" class="headerlink" title="参考资源"></a>参考资源</h2><ul>
+<li><p><a href="http://www.xmlobjective.com/what-is-the-difference-between-xml-and-html/" target="_blank" rel="external">What is the difference between XML and HTML?</a></p>
+</li>
+<li><p><a href="http://www.differencebetween.info/difference-between-html-and-xml" target="_blank" rel="external">Difference between HTML and XML</a></p>
+</li>
+<li><p><a href="https://docs.oracle.com/javase/tutorial/jaxp/index.html" target="_blank" rel="external">Trail: Java API for XML Processing (JAXP)</a></p>
+</li>
+<li><p><a href="http://xmlpull.org/history/index.html" target="_blank" rel="external">On Using XML Pull Parsing Java APIs</a></p>
+</li>
+<li><p><a href="http://www.xml.com/pub/a/2002/08/14/xmlpull.html" target="_blank" rel="external">The XMLPULL API</a></p>
+</li>
+<li><p><a href="http://www.xml.com/pub/a/2003/09/17/stax.html" target="_blank" rel="external">An Introduction to StAX</a></p>
+</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/xml/" rel="tag">#XML</a>
+          
+            <a href="/tags/html/" rel="tag">#HTML</a>
+          
+            <a href="/tags/xml-parser/" rel="tag">#XML Parser</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/01/04/how_to_extend_component_of_dagger2/" rel="next" title="Dagger 2模组的扩展方法">
+                <i class="fa fa-chevron-left"></i> Dagger 2模组的扩展方法
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+        <div class="ds-share flat" data-thread-key="2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/"
+     data-title="介绍XML及其解析方式"
+     data-content=""
+     data-url="https://bovink.com/2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/">
+  <div class="ds-share-inline">
+    <ul  class="ds-share-icons-16">
+
+      <li data-toggle="ds-share-icons-more"><a class="ds-more" href="javascript:void(0);">分享到：</a></li>
+      <li><a class="ds-weibo" href="javascript:void(0);" data-service="weibo">微博</a></li>
+      <li><a class="ds-qzone" href="javascript:void(0);" data-service="qzone">QQ空间</a></li>
+      <li><a class="ds-qqt" href="javascript:void(0);" data-service="qqt">腾讯微博</a></li>
+      <li><a class="ds-wechat" href="javascript:void(0);" data-service="wechat">微信</a></li>
+
+    </ul>
+    <div class="ds-share-icons-more">
+    </div>
+  </div>
+</div>
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/"
+           data-title="介绍XML及其解析方式" data-url="https://bovink.com/2017/05/21/an_introduce_to_xml_and_how_to_parse_xml/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#XML"><span class="nav-number">1.</span> <span class="nav-text">XML</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是XML？"><span class="nav-number">1.1.</span> <span class="nav-text">什么是XML？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XML与HTML的差别"><span class="nav-number">1.2.</span> <span class="nav-text">XML与HTML的差别</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#XML的解析方式"><span class="nav-number">2.</span> <span class="nav-text">XML的解析方式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DOM介绍"><span class="nav-number">2.1.</span> <span class="nav-text">DOM介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#SAX介绍"><span class="nav-number">2.2.</span> <span class="nav-text">SAX介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#XmlPull介绍"><span class="nav-number">2.3.</span> <span class="nav-text">XmlPull介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#StAX介绍"><span class="nav-number">2.4.</span> <span class="nav-text">StAX介绍</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#四种API的区别"><span class="nav-number">2.5.</span> <span class="nav-text">四种API的区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Streaming-VS-DOM"><span class="nav-number">2.5.1.</span> <span class="nav-text">Streaming VS DOM</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Pull-VS-Push"><span class="nav-number">2.5.2.</span> <span class="nav-text">Pull VS Push</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#XmlPull-VS-StAX"><span class="nav-number">2.5.3.</span> <span class="nav-text">XmlPull VS StAX</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考资源"><span class="nav-number">3.</span> <span class="nav-text">参考资源</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"bovink"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+  
+
+
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
