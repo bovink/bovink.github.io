@@ -70,7 +70,7 @@
 <link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JDBC," />
+  <meta name="keywords" content="博客," />
 
 
 
@@ -86,27 +86,19 @@
 
 
 
-<meta name="description" content="如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。
-向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。">
+<meta name="description" content="从下午就开始弄，先是下载Hexo，到官网一查需要下载Node.js和Git。配置好环境下载完安装包后开始安装，反正就按教程来，就是几种命令台弄得头大，又是Windows自带的又是Git自带的，后面还需要用到Git Shell（虽然没成功），头昏脑涨。
+等把本地网站搭好了，我又想弄个域名发布到网上，于是也没管那么多，先注册了域名再说。注册好域名接着来找发布到网上的方法，又是各种教程弄得我晕头转向。最">
 <meta property="og:type" content="article">
-<meta property="og:title" content="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
-<meta property="og:url" content="https://bovink.com/2016/08/31/use_jdbc_to_control_mysql_with_idea/index.html">
+<meta property="og:title" content="终于把个人博客搭建成功了">
+<meta property="og:url" content="https://bovink.com/2016/03/13/finally-build-my-blog/index.html">
 <meta property="og:site_name" content="记录点滴">
-<meta property="og:description" content="如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。
-向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1d4wscj30ly0gewhd.jpg">
-<meta property="og:image" content="http://ww4.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1e1m8oj30ly0gejts.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1euuduj30hm0d9q5s.jpg">
-<meta property="og:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1fsycyj30gx0dpjt7.jpg">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1cu1iej30tg0jftcv.jpg">
-<meta property="og:image" content="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1ftqf1j30h30lj420.jpg">
-<meta property="og:image" content="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1gj2c6j30l30bvq4v.jpg">
-<meta property="og:updated_time" content="2016-08-31T14:52:43.481Z">
+<meta property="og:description" content="从下午就开始弄，先是下载Hexo，到官网一查需要下载Node.js和Git。配置好环境下载完安装包后开始安装，反正就按教程来，就是几种命令台弄得头大，又是Windows自带的又是Git自带的，后面还需要用到Git Shell（虽然没成功），头昏脑涨。
+等把本地网站搭好了，我又想弄个域名发布到网上，于是也没管那么多，先注册了域名再说。注册好域名接着来找发布到网上的方法，又是各种教程弄得我晕头转向。最">
+<meta property="og:updated_time" content="2016-06-30T15:33:12.778Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
-<meta name="twitter:description" content="如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。
-向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。">
-<meta name="twitter:image" content="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1d4wscj30ly0gewhd.jpg">
+<meta name="twitter:title" content="终于把个人博客搭建成功了">
+<meta name="twitter:description" content="从下午就开始弄，先是下载Hexo，到官网一查需要下载Node.js和Git。配置好环境下载完安装包后开始安装，反正就按教程来，就是几种命令台弄得头大，又是Windows自带的又是Git自带的，后面还需要用到Git Shell（虽然没成功），头昏脑涨。
+等把本地网站搭好了，我又想弄个域名发布到网上，于是也没管那么多，先注册了域名再说。注册好域名接着来找发布到网上的方法，又是各种教程弄得我晕头转向。最">
 
 
 
@@ -124,7 +116,7 @@
   };
 </script>
 
-  <title> 在IntelliJ IDEA环境下使用JDBC操作MySQL数据库 | 记录点滴 </title>
+  <title> 终于把个人博客搭建成功了 | 记录点滴 </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -263,7 +255,7 @@
             
             
               
-                在IntelliJ IDEA环境下使用JDBC操作MySQL数据库
+                终于把个人博客搭建成功了
               
             
           </h1>
@@ -275,8 +267,8 @@
               <i class="fa fa-calendar-o"></i>
             </span>
             <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-08-31T22:14:14+08:00" content="2016-08-31">
-              2016-08-31
+            <time itemprop="dateCreated" datetime="2016-03-13T00:00:00+08:00" content="2016-03-13">
+              2016-03-13
             </time>
           </span>
 
@@ -289,8 +281,8 @@
               <span class="post-meta-item-text">分类于</span>
               
                 <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
+                  <a href="/categories/mamechishiki/" itemprop="url" rel="index">
+                    <span itemprop="name">豆知识</span>
                   </a>
                 </span>
 
@@ -305,8 +297,8 @@
             
               <span class="post-comments-count">
                 &nbsp; | &nbsp;
-                <a href="/2016/08/31/use_jdbc_to_control_mysql_with_idea/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/08/31/use_jdbc_to_control_mysql_with_idea/" itemprop="commentsCount"></span>
+                <a href="/2016/03/13/finally-build-my-blog/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/03/13/finally-build-my-blog/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -316,7 +308,7 @@
 
           
           
-             <span id="/2016/08/31/use_jdbc_to_control_mysql_with_idea/" class="leancloud_visitors" data-flag-title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库">
+             <span id="/2016/03/13/finally-build-my-blog/" class="leancloud_visitors" data-flag-title="终于把个人博客搭建成功了">
                &nbsp; | &nbsp;
                <span class="post-meta-item-icon">
                  <i class="fa fa-eye"></i>
@@ -338,35 +330,26 @@
       
 
       
-        <p>如标题所示，本文介绍如何在IDEA环境下使用JDBC操作MySQL数据库。</p>
-<p>向后台请求数据是前端必然会进行的操作。学会后台开发不管是对工作还是对个人都有好处。</p>
+        <p>从下午就开始弄，先是下载Hexo，到官网一查需要下载Node.js和Git。配置好环境下载完安装包后开始安装，反正就按教程来，就是几种命令台弄得头大，又是Windows自带的又是Git自带的，后面还需要用到Git Shell（虽然没成功），头昏脑涨。</p>
+<p>等把本地网站搭好了，我又想弄个域名发布到网上，于是也没管那么多，先注册了域名再说。注册好域名接着来找发布到网上的方法，又是各种教程弄得我晕头转向。最后找到一篇靠谱的<a href="http://wsgzao.github.io/post/hexo-guide/" target="_blank" rel="external">教程</a>，这个教程配合官方的教程省下了我很多时间。</p>
 <a id="more"></a>
-<h2 id="安装MySQL"><a href="#安装MySQL" class="headerlink" title="安装MySQL"></a>安装MySQL</h2><p>MySQL的安装包有压缩包版本，装起来挺麻烦，涉及到一些MySQL的命令行操作，就没选择压缩包版本进行安装了。</p>
-<p>以下是MySQL的安装器版本</p>
-<p><a href="http://dev.mysql.com/downloads/installer/" target="_blank" rel="external">下载地址</a></p>
-<p>安装方法很简单，基本就是点几下next或者点几下execute。</p>
-<p>下图是除了点击以外的一个步骤：设置MySQL数据库的管理员密码。在红框内输入两次密码即可。</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1d4wscj30ly0gewhd.jpg" alt=""></p>
-<p>在碰到下图的情况时，需要检测与MySQL数据库的连接。点击红框内的按钮再点击Next即可。</p>
-<p><img src="http://ww4.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1e1m8oj30ly0gejts.jpg" alt=""></p>
-<h2 id="在IDEA中配置MySQL数据库"><a href="#在IDEA中配置MySQL数据库" class="headerlink" title="在IDEA中配置MySQL数据库"></a>在IDEA中配置MySQL数据库</h2><p>如下图中的操作，调出Database窗口。</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1euuduj30hm0d9q5s.jpg" alt=""></p>
-<p>点击加号，选择添加MySQL数据库</p>
-<p><img src="http://ww3.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1fsycyj30gx0dpjt7.jpg" alt=""></p>
-<p>如下图中的操作：</p>
-<p>1、在红框1中的应该是MySQL数据库的驱动，因为我已经安装过了，所以此处变成了no objects。</p>
-<p>2、在红框2中填入root和之前设置的密码。</p>
-<p>3、点击Test Connection测试与数据库的连接。</p>
-<p>最后点击OK，完成配置。</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1cu1iej30tg0jftcv.jpg" alt=""></p>
-<p>下图是连接成功后MySQL数据库的情况，world数据库是安装MySQL自带的数据库。</p>
-<p><img src="http://ww1.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1ftqf1j30h30lj420.jpg" alt=""></p>
-<p>在命令行模式中可以用以下三条命令进行操作。</p>
-<p>语句1表示使用数据库world；语句2表示查询country表中的所有数据；语句3表示查询country表中Name等于China的数据。</p>
-<p><img src="http://ww2.sinaimg.cn/mw690/005ZZ4X1gw1f6gy1gj2c6j30l30bvq4v.jpg" alt=""></p>
-<h2 id="使用JDBC操作数据库"><a href="#使用JDBC操作数据库" class="headerlink" title="使用JDBC操作数据库"></a>使用JDBC操作数据库</h2><p>样例代码如下：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">   <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</div><div class="line">	<span class="keyword">try</span> &#123;</div><div class="line">	</div><div class="line">	    Connection connection = getConnection();</div><div class="line">	    Statement statement = connection.createStatement();</div><div class="line">	    <span class="comment">// 查询city表中所有的数据</span></div><div class="line">	    <span class="keyword">try</span> (ResultSet resultSet = statement.executeQuery(<span class="string">"SELECT * FROM city"</span>)) &#123;</div><div class="line">	        <span class="keyword">while</span> (resultSet.next()) &#123;</div><div class="line">				<span class="comment">// 依次打印出查询结果中Name的字符串</span></div><div class="line">				System.out.println(resultSet.getString(<span class="string">"Name"</span>));</div><div class="line">	        &#125;</div><div class="line">	    &#125;</div><div class="line">	&#125; <span class="keyword">catch</span> (ClassNotFoundException e) &#123;</div><div class="line">	    e.printStackTrace();</div><div class="line">	&#125; <span class="keyword">catch</span> (SQLException e) &#123;</div><div class="line">	    e.printStackTrace();</div><div class="line">	&#125;</div><div class="line">   &#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Connection <span class="title">getConnection</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException, SQLException </span>&#123;</div><div class="line"></div><div class="line">	String serverName = <span class="string">"localhost"</span>;</div><div class="line">	String database = <span class="string">"world"</span>;</div><div class="line">	String url = <span class="string">"jdbc:mysql://"</span> + serverName + <span class="string">"/"</span> + database;</div><div class="line">	</div><div class="line">	<span class="comment">// 数据配置用户和密码</span></div><div class="line">	String user = <span class="string">"root"</span>;</div><div class="line">	String password = <span class="string">"123456"</span>;</div><div class="line">	</div><div class="line">	<span class="keyword">return</span> DriverManager.getConnection(url, user, password);</div><div class="line">   &#125;</div></pre></td></tr></table></figure>
-<p>最后运行就会在控制台中打印出city表中所有的Name。</p>
+<h2 id="通过个人域名访问博客"><a href="#通过个人域名访问博客" class="headerlink" title="通过个人域名访问博客"></a>通过个人域名访问博客</h2><p>1.按前面的教程走，里面有一个步骤是部署静态网页到GitHub，部署成功后可以直接通过那个项目名也就是yourname.github.io访问你的博客。</p>
+<p>2.也不算太复杂，当然这是我时候弄完了后才这么觉得。首先你得有个域名，随便你在哪家买，之前的教程里也有推荐。</p>
+<p>3.不管在哪里买的域名，这个网站一定会有让你更改域名解析的功能。解析就按下面的模式来：</p>
+<pre>
+记录类型    主机记录   解析线路        记录值            MX优先级        TTL
+
+CNAME      WWW        默认        bovink.github.io     --           10分钟
+
+CNAEM      @          默认        bovink.github.io     --           10分钟
+</pre>
+
+<p>上面需要参考的是记录类型、主机记录、记录值，其他的默认就行了。</p>
+<p>4.在Hexo的文件夹里有个_config.yml文件，将里面的url设为自己申请的域名地址。</p>
+<p>5.在yourname.github.io项目里创建一个叫CNAME的文件，同样把域名地址放里面。</p>
+<p>ps：阿里云让我修改DNS地址，将其改变成公共DNS地址，我也这么做了，虽然不知道啥意思。</p>
+<h2 id="一些话"><a href="#一些话" class="headerlink" title="一些话"></a>一些话</h2><p>Github的桌面版真是让我无语，在公司的时候在线安装特别快，我一到家里就死都下载不下来，而且这玩意又没有离线版本，真是烦。然后在网上找了半天离线安装的办法，虽然发现了一篇文章，说是把安装包里的内容一个一个下载下来，还有人总结了下能自动下载，不过我看半天没弄明白，直接下了Github老版本的安装包，先用着再说，有问题以后解决。</p>
+<p>写博客的时候发现模板里的Hello-World是md格式的文件，也就是用Markdown语法写的，以前也就听过它的名字，没接触过。这次一摸，好吧，初步一看感觉又是一个标记语言，感觉跟HTML差不多，希望差异不要太大，不然学习成本太高了。</p>
 
       
     </div>
@@ -388,7 +371,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/jdbc/" rel="tag">#JDBC</a>
+            <a href="/tags/blog/" rel="tag">#博客</a>
           
         </div>
       
@@ -397,16 +380,16 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2016/07/17/translation_of_twelve_benefits_of_writing_unit_tests_first/" rel="next" title="测试优先的十二个益处">
-                <i class="fa fa-chevron-left"></i> 测试优先的十二个益处
+              <a href="/2016/03/09/association-about-handle-message-and-runnable/" rel="next" title="Handler、Message、Runnable之间的联系（一）">
+                <i class="fa fa-chevron-left"></i> Handler、Message、Runnable之间的联系（一）
               </a>
             
           </div>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2016/08/31/use_servlet_and_jsp_to_control_mysql_with_idea/" rel="prev" title="在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库">
-                在IntelliJ IDEA环境下使用Servlet和JSP操作MySQL数据库 <i class="fa fa-chevron-right"></i>
+              <a href="/2016/04/02/translation-of-the-most-valuable-lesson-i-learned-from-playing-the-violin/" rel="prev" title="我从小提琴学习中学到的最有价值的一课">
+                我从小提琴学习中学到的最有价值的一课 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -422,10 +405,10 @@
 
     <div class="post-spread">
       
-        <div class="ds-share flat" data-thread-key="2016/08/31/use_jdbc_to_control_mysql_with_idea/"
-     data-title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库"
+        <div class="ds-share flat" data-thread-key="2016/03/13/finally-build-my-blog/"
+     data-title="终于把个人博客搭建成功了"
      data-content=""
-     data-url="https://bovink.com/2016/08/31/use_jdbc_to_control_mysql_with_idea/">
+     data-url="https://bovink.com/2016/03/13/finally-build-my-blog/">
   <div class="ds-share-inline">
     <ul  class="ds-share-icons-16">
 
@@ -452,8 +435,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/08/31/use_jdbc_to_control_mysql_with_idea/"
-           data-title="在IntelliJ IDEA环境下使用JDBC操作MySQL数据库" data-url="https://bovink.com/2016/08/31/use_jdbc_to_control_mysql_with_idea/">
+      <div class="ds-thread" data-thread-key="2016/03/13/finally-build-my-blog/"
+           data-title="终于把个人博客搭建成功了" data-url="https://bovink.com/2016/03/13/finally-build-my-blog/">
       </div>
     
   </div>
@@ -498,7 +481,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">13</span>
+              <span class="site-state-item-count">14</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -506,7 +489,7 @@
           
             <div class="site-state-item site-state-categories">
               <a href="/categories">
-                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-count">7</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
@@ -515,7 +498,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/tags">
-                <span class="site-state-item-count">14</span>
+                <span class="site-state-item-count">15</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -564,7 +547,7 @@
               
             
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装MySQL"><span class="nav-number">1.</span> <span class="nav-text">安装MySQL</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在IDEA中配置MySQL数据库"><span class="nav-number">2.</span> <span class="nav-text">在IDEA中配置MySQL数据库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用JDBC操作数据库"><span class="nav-number">3.</span> <span class="nav-text">使用JDBC操作数据库</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#通过个人域名访问博客"><span class="nav-number">1.</span> <span class="nav-text">通过个人域名访问博客</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#一些话"><span class="nav-number">2.</span> <span class="nav-text">一些话</span></a></li></ol></div>
             
           </div>
         </section>
