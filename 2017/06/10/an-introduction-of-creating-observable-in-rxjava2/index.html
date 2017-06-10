@@ -86,19 +86,16 @@
 
 
 
-<meta name="description" content="RxJava2 Observable创建方法介绍
-创建Observable简单介绍一些Observable静态工厂方法和公有方法的用法。">
+<meta name="description" content="创建Observable简单介绍一些Observable静态工厂方法和公有方法的用法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RxJava2中Observable的创建方法介绍">
 <meta property="og:url" content="https://bovink.com/2017/06/10/an-introduction-of-creating-observable-in-rxjava2/index.html">
 <meta property="og:site_name" content="记录点滴">
-<meta property="og:description" content="RxJava2 Observable创建方法介绍
-创建Observable简单介绍一些Observable静态工厂方法和公有方法的用法。">
-<meta property="og:updated_time" content="2017-06-10T12:43:06.174Z">
+<meta property="og:description" content="创建Observable简单介绍一些Observable静态工厂方法和公有方法的用法。">
+<meta property="og:updated_time" content="2017-06-10T12:54:25.514Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RxJava2中Observable的创建方法介绍">
-<meta name="twitter:description" content="RxJava2 Observable创建方法介绍
-创建Observable简单介绍一些Observable静态工厂方法和公有方法的用法。">
+<meta name="twitter:description" content="创建Observable简单介绍一些Observable静态工厂方法和公有方法的用法。">
 
 
 
@@ -330,8 +327,7 @@
       
 
       
-        <p>RxJava2 Observable创建方法介绍</p>
-<h1 id="创建Observable"><a href="#创建Observable" class="headerlink" title="创建Observable"></a>创建Observable</h1><p>简单介绍一些Observable静态工厂方法和公有方法的用法。</p>
+        <h1 id="创建Observable"><a href="#创建Observable" class="headerlink" title="创建Observable"></a>创建Observable</h1><p>简单介绍一些Observable静态工厂方法和公有方法的用法。</p>
 <a id="more"></a>
 <h2 id="create"><a href="#create" class="headerlink" title="create"></a>create</h2><p>示例代码：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">Observable&lt;String&gt; observable = Observable.create(<span class="keyword">new</span> ObservableOnSubscribe&lt;String&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">subscribe</span><span class="params">(@NonNull ObservableEmitter&lt;String&gt; e)</span> <span class="keyword">throws</span> Exception </span>&#123;</div><div class="line">        e.onNext(<span class="string">"one"</span>);</div><div class="line">        e.onNext(<span class="string">"two"</span>);</div><div class="line">        <span class="keyword">int</span> random = <span class="keyword">new</span> Random().nextInt(<span class="number">10</span>);</div><div class="line">        <span class="keyword">if</span> (random &gt;= <span class="number">5</span>) &#123;</div><div class="line">            e.onComplete();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            e.onError(<span class="keyword">new</span> Throwable(<span class="string">"random is less than 5"</span>));</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line"></div><div class="line">observable.subscribe(<span class="keyword">new</span> DefaultObserver&lt;String&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onNext</span><span class="params">(@NonNull String s)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"s = "</span> + s);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onError</span><span class="params">(@NonNull Throwable e)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"CreateActivity.onError"</span>);</div><div class="line">        e.printStackTrace();</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onComplete</span><span class="params">()</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"CreateActivity.onComplete"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
