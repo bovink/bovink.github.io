@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="library," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概述介绍ButterKnife的使用，并提供使用样例项目。
+介绍ButterKnifeButterKnfie是JakeWharton大神发布的一个第三方库。
+这个库主要使用注释将Android的视图和事件绑定到参数和方法上。
+ButterKnife的好处：
+
+通过注释消除findViewById代码。
+将多个视图绑定成一个列表或数组。可一次对它们执行方法。
+通过注释消除资源的查找代码。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android Library——ButterKnife的使用">
+<meta property="og:url" content="https://bovink.com/2018/03/03/butterknife-usage/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="概述介绍ButterKnife的使用，并提供使用样例项目。
+介绍ButterKnifeButterKnfie是JakeWharton大神发布的一个第三方库。
+这个库主要使用注释将Android的视图和事件绑定到参数和方法上。
+ButterKnife的好处：
+
+通过注释消除findViewById代码。
+将多个视图绑定成一个列表或数组。可一次对它们执行方法。
+通过注释消除资源的查找代码。">
+<meta property="og:updated_time" content="2018-03-03T05:23:44.747Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Android Library——ButterKnife的使用">
+<meta name="twitter:description" content="概述介绍ButterKnife的使用，并提供使用样例项目。
+介绍ButterKnifeButterKnfie是JakeWharton大神发布的一个第三方库。
+这个库主要使用注释将Android的视图和事件绑定到参数和方法上。
+ButterKnife的好处：
+
+通过注释消除findViewById代码。
+将多个视图绑定成一个列表或数组。可一次对它们执行方法。
+通过注释消除资源的查找代码。">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Android Library——ButterKnife的使用 | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android Library——ButterKnife的使用
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-03T00:00:00+08:00" content="2018-03-03">
+              2018-03-03
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2018/03/03/butterknife-usage/" class="leancloud_visitors" data-flag-title="Android Library——ButterKnife的使用">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>介绍ButterKnife的使用，并提供使用样例项目。</p>
+<h1 id="介绍ButterKnife"><a href="#介绍ButterKnife" class="headerlink" title="介绍ButterKnife"></a>介绍ButterKnife</h1><p>ButterKnfie是JakeWharton大神发布的一个第三方库。</p>
+<p>这个库主要使用注释将Android的视图和事件绑定到参数和方法上。</p>
+<p>ButterKnife的好处：</p>
+<ul>
+<li>通过注释消除findViewById代码。</li>
+<li>将多个视图绑定成一个列表或数组。可一次对它们执行方法。</li>
+<li>通过注释消除资源的查找代码。</li>
+</ul>
+<a id="more"></a>
+<h1 id="使用ButterKnife"><a href="#使用ButterKnife" class="headerlink" title="使用ButterKnife"></a>使用ButterKnife</h1><p>接下来介绍如何使用ButterKnife。</p>
+<h2 id="绑定单个视图"><a href="#绑定单个视图" class="headerlink" title="绑定单个视图"></a>绑定单个视图</h2><p>在Activity中绑定视图。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BindView</span>(R.id.tv_test1)</div><div class="line">TextView testTextView;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_bindview);</div><div class="line"></div><div class="line">    ButterKnife.bind(<span class="keyword">this</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样就不需要在Activity中使用findViewById方法了。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">private</span> TextView testTextView; </div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_bindview);</div><div class="line"></div><div class="line">    testTextView = (TextView) findViewById(R.id.tv_test1);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Fragment中绑定视图。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BindView</span>(R.id.iv_test)</div><div class="line">ImageView testImageView;</div><div class="line"></div><div class="line"><span class="meta">@Nullable</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    View root = inflater.inflate(R.layout.fragment_bindview, container, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    ButterKnife.bind(<span class="keyword">this</span>, root);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在Fragment中绑定Activity的视图。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Nullable</span></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">public</span> View <span class="title">onCreateView</span><span class="params">(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    View root = inflater.inflate(R.layout.fragment_bindview, container, <span class="keyword">false</span>);</div><div class="line"></div><div class="line">    ActivityView activityView = <span class="keyword">new</span> ActivityView();</div><div class="line"></div><div class="line">    ButterKnife.bind(activityView, getActivity());</div><div class="line"></div><div class="line">    <span class="keyword">return</span> root;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ActivityView</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@BindView</span>(R.id.tv_test2)</div><div class="line">    TextView testTextView;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="绑定多个视图"><a href="#绑定多个视图" class="headerlink" title="绑定多个视图"></a>绑定多个视图</h2><p>将多个视图绑定成列表或数组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BindViews</span>(&#123;R.id.tv_test1, R.id.tv_test2, R.id.tv_test3&#125;)</div><div class="line">List&lt;TextView&gt; textViewList;</div><div class="line"></div><div class="line"><span class="meta">@BindViews</span>(&#123;R.id.tv_test4, R.id.tv_test5, R.id.tv_test6&#125;)</div><div class="line">TextView[] textViewArray;</div><div class="line"></div><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_bindviews);</div><div class="line">    ButterKnife.bind(<span class="keyword">this</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对列表中的视图执行方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">ButterKnife.apply(textViewList, SET_TEXT_SIZE_TO_20);<span class="comment">//执行一个action</span></div><div class="line">ButterKnife.apply(textViewList, SET_TEXT_COLOR_TO_BLACK, SET_TEXT_SIZE_TO_20);<span class="comment">//执行多个action</span></div><div class="line">ButterKnife.apply(textViewList, SET_TEXT_COLOR, blue);<span class="comment">//执行setter</span></div><div class="line">ButterKnife.apply(textViewList, View.SCALE_Y, <span class="number">2.0f</span>);<span class="comment">//执行property</span></div></pre></td></tr></table></figure>
+<p>这样能一次对大量视图执行方法，减少重复的代码量。</p>
+<p>可执行的方法有ButterKnife定义的两个接口action和setter以及Android自带的一些属性方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> ButterKnife.Action&lt;TextView&gt; SET_TEXT_SIZE_TO_20 = <span class="keyword">new</span> ButterKnife.Action&lt;TextView&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">apply</span><span class="params">(@NonNull TextView view, <span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line"></div><div class="line">        view.setTextSize(<span class="number">20</span>);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> ButterKnife.Action&lt;TextView&gt; SET_TEXT_COLOR_TO_BLACK = <span class="keyword">new</span> ButterKnife.Action&lt;TextView&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">apply</span><span class="params">(@NonNull TextView view, <span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">int</span> black = Color.parseColor(<span class="string">"#000000"</span>);</div><div class="line">        view.setTextColor(black);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">static</span> <span class="keyword">final</span> ButterKnife.Setter&lt;TextView, Integer&gt; SET_TEXT_COLOR = <span class="keyword">new</span> ButterKnife.Setter&lt;TextView, Integer&gt;() &#123;</div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">set</span><span class="params">(@NonNull TextView view, Integer color, <span class="keyword">int</span> index)</span> </span>&#123;</div><div class="line"></div><div class="line">        view.setTextColor(color);</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h2 id="绑定事件"><a href="#绑定事件" class="headerlink" title="绑定事件"></a>绑定事件</h2><p>给Button添加点击事件监听。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line">    setContentView(R.layout.activity_bindevent_onclick);</div><div class="line">    ButterKnife.bind(<span class="keyword">this</span>);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="meta">@OnClick</span>(R.id.btn_test)</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clickView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">    Toast.makeText(<span class="keyword">this</span>, <span class="string">"click button"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法的参数是可以省掉。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnClick</span>(R.id.btn_test)</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clickView</span><span class="params">()</span> </span>&#123;</div><div class="line">    Toast.makeText(<span class="keyword">this</span>, <span class="string">"click button"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>方法的参数类型可以自动转换。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnClick</span>(R.id.btn_test)</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clickView</span><span class="params">(Button button)</span> </span>&#123;</div><div class="line">    button.setText(<span class="string">"clicked"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以给多个视图绑定同一个方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnClick</span>(&#123;R.id.btn_test, R.id.tv_test, R.id.iv_test&#125;)</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">clickView</span><span class="params">(View view)</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (view.getId() == R.id.btn_test) &#123;</div><div class="line"></div><div class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"click button"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (view.getId() == R.id.tv_test) &#123;</div><div class="line"></div><div class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"click text"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (view.getId() == R.id.iv_test) &#123;</div><div class="line"></div><div class="line">        Toast.makeText(<span class="keyword">this</span>, <span class="string">"click image"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对于事件中有多个方法的，可以自由选择想要绑定的方法。</p>
+<p>如EditText的addTextChangedListener接口有三个方法。</p>
+<p>默认绑定onTextChanged方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnTextChanged</span>(R.id.et_test)</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">onTextChanged</span><span class="params">(CharSequence s, <span class="keyword">int</span> start, <span class="keyword">int</span> before, <span class="keyword">int</span> count)</span> </span>&#123;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>用callback参数绑定afterTextChanged方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@OnTextChanged</span>(value = R.id.et_test, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">afterTextChanged</span><span class="params">(Editable s)</span> </span>&#123;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>ButterKnife还提供了其他事件的绑定:</p>
+<ul>
+<li>OnCheckedChanged</li>
+<li>OnEditorAction</li>
+<li>OnFocusChange</li>
+<li>OnItemClick</li>
+<li>OnItemLongClick</li>
+<li>OnItemSelected</li>
+<li>OnLongClick</li>
+<li>OnPageChange</li>
+<li>OnTouch</li>
+</ul>
+<p>具体的使用可以查看样例项目中的代码。</p>
+<h2 id="绑定资源"><a href="#绑定资源" class="headerlink" title="绑定资源"></a>绑定资源</h2><p>绑定字符串。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BindString</span>(R.string.app_name)</div><div class="line">String mAppName;</div><div class="line"></div><div class="line">testTextView.setText(mAppName);</div></pre></td></tr></table></figure>
+<p>绑定颜色。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@BindColor</span>(R.color.colorAccent)</div><div class="line"><span class="keyword">int</span> accentColor;</div><div class="line"><span class="meta">@BindColor</span>(R.color.text_click)</div><div class="line">ColorStateList textClickColorStateList;</div><div class="line"></div><div class="line">testTextView1.setTextColor(accentColor);</div><div class="line">testTextView2.setTextColor(textClickColorStateList);</div></pre></td></tr></table></figure>
+<p>ButterKnife还提供了其他资源的绑定:</p>
+<ul>
+<li>BindAnim</li>
+<li>BindArray</li>
+<li>BindBitmap</li>
+<li>BindBool</li>
+<li>BindDimen</li>
+<li>BindDrawable</li>
+<li>BindFloat</li>
+<li>BindFont</li>
+<li>BindInt</li>
+</ul>
+<p>具体的使用可以查看样例项目中的代码。</p>
+<h1 id="样例项目"><a href="#样例项目" class="headerlink" title="样例项目"></a>样例项目</h1><p><a href="https://github.com/bovink/ButterKnifeSample" target="_blank" rel="external">https://github.com/bovink/ButterKnifeSample</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="http://jakewharton.github.io/butterknife/" target="_blank" rel="external">http://jakewharton.github.io/butterknife/</a></li>
+<li><a href="https://github.com/JakeWharton/butterknife" target="_blank" rel="external">https://github.com/JakeWharton/butterknife</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/library/" rel="tag">#library</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/01/18/android_library_introduce_gradientview/" rel="next" title="Android Library——GradientView的简单介绍">
+                <i class="fa fa-chevron-left"></i> Android Library——GradientView的简单介绍
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">16</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#介绍ButterKnife"><span class="nav-number">2.</span> <span class="nav-text">介绍ButterKnife</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用ButterKnife"><span class="nav-number">3.</span> <span class="nav-text">使用ButterKnife</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定单个视图"><span class="nav-number">3.1.</span> <span class="nav-text">绑定单个视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定多个视图"><span class="nav-number">3.2.</span> <span class="nav-text">绑定多个视图</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定事件"><span class="nav-number">3.3.</span> <span class="nav-text">绑定事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#绑定资源"><span class="nav-number">3.4.</span> <span class="nav-text">绑定资源</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#样例项目"><span class="nav-number">4.</span> <span class="nav-text">样例项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">5.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
