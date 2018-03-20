@@ -1,0 +1,852 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="ob1EA3ZBreWixpNEMzU_RH3bw_lKzvPk-6_RF8kVUfs" />
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.0.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="library," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.0.1" />
+
+
+
+
+
+
+<meta name="description" content="概述介绍DataBinding的使用方法，并提供样例项目。
+介绍DataBindingDataBinding是Google 2015年7月推出的一个库。
+DataBinding能大大减少业务逻辑与布局之间的胶水代码。
+DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+)。
+为了能正常使用DataBinding，Android插件Gradle必须在1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Google官方开发库——DataBinding的使用（一）">
+<meta property="og:url" content="https://bovink.com/2018/03/18/databinding-usage-chapter-one/index.html">
+<meta property="og:site_name" content="记录点滴">
+<meta property="og:description" content="概述介绍DataBinding的使用方法，并提供样例项目。
+介绍DataBindingDataBinding是Google 2015年7月推出的一个库。
+DataBinding能大大减少业务逻辑与布局之间的胶水代码。
+DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+)。
+为了能正常使用DataBinding，Android插件Gradle必须在1">
+<meta property="og:updated_time" content="2018-03-20T14:04:05.601Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Google官方开发库——DataBinding的使用（一）">
+<meta name="twitter:description" content="概述介绍DataBinding的使用方法，并提供样例项目。
+介绍DataBindingDataBinding是Google 2015年7月推出的一个库。
+DataBinding能大大减少业务逻辑与布局之间的胶水代码。
+DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+)。
+为了能正常使用DataBinding，Android插件Gradle必须在1">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> Google官方开发库——DataBinding的使用（一） | 记录点滴 </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+  <script type="text/javascript">
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//tajs.qq.com/stats?sId=55233505";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">记录点滴</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle">水滴石穿 青出于蓝</p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Google官方开发库——DataBinding的使用（一）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-18T00:00:00+08:00" content="2018-03-18">
+              2018-03-18
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">Android</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+             <span id="/2018/03/18/databinding-usage-chapter-one/" class="leancloud_visitors" data-flag-title="Google官方开发库——DataBinding的使用（一）">
+               &nbsp; | &nbsp;
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               <span class="post-meta-item-text">阅读次数 </span>
+               <span class="leancloud-visitors-count"></span>
+              </span>
+          
+
+          
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h1><p>介绍DataBinding的使用方法，并提供样例项目。</p>
+<h2 id="介绍DataBinding"><a href="#介绍DataBinding" class="headerlink" title="介绍DataBinding"></a>介绍DataBinding</h2><p>DataBinding是Google 2015年7月推出的一个库。</p>
+<p>DataBinding能大大减少业务逻辑与布局之间的胶水代码。</p>
+<p>DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+)。</p>
+<p>为了能正常使用DataBinding，Android插件Gradle必须在1.5.0-alpha1及其以上。</p>
+<a id="more"></a>
+<h2 id="配置DataBinding"><a href="#配置DataBinding" class="headerlink" title="配置DataBinding"></a>配置DataBinding</h2><p>为了使用DataBinding，首先需要在Android SDK Manager中下载Android Support Repository。</p>
+<p>DataBinding的配置非常简单，只需要在Module级别的<code>build.gradle</code>中添加下面几行代码即可:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">android &#123;</div><div class="line">    ....</div><div class="line">    dataBinding &#123;</div><div class="line">        enabled = <span class="keyword">true</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你的项目依赖使用了DataBinding的库，那么你的项目同样需要配置DataBinding。</p>
+<p>另外，只有Android Studio 1.3及其以后的版本才支持DataBinding。</p>
+<h2 id="Get-Started"><a href="#Get-Started" class="headerlink" title="Get Started"></a>Get Started</h2><h3 id="DataBinding布局"><a href="#DataBinding布局" class="headerlink" title="DataBinding布局"></a>DataBinding布局</h3><p>DataBinding的布局与我们平常使用的布局稍微有一点不同。DataBinding布局的根节点是一个layout元素，然后包含一个data元素和一个View类型的视图元素。</p>
+<p>视图元素就和我们平常使用的视图一样。布局代码如下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">            <span class="attr">name</span>=<span class="string">"pojoUser"</span></div><div class="line">            <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.model.PojoUser"</span> /&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">            <span class="attr">name</span>=<span class="string">"javaBeansUser"</span></div><div class="line">            <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.model.JavaBeansUser"</span> /&gt;</div><div class="line">    <span class="tag">&lt;/<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">        <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;pojoUser.firstName&#125;"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_marginLeft</span>=<span class="string">"5dp"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;pojoUser.lastName&#125;"</span> /&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_marginTop</span>=<span class="string">"30dp"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;javaBeansUser.firstName&#125;"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_marginLeft</span>=<span class="string">"5dp"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;javaBeansUser.lastName&#125;"</span> /&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>在data元素中声明的pojoUser变量和javaBeansUser变量可以在布局中使用。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">    <span class="attr">name</span>=<span class="string">"pojoUser"</span></div><div class="line">    <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.model.PojoUser"</span> /&gt;</div><div class="line"></div><div class="line"><span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">    <span class="attr">name</span>=<span class="string">"javaBeansUser"</span></div><div class="line">    <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.model.JavaBeansUser"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>绑定表达式需要在属性中添加<code>@{}</code>来开启使用。代码如下:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:text</span>=<span class="string">"@&#123;pojoUser.firstName&#125;"</span> /&gt;</div></pre></td></tr></table></figure>
+<h3 id="数据对象"><a href="#数据对象" class="headerlink" title="数据对象"></a>数据对象</h3><p>下面是一个POJO类型的对象类:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PojoUser</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String firstName;</div><div class="line">    <span class="keyword">public</span> <span class="keyword">final</span> String lastName;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PojoUser</span><span class="params">(String firstName, String lastName)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.firstName = firstName;</div><div class="line">        <span class="keyword">this</span>.lastName = lastName;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>像上面这种对象，很明显，一旦给对象保存数据后就再也不会被改变。</p>
+<p>接下来是JavaBeans类型的对象类：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">JavaBeansUser</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String firstName;</div><div class="line">    <span class="keyword">private</span> <span class="keyword">final</span> String lastName;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="title">JavaBeansUser</span><span class="params">(String firstName, String lastName)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.firstName = firstName;</div><div class="line">        <span class="keyword">this</span>.lastName = lastName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getFirstName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> firstName;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">getLastName</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="keyword">return</span> lastName;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>对DataBinding来说，这两种对象类没什么区别。绑定表达式<code>@{pojoUser.firstName}</code>会直接访问第一个类对象的firstName域，对第二个类对象就会通过<code>getFirstName()</code>方法来访问私有域。</p>
+<h3 id="绑定视图与数据"><a href="#绑定视图与数据" class="headerlink" title="绑定视图与数据"></a>绑定视图与数据</h3><p>DataBinding会根据布局文件的名字根据一定规则来确定绑定类的名字。这个规则即首字母大写，去掉下划线，最后在末尾加上Binding。<br>例如布局文件的名字是activity_data_binding_layout，那么生成的绑定类的名字就是ActivityDataBindingLayoutBinding。</p>
+<p>绑定视图与数据的代码如下:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Override</span></div><div class="line"><span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(@Nullable Bundle savedInstanceState)</span> </span>&#123;</div><div class="line">    <span class="keyword">super</span>.onCreate(savedInstanceState);</div><div class="line"></div><div class="line">    ActivityDataBindingLayoutBinding binding = DataBindingUtil.setContentView(<span class="keyword">this</span>, R.layout.activity_data_binding_layout);</div><div class="line"></div><div class="line">    pojoUser = <span class="keyword">new</span> PojoUser(<span class="string">"Bruce"</span>, <span class="string">"Wayne"</span>);</div><div class="line">    binding.setPojoUser(pojoUser);</div><div class="line"></div><div class="line">    javaBeansUser = <span class="keyword">new</span> JavaBeansUser(<span class="string">"Clark"</span>, <span class="string">"Kent"</span>);</div><div class="line">    binding.setJavaBeansUser(javaBeansUser);</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>接下来运行项目即可。</p>
+<p>下面是绑定视图与数据的另一种方式:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ActivityDataBindingLayoutBinding binding = ActivityDataBindingLayoutBinding.inflate(getLayoutInflater());</div><div class="line">setContentView(binding.getRoot());</div></pre></td></tr></table></figure>
+<h2 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h2><p>DataBinding允许写一个绑定表达式来处理View分发的各种事件。事件属性的名字由监听方法的名字决定。例如，<code>View.OnLongClickListener</code>有一个onLongClick()方法，那么这个事件属性的名字就是<code>android:onLongClick</code>。DataBinding存在两种方式来处理事件。</p>
+<ul>
+<li><p>方法引用</p>
+<p>  在绑定表达式中，你可以引用一个和监听方法签名一致的方法。当一个数据表达式是方法引用时，DataBinding就会创建一个事件监听，这个事件监听中会包含一个存放引用方法的对象，最后再将这个事件监听赋予视图。不过如果绑定表达式的值是null，那么DataBinding将不会创建一个事件监听，视图也只会被赋予一个null事件监听。</p>
+<p>  DataBinding生成的绑定类中是按以下的流程来处理方法引用的，有兴趣的人可以去<code>build</code>里面看一下类源码。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line">View view;</div><div class="line">View.OnClickListener listener = <span class="keyword">null</span>;</div><div class="line">OnClickListenerImpl listenerImpl;</div><div class="line">EventHandler eventHandler;<span class="comment">// 这个对象就是在布局中方法引用所属的对象</span></div><div class="line"></div><div class="line"><span class="keyword">if</span>(eventHandler != <span class="keyword">null</span>) &#123;</div><div class="line">    listener = (((listenerImpl == <span class="keyword">null</span>) ? (listenerImpl = <span class="keyword">new</span> OnClickListenerImpl()) : listenerImpl).setValue(eventHandler));</div><div class="line">&#125;</div><div class="line"></div><div class="line">view.setOnClickListener(listener);</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OnClickListenerImpl</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListenr</span> </span>&#123;</div><div class="line">    <span class="keyword">private</span> EventHandler value;</div><div class="line">    <span class="function"><span class="keyword">public</span> OnClickListenerImpl <span class="title">setValue</span><span class="params">(EventHandler value)</span> </span>&#123;</div><div class="line">	<span class="keyword">this</span>.value = value;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">this</span>.value.handle(view);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventHandler</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">(View view)</span> </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li><p>监听绑定</p>
+<p>  即匿名表达式，当事件发生时才会执行这个匿名表达式。采用监听绑定时，DataBinding总是会创建一个事件监听给视图。当事件发生时，这个事件监听才会执行方法内部的匿名表达式。</p>
+<p>  类似下面的流程，有兴趣的人同样可以去看一下源码。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">View view;</div><div class="line">OnClickListenerImpl listenerImpl;</div><div class="line">EventHandler eventHandler;</div><div class="line"></div><div class="line">view.setOnClickListener(listenerImpl);</div><div class="line"></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OnClickListenerImpl</span> <span class="keyword">implements</span> <span class="title">View</span>.<span class="title">OnClickListener</span> </span>&#123;</div><div class="line"></div><div class="line">    <span class="meta">@Override</span></div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onClick</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        <span class="keyword">if</span>(eventHandler != <span class="keyword">null</span>) &#123;</div><div class="line">	    eventHandler.handle()</div><div class="line">	&#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventHandler</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handle</span><span class="params">()</span> </span>&#123;&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="方法引用"><a href="#方法引用" class="headerlink" title="方法引用"></a>方法引用</h3><p>方法引用有点类似给视图的android:onClick属性分配一个Activity的方法。也就是下面这种方式:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:onClick</span>=<span class="string">"doSomething"</span></div><div class="line">    <span class="attr">android:text</span>=<span class="string">"Hello World!"</span> /&gt;</div></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MainActivity</span> <span class="keyword">extends</span> <span class="title">AppCompatActivity</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">doSomething</span><span class="params">(View view)</span> </span>&#123;</div><div class="line">        System.out.println(<span class="string">"MainActivity.doSomething"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>不过方法引用相比这种方式的优势在于绑定表达式是在编译时执行，所以如果引用的方法不存在或是它的签名与事件监听的方法不一致时，就会给你一个编译错误。</p>
+<p>接下来介绍如何使用方法引用，java代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventHandler</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">bruceSays</span><span class="params">(View view)</span> </span>&#123;</div><div class="line"></div><div class="line">	Toast.makeText(DataBindingLayoutActivity.<span class="keyword">this</span>, <span class="string">"I'm BatMan."</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>xml代码:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">            <span class="attr">name</span>=<span class="string">"pojoUser"</span></div><div class="line">            <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.model.PojoUser"</span> /&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">            <span class="attr">name</span>=<span class="string">"handler"</span></div><div class="line">            <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.databinding.databindinglayout.DataBindingLayoutActivity.EventHandler"</span> /&gt;</div><div class="line">    <span class="tag">&lt;/<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">        <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">	    <span class="attr">android:onClick</span>=<span class="string">"@&#123;handler::bruceSays&#125;"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;pojoUser.firstName&#125;"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_marginLeft</span>=<span class="string">"5dp"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;pojoUser.lastName&#125;"</span> /&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>注意，引用的方法必须和监听方法的签名一致。</p>
+<h3 id="监听绑定"><a href="#监听绑定" class="headerlink" title="监听绑定"></a>监听绑定</h3><p>监听绑定与方法引用类似，不过监听绑定没有参数的限制。这个功能需要Android插件Gradle的版本2.0及其以上才能使用。</p>
+<p>在方法引用中，参数必须与监听方法的参数一致。不过监听绑定就没有这个限制，只需要返回值与监听方法的返回值一致即可。</p>
+<p>接下来介绍如何使用监听绑定，java代码:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EventHandler</span> </span>&#123;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">clarkSays</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">	Toast.makeText(DataBindingLayoutActivity.<span class="keyword">this</span>, <span class="string">"I'm SuperMan."</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>xml代码:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</div><div class="line"><span class="tag">&lt;<span class="name">layout</span> <span class="attr">xmlns:android</span>=<span class="string">"http://schemas.android.com/apk/res/android"</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">data</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">            <span class="attr">name</span>=<span class="string">"javaBeansUser"</span></div><div class="line">            <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.model.JavaBeansUser"</span> /&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">variable</span></span></div><div class="line">            <span class="attr">name</span>=<span class="string">"handler"</span></div><div class="line">            <span class="attr">type</span>=<span class="string">"com.bovink.databindingsample.databinding.databindinglayout.DataBindingLayoutActivity.EventHandler"</span> /&gt;</div><div class="line">    <span class="tag">&lt;/<span class="name">data</span>&gt;</span></div><div class="line"></div><div class="line">    <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">        <span class="attr">android:layout_width</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:layout_height</span>=<span class="string">"match_parent"</span></div><div class="line">        <span class="attr">android:gravity</span>=<span class="string">"center"</span></div><div class="line">        <span class="attr">android:orientation</span>=<span class="string">"vertical"</span>&gt;</div><div class="line"></div><div class="line">        <span class="tag">&lt;<span class="name">LinearLayout</span></span></div><div class="line">            <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">            <span class="attr">android:layout_marginTop</span>=<span class="string">"30dp"</span></div><div class="line">            <span class="attr">android:onClick</span>=<span class="string">"@&#123;() -&gt; handler.clarkSays()&#125;"</span></div><div class="line">            <span class="attr">android:orientation</span>=<span class="string">"horizontal"</span>&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;javaBeansUser.firstName&#125;"</span> /&gt;</div><div class="line"></div><div class="line">            <span class="tag">&lt;<span class="name">TextView</span></span></div><div class="line">                <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">                <span class="attr">android:layout_marginLeft</span>=<span class="string">"5dp"</span></div><div class="line">                <span class="attr">android:text</span>=<span class="string">"@&#123;javaBeansUser.lastName&#125;"</span> /&gt;</div><div class="line">        <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">layout</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>监听绑定的绑定表达式只能用匿名表达式作为根节点。</p>
+<p>注意，在上面的例子中，我们没有在匿名表达式中添加view参数。监听绑定给我们提供了两种选择：要么一个参数都不加，要么就全都加上。如果你想添加参数，你也可以在绑定表达式中写上:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:onClick="@&#123;(view) -&gt; action.kickAss(clark, bane)&#125;"</div></pre></td></tr></table></figure>
+<p>如果你想在表达式中使用这个参数，可以像下面这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">runAway</span><span class="params">(View view, PojoUser whoIsRun, PojoUser chaserA, PojoUser chaserB)</span> </span>&#123;</div><div class="line"></div><div class="line">    view.setBackgroundColor(Color.parseColor(<span class="string">"#66CCFF"</span>));</div><div class="line">    Toast.makeText(EventHandlingActivity.<span class="keyword">this</span>, whoIsRun.lastName + <span class="string">" is run away from "</span> + chaserA.lastName + <span class="string">" and "</span> + chaserB.lastName, Toast.LENGTH_SHORT).show();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:onClick="@&#123;(view) -&gt; action.runAway(view, bane, bruce, clark)&#125;"</div></pre></td></tr></table></figure>
+<p>你也可以在匿名表达式中添加多个参数:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">revenge</span><span class="params">(PojoUser enemyA, PojoUser enemyB, <span class="keyword">boolean</span> decidedToRevenge)</span> </span>&#123;</div><div class="line"></div><div class="line">    revenge = decidedToRevenge;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (decidedToRevenge) &#123;</div><div class="line"></div><div class="line">	Toast.makeText(EventHandlingActivity.<span class="keyword">this</span>, <span class="string">"Bane wanna revenge "</span> + enemyA.lastName + <span class="string">" and "</span> + enemyB.lastName, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">	Toast.makeText(EventHandlingActivity.<span class="keyword">this</span>, <span class="string">"Bane was scared and ran away"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">CheckBox</span></span></div><div class="line">    <span class="attr">android:layout_width</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:layout_height</span>=<span class="string">"wrap_content"</span></div><div class="line">    <span class="attr">android:onCheckedChanged</span>=<span class="string">"@&#123;(cb, isChecked) -&gt; action.revenge(bruce, clark, isChecked)&#125;"</span></div><div class="line">    <span class="attr">android:text</span>=<span class="string">"Does Bane decide to revenge?"</span> /&gt;</div></pre></td></tr></table></figure>
+<p>如果你要处理的监听方法的返回值不是void，那么就像前面提到的一样，绑定表达式的返回值也必须一致。拿View.OnLongClickListener举个例子:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Action</span> </span>&#123;</div><div class="line">    <span class="keyword">boolean</span> revenge = <span class="keyword">false</span>;</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">choose</span><span class="params">()</span> </span>&#123;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (revenge) &#123;</div><div class="line">            Toast.makeText(EventHandlingActivity.<span class="keyword">this</span>, <span class="string">"Bane broken Bruce's back in front of Clark"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line"></div><div class="line">            Toast.makeText(EventHandlingActivity.<span class="keyword">this</span>, <span class="string">"Bane ran away with tears"</span>, Toast.LENGTH_SHORT).show();</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">return</span> <span class="keyword">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:onLongClick="@&#123;() -&gt; action.choose()&#125;"</div></pre></td></tr></table></figure>
+<p>在绑定表达式无法求值时，DataBinding就会返回Java类型相应的默认值。如null对引用对象，0对int，false对boolean等等。</p>
+<p>如果你需要用条件运算符，我们可以用void或者其他值来作为一种选择。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">android:onLongClick="@&#123;(view) -&gt; view.isVisible() ? action.choose() : false&#125;"</div></pre></td></tr></table></figure>
+<h4 id="避免复杂监听"><a href="#避免复杂监听" class="headerlink" title="避免复杂监听"></a>避免复杂监听</h4><p>监听绑定的表达式非常强大，它能让你的代码非常易懂。不过另一方面，太复杂的表达式也会让你的布局代码难以理解和不容易维护。这些表达式c传递的参数应该尽量简洁。业务逻辑也应该都在回调方法的内部实现。</p>
+<p>一些特别的点击事件需要用除了android:onClick以外的标签来避免冲突。下面几个标签就是被创建来避免冲突的:</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Listener Setter</th>
+<th>Attribute</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SearchView</td>
+<td>setOnSearchClickListener(View.OnClickListener</td>
+<td>android:onSearchClick</td>
+</tr>
+<tr>
+<td>ZoomControls</td>
+<td>setOnZoomInClickListener(View.OnClickListener)</td>
+<td>android:onZoomIn</td>
+</tr>
+<tr>
+<td>ZoomControls</td>
+<td>setOnZoomOutClickListener(View.OnClickListener)</td>
+<td>android:onZoomOut</td>
+</tr>
+</tbody>
+</table>
+<h3 id="方法引用与监听绑定的区别"><a href="#方法引用与监听绑定的区别" class="headerlink" title="方法引用与监听绑定的区别"></a>方法引用与监听绑定的区别</h3><p>方法引用与监听绑定的主要不同点:</p>
+<ul>
+<li>参数的限制不同</li>
+<li>实际处理事件的方法所在的对象为空时，方法引用会给视图设置一个null事件监听，而监听绑定则仍然会给视图添加一个事件监听，只不过这个事件监听在事件触发时什么都不会发生。</li>
+</ul>
+<h1 id="样例项目"><a href="#样例项目" class="headerlink" title="样例项目"></a>样例项目</h1><p><a href="https://github.com/bovink/DataBindingSample" target="_blank" rel="external">https://github.com/bovink/DataBindingSample</a></p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ul>
+<li><a href="https://developer.android.com/topic/libraries/data-binding/index.html" target="_blank" rel="external">https://developer.android.com/topic/libraries/data-binding/index.html</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/library/" rel="tag">#library</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/03/butterknife-usage/" rel="next" title="Android Library——ButterKnife的使用">
+                <i class="fa fa-chevron-left"></i> Android Library——ButterKnife的使用
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.png"
+               alt="文章感" />
+          <p class="site-author-name" itemprop="name">文章感</p>
+          <p class="site-description motion-element" itemprop="description">享受技术 享受生活</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">17</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">16</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/bovink" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/u/5496577699" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#概述"><span class="nav-number">1.</span> <span class="nav-text">概述</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#介绍DataBinding"><span class="nav-number">1.1.</span> <span class="nav-text">介绍DataBinding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#配置DataBinding"><span class="nav-number">1.2.</span> <span class="nav-text">配置DataBinding</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Get-Started"><span class="nav-number">1.3.</span> <span class="nav-text">Get Started</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#DataBinding布局"><span class="nav-number">1.3.1.</span> <span class="nav-text">DataBinding布局</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#数据对象"><span class="nav-number">1.3.2.</span> <span class="nav-text">数据对象</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#绑定视图与数据"><span class="nav-number">1.3.3.</span> <span class="nav-text">绑定视图与数据</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#事件绑定"><span class="nav-number">1.4.</span> <span class="nav-text">事件绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#方法引用"><span class="nav-number">1.4.1.</span> <span class="nav-text">方法引用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#监听绑定"><span class="nav-number">1.4.2.</span> <span class="nav-text">监听绑定</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#避免复杂监听"><span class="nav-number">1.4.2.1.</span> <span class="nav-text">避免复杂监听</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#方法引用与监听绑定的区别"><span class="nav-number">1.4.3.</span> <span class="nav-text">方法引用与监听绑定的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#样例项目"><span class="nav-number">2.</span> <span class="nav-text">样例项目</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">文章感</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.0.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.0.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.0.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.0.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.0.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.0.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.1.js"></script>
+  <script>AV.initialize("NiOlLWkSYVl4xgfhv2JHCJul-gzGzoHsz", "6GEABp5OEd4VqhmTzTPvV9I3");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+
+</body>
+</html>
