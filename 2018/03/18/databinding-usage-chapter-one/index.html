@@ -626,6 +626,7 @@ DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+
 
         
       </div>
+      <div class="gitalk-container"></div>
     </main>
 
     <footer id="footer" class="footer">
@@ -842,6 +843,18 @@ DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+
         showTime(Counter);
       }
     });
+
+var gitalk = new Gitalk({
+  clientID: 'b8484ed33278c78f8a53',
+  clientSecret: '7f961c1588cedce9c7fefa4e155057aa2aefd60f',
+  repo: 'https://github.com/bovink/bovink.github.io',
+  owner: 'bovink',
+  admin: ['bovink'],
+  id: location.pathname,      // Ensure uniqueness and length less than 50
+  distractionFreeMode: false  // Facebook-like distraction free mode
+})
+
+gitalk.render('gitalk-container')
   </script>
 
 
