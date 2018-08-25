@@ -669,8 +669,8 @@ var gitment = new Gitment({
   owner: 'bovink',
   repo: 'https://github.com/bovink/bovink.github.io',
   oauth: {
-    client_id: 'b8484ed33278c78f8a53',
-    client_secret: '7f961c1588cedce9c7fefa4e155057aa2aefd60f',
+    client_id: '你的 client ID',
+    client_secret: '你的 client secret',
   },
 })
 gitment.render('container')
