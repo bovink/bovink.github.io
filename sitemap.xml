@@ -4,133 +4,133 @@
   <url>
     <loc>https://bovink.com/2018/03/18/databinding-usage-chapter-one/</loc>
     
-    <lastmod>2018-03-20T14:04:05.601Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2018/03/03/butterknife-usage/</loc>
-    
-    <lastmod>2018-03-03T05:23:44.747Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2018/01/18/android_library_introduce_gradientview/</loc>
-    
-    <lastmod>2018-01-20T04:46:39.778Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2017/06/10/an-introduction-of-creating-observable-in-rxjava2/</loc>
-    
-    <lastmod>2017-06-10T12:54:25.514Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2017/05/21/an-introduce-to-xml-and-how-to-parse-xml/</loc>
-    
-    <lastmod>2017-05-21T16:00:21.780Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/04/02/translation-of-the-most-valuable-lesson-i-learned-from-playing-the-violin/</loc>
-    
-    <lastmod>2017-01-04T14:26:59.851Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/07/17/translation-of-twelve-benefits-of-writing-unit-tests-first/</loc>
-    
-    <lastmod>2017-01-04T14:25:21.410Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2017/01/04/how-to-extend-component-of-dagger2/</loc>
-    
-    <lastmod>2017-01-04T14:20:41.275Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2017/01/04/the-base-usage-of-dagger2/</loc>
-    
-    <lastmod>2017-01-04T14:20:40.597Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/12/02/use-okhttp-to-request/</loc>
-    
-    <lastmod>2016-12-02T09:00:49.464Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/12/02/use-retrofit-to-request/</loc>
-    
-    <lastmod>2016-12-02T08:59:16.690Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/08/31/use-servlet-and-jsp-to-control-mysql-with-idea/</loc>
-    
-    <lastmod>2016-08-31T14:52:46.096Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/08/31/use-jdbc-to-control-mysql-with-idea/</loc>
-    
-    <lastmod>2016-08-31T14:52:43.481Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/07/01/use-vim-to-write-markdown/</loc>
-    
-    <lastmod>2016-07-02T15:15:52.329Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/03/09/association-about-handle-message-and-runnable/</loc>
-    
-    <lastmod>2016-06-30T15:33:46.974Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/03/13/finally-build-my-blog/</loc>
-    
-    <lastmod>2016-06-30T15:33:12.778Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>https://bovink.com/2016/04/23/the-view-hierarchy-of-activity/</loc>
-    
-    <lastmod>2016-06-30T15:32:53.668Z</lastmod>
+    <lastmod>2018-03-25T12:17:44.605Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://bovink.com/tags/index.html</loc>
     
-    <lastmod>2016-04-02T13:08:01.090Z</lastmod>
+    <lastmod>2018-03-25T11:56:55.362Z</lastmod>
     
   </url>
   
   <url>
     <loc>https://bovink.com/categories/index.html</loc>
     
-    <lastmod>2016-04-02T13:06:41.418Z</lastmod>
+    <lastmod>2018-03-25T11:56:55.344Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/07/01/use-vim-to-write-markdown/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.325Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/08/31/use-servlet-and-jsp-to-control-mysql-with-idea/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.323Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/12/02/use-retrofit-to-request/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.275Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/12/02/use-okhttp-to-request/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.273Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/08/31/use-jdbc-to-control-mysql-with-idea/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.271Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/07/17/translation-of-twelve-benefits-of-writing-unit-tests-first/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.269Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/04/02/translation-of-the-most-valuable-lesson-i-learned-from-playing-the-violin/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.264Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/04/23/the-view-hierarchy-of-activity/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.258Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2017/01/04/the-base-usage-of-dagger2/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.250Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2017/01/04/how-to-extend-component-of-dagger2/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.245Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/03/13/finally-build-my-blog/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.243Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2018/03/03/butterknife-usage/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.237Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2016/03/09/association-about-handle-message-and-runnable/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.236Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2018/01/18/android_library_introduce_gradientview/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.234Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2017/06/10/an-introduction-of-creating-observable-in-rxjava2/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.231Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://bovink.com/2017/05/21/an-introduce-to-xml-and-how-to-parse-xml/</loc>
+    
+    <lastmod>2018-03-25T11:56:55.226Z</lastmod>
     
   </url>
   
