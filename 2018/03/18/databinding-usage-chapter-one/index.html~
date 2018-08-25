@@ -626,6 +626,21 @@ DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+
 
         
       </div>
+
+<div id="container"></div>
+<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+<script>
+var gitment = new Gitment({
+  owner: 'bovink',
+  repo: 'https://github.com/bovink/bovink.github.io',
+  oauth: {
+    client_id: 'b8484ed33278c78f8a53',
+    client_secret: '7f961c1588cedce9c7fefa4e155057aa2aefd60f',
+  },
+})
+gitment.render('container')
+</script>
     </main>
 
     <footer id="footer" class="footer">
@@ -661,20 +676,6 @@ DataBinding是一个支持库，它可以向后兼容到Android 2.1(API level 7+
       <i class="fa fa-arrow-up"></i>
     </div>
   </div>
-<div id="container"></div>
-<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
-<script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
-<script>
-var gitment = new Gitment({
-  owner: 'bovink',
-  repo: 'https://github.com/bovink/bovink.github.io',
-  oauth: {
-    client_id: 'b8484ed33278c78f8a53',
-    client_secret: '7f961c1588cedce9c7fefa4e155057aa2aefd60f',
-  },
-})
-gitment.render('container')
-</script>
   
 
 <script type="text/javascript">
